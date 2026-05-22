@@ -23,31 +23,22 @@
   Цвета #009DBD и #00B8DB полностью согласованы с цветами вашей интерактивной жидкости.
 */
 
-.expertise-section::before {
+/* .expertise-section::before {
     content: '';
     position: absolute;
     top: -150px;
-    /* Смещаем свечение на границу следующего блока */
     left: 50%;
     transform: translateX(-50%);
     width: clamp(300px, 60vw, 800px);
-    /* Резиновая ширина диска */
     height: clamp(200px, 25vw, 350px);
-    /* Резиновая высота диска */
-
-    /* Мягкий радиальный градиент с переходом от фирменного teal в полную прозрачность */
     background: radial-gradient(circle,
             rgba(0, 157, 189, 0.18) 0%,
             rgba(0, 184, 219, 0.05) 45%,
             rgba(3, 8, 12, 0) 70%);
-
-    /* Размытие краев для эффекта дымки/aurora */
     filter: blur(80px);
-
-    /* Исключаем любое влияние на клики по кнопкам */
     pointer-events: none;
     z-index: 1;
-}
+} */
 
 .expertise-section::after {
     content: '';

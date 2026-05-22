@@ -42,5 +42,47 @@
         "desc": "We analyze big data and audience behavior to support targeted decisions as you scale your business."
       }
     }
+  },
+  "footer": {
+    "cta": {
+      "titlePart1": "Ready to Start Your ",
+      "titleHighlight": "Digital Transformation?",
+      "subtitle": "Let's discuss how HexaCore can help your business scale, innovate, and succeed.",
+      "getStarted": "Get Started",
+      "bookCall": "Book a Call"
+    },
+    "copyright": "© 2025 HexaCore. All rights reserved.",
+    "columns": {
+      "company": {
+        "title": "Company",
+        "about": "About",
+        "careers": "Careers",
+        "culture": "Culture",
+        "sustainability": "Sustainability",
+        "contact": "Contact"
+      },
+      "resources": {
+        "title": "Resources",
+        "blog": "Blog",
+        "whitepapers": "Whitepapers",
+        "webinars": "Webinars",
+        "toolkits": "Toolkits",
+        "press": "Press Releases"
+      },
+      "solutions": {
+        "title": "Solutions",
+        "service": "Service",
+        "work": "Work",
+        "stories": "Client Stories",
+        "lab": "Innovation Lab"
+      },
+      "legal": {
+        "title": "Legal & Support",
+        "help": "Help Center",
+        "status": "System Status",
+        "docs": "Developer Docs",
+        "accessibility": "Accessibility"
+      }
+    }
   }
 }

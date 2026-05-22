@@ -1,0 +1,362 @@
+/* Общий контейнер футера */
+.footer-section {
+    position: relative;
+    width: 100%;
+    /* background-color: #010408; Глубокий темный фон завершения страницы */
+    padding: 6rem 4rem 4rem 4rem;
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #ffffff;
+}
+
+/* .footer-section::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 60vw, 800px);
+    height: clamp(200px, 25vw, 350px);
+    background: radial-gradient(circle,
+            rgba(0, 157, 189, 0.18) 0%,
+            rgba(0, 184, 219, 0.05) 45%,
+            rgba(3, 8, 12, 0) 70%);
+
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 1;
+} */
+
+.footer-section::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    /* Смещаем свечение на границу следующего блока */
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 60vw, 800px);
+    /* Резиновая ширина диска */
+    height: clamp(200px, 25vw, 350px);
+    /* Резиновая высота диска */
+
+    /* Мягкий радиальный градиент с переходом от фирменного teal в полную прозрачность */
+    background: radial-gradient(circle,
+            rgba(0, 157, 189, 0.18) 0%,
+            rgba(0, 184, 219, 0.05) 45%,
+            rgba(3, 8, 12, 0) 70%);
+
+    /* Размытие краев для эффекта дымки/aurora */
+    filter: blur(80px);
+
+    /* Исключаем любое влияние на клики по кнопкам */
+    pointer-events: none;
+    z-index: 1;
+}
+
+.footer-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+/* --- ВЕРХНИЙ БЛОК: CTA BANNER --- */
+.footer-cta-banner {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    /* Текст слева, изображение справа */
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4rem);
+    width: 100%;
+}
+
+.cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.cta-title {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.25rem 0;
+    background: linear-gradient(135deg, #ffffff 30%, rgba(255, 255, 255, 0.4) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.cta-subtitle {
+    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 2.5rem 0;
+    max-width: 500px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+/* --- ГРАФИЧЕСКИЙ ПЛЕЙСХОЛДЕР --- */
+.cta-graphics-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 11;
+    /* Сохраняет пропорции структуры с макета */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 12px;
+    box-sizing: border-box;
+    box-shadow:
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+        0 10px 40px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.placeholder-inner-border {
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-text {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- НИЖНИЙ БЛОК: NAVIGATION --- */
+.footer-nav-area {
+    display: flex;
+    justify-content: space-between;
+    gap: 4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding-top: 4rem;
+    width: 100%;
+}
+
+/* Левая часть: Бренд, Соцсети */
+.footer-brand-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 280px;
+}
+
+.footer-logo {
+    margin-bottom: 2rem;
+}
+
+.footer-logo img {
+    display: block;
+    max-height: 100px;
+    width: auto;
+}
+
+/* Соцсети в стиле macOS Glass */
+.footer-socials {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.social-icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.65);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.social-icon-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.social-icon-btn:active {
+    transform: translateY(0) scale(0.96);
+}
+
+.social-icon-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.footer-copyright {
+    font-size: 0.8125rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Правая часть: Сетка ссылок */
+.footer-links-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 колонки */
+    gap: 2rem 4rem;
+}
+
+.footer-column {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.column-title {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.01em;
+}
+
+.column-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+}
+
+.column-links a {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    transition: color 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.column-links a:hover {
+    color: #ffffff;
+    transform: translateX(2px);
+}
+
+/* --- ВЫСОКОКАЧЕСТВЕННЫЙ АДАПТИВ Футера --- */
+
+/* Ноутбуки и планшеты */
+@media (max-width: 1024px) {
+    .footer-section {
+        padding: 5rem 2.5rem 3rem 2.5rem;
+    }
+
+    .footer-cta-banner {
+        grid-template-columns: 1fr;
+        /* Переводим CTA в вертикальный стек */
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .cta-content {
+        align-items: center;
+        text-align: center;
+    }
+
+    .cta-subtitle {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta-buttons {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cta-graphics-placeholder {
+        max-width: 550px;
+        margin: 0 auto;
+    }
+
+    .footer-nav-area {
+        flex-direction: column;
+        /* Вертикальный стек шагов навигации */
+        gap: 4rem;
+        padding-top: 3rem;
+    }
+
+    .footer-brand-column {
+        max-width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links-grid {
+        grid-template-columns: repeat(4, 1fr);
+        /* Сохраняем 4 колонки на средних экранах */
+        width: 100%;
+        gap: 2rem clamp(1rem, 3vw, 3rem);
+    }
+}
+
+/* Мобильные экраны */
+@media (max-width: 768px) {
+    .footer-links-grid {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 колонки на смартфонах */
+        gap: 2.5rem 2rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .footer-section {
+        padding: 4rem 1.25rem 2.5rem 1.25rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .cta-buttons .btn {
+        width: 100%;
+    }
+
+    /* Скрываем графический плейсхолдер на малых экранах для легкости */
+    .cta-graphics-placeholder {
+        display: none;
+    }
+
+    .footer-nav-area {
+        gap: 3rem;
+    }
+
+    .footer-links-grid {
+        grid-template-columns: 1fr;
+        /* Полноценный 1-колоночный стек ссылок */
+        gap: 2rem;
+    }
+
+    .footer-column {
+        align-items: center;
+    }
+
+    .column-links {
+        align-items: center;
+    }
+}
