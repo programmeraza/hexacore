@@ -4,7 +4,7 @@
   width: 100%;
   min-height: 100vh;
   color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(2, 11, 17, 0.1) 0%, rgba(2, 11, 17, 0.75) 100%);
+  background: radial-gradient(circle at center, rgba(1, 4, 8, 0.05) 0%, rgba(1, 4, 8, 0.7) 100%);
   pointer-events: none;
 }
 
@@ -56,81 +56,71 @@
 /* Все интерактивные элементы возвращаем в рабочий режим кликов */
 .hero-header,
 .hero-main,
-.hero-brands-section {
+.hero-brands-section,
+.mobile-menu-drawer,
+.mobile-menu-overlay {
   pointer-events: auto;
 }
 
 /* --- ШАПКА --- */
 .hero-header {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 4rem;
+  height: 5rem;
 }
 
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  z-index: 1001;
 }
 
-/* Пустой контейнер под логотип с эффектом тонкого стекла */
-.logo-placeholder {
-  width: 28px;
-  height: 28px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+.header-logo img {
+  display: block;
+  max-height: 150px;
+  width: auto;
 }
 
-.logo-text {
-  font-size: 1.25rem;
-  font-weight: 800;
-  letter-spacing: 0.15em;
-}
-
-/* --- НАВИГАЦИЯ (LIQUID GLASS) --- */
+/* --- НАВИГАЦИОННАЯ ПАНЕЛЬ (macOS VIBRANT ACRYLIC) --- */
 .header-nav {
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 100px;
-  padding: 4px;
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  background: rgba(30, 30, 30, 0.6); /* Нейтральное темное macOS-акриловое стекло */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px; /* Прямоугольный скругленный форм-фактор macOS */
+  padding: 5px;
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 8px 32px rgba(0, 0, 0, 0.25);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12), /* Верхний световой срез фаски */
+    0 1px 1px rgba(0, 0, 0, 0.15),
+    0 8px 30px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .header-nav:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 12px 36px rgba(0, 0, 0, 0.35);
+  background-color: rgba(35, 35, 35, 0.7);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .nav-link {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
   font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  transition: color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
-  border-radius: 100px;
+  font-weight: 500;
+  padding: 0.45rem 1.15rem;
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+  border-radius: 15px; /* Системный радиус элементов в macOS */
 }
 
 .nav-link:hover {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .nav-link:active {
-  transform: scale(0.96);
+  transform: scale(0.97);
 }
 
 .header-actions {
@@ -139,45 +129,32 @@
   gap: 1.5rem;
 }
 
-/* --- ВЫБОР ЯЗЫКА (LIQUID GLASS) --- */
+/* --- СЕЛЕКТОР ЯЗЫКА (macOS CONTROL PANEL STYLE) --- */
 .lang-selector-wrapper {
   position: relative;
   display: inline-block;
 }
 
 .lang-selector {
-  width: 120px;
   display: flex;
   align-items: center;
-  gap: 1rem;
-  margin-right: 100px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 100px;
-  padding: 0.55rem 1.1rem;
-  color: rgba(255, 255, 255, 0.9);
+  gap: 0.55rem;
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.55rem 1rem;
+  color: rgba(255, 255, 255, 0.85);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
   outline: none;
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: 
-    background-color 0.3s ease, 
-    border-color 0.3s ease, 
-    transform 0.15s ease,
-    box-shadow 0.3s ease;
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
+    0 4px 15px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
   user-select: none;
-  @media (max-width: 1024px) {
-    width: 120px;
-    margin-right: 0;
-  }
-  @media (max-width: 768px) {
-    margin-right: 0;
-  }
 }
 
 .lang-selector:active {
@@ -186,67 +163,63 @@
 
 .lang-selector:hover,
 .lang-selector.active {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.08);
-  color: #ffffff;
-  box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 6px 20px rgba(0, 0, 0, 0.25);
+  background: rgba(35, 35, 35, 0.75);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-.flag-icon-placeholder {
+.flag-icon-image {
   width: 18px;
   height: 12px;
-  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 0.5px solid rgba(255, 255, 255, 0.15);
+  object-fit: cover;
 }
 
 .arrow-down-placeholder {
   display: inline-block;
   width: 0;
   height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid rgba(255, 255, 255, 0.7);
-  margin-left: 2px;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 3.5px solid transparent;
+  border-right: 3.5px solid transparent;
+  border-top: 3.5px solid rgba(255, 255, 255, 0.7);
+  margin-left: 1px;
+  transition: transform 0.2s ease;
 }
 
 .lang-selector.active .arrow-down-placeholder {
   transform: rotate(180deg);
 }
 
-/* Выпадающее меню (Глянцевое жидкое стекло) */
+/* Выпадающее системное меню macOS Popover */
 .lang-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 6px);
   right: 0;
-  background: linear-gradient(135deg, rgba(8, 18, 24, 0.75) 0%, rgba(4, 10, 15, 0.9) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  padding: 6px;
+  background: rgba(28, 28, 28, 0.88); /* Плотный акрил для перекрытия текстов сзади */
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  padding: 5px;
   list-style: none;
   margin: 0;
   min-width: 110px;
   box-shadow:
-    inset 0 1px 2px rgba(255, 255, 255, 0.15),
-    0 12px 35px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(24px) saturate(140%);
-  -webkit-backdrop-filter: blur(24px) saturate(140%);
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1),
+    0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(30px) saturate(190%);
+  -webkit-backdrop-filter: blur(30px) saturate(190%);
   z-index: 100;
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-8px) scale(0.95);
+  transform: translateY(-4px) scale(0.97);
   pointer-events: none;
   transition:
-    opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-    visibility 0.25s;
+    opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0.2s;
 }
 
 .lang-dropdown.open {
@@ -259,90 +232,148 @@
 .lang-option {
   display: flex;
   align-items: center;
-  gap: 0.65rem;
-  padding: 0.55rem 0.75rem;
+  gap: 0.6rem;
+  padding: 0.5rem 0.65rem;
   border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease;
   user-select: none;
 }
 
 .lang-option:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-}
-
-.lang-option.selected {
   background: rgba(255, 255, 255, 0.08);
   color: #ffffff;
 }
 
-/* --- КНОПКИ (LIQUID GLASS) --- */
+.lang-option.selected {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* --- СИСТЕМНЫЕ КНОПКИ macOS --- */
 .btn {
   font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.75rem 1.6rem;
-  border-radius: 100px;
+  font-weight: 500;
+  padding: 0.7rem 1.45rem;
+  border-radius: 10px; /* Характерные углы кнопок в macOS */
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   border: none;
   position: relative;
   overflow: hidden;
+  transition:
+    background 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Белое сияющее жидкое стекло (Primary) */
+/* Светлое насыщенное акриловое стекло macOS Vibrant Light */
 .btn-primary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 245, 250, 0.8) 100%);
-  color: #020b11;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.85); /* Плотный светлый акрил */
+  color: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px) saturate(190%);
+  -webkit-backdrop-filter: blur(12px) saturate(190%);
   box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.7),
-    0 4px 20px rgba(255, 255, 255, 0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 100%);
-  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.95);
+  transform: translateY(-1.5px);
   box-shadow: 
-    inset 0 1px 3px rgba(255, 255, 255, 0.9),
-    0 8px 25px rgba(255, 255, 255, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .btn-primary:active {
   transform: translateY(0) scale(0.98);
 }
 
-/* Темное влажное стекло (Secondary) */
+/* Темное акриловое стекло macOS Vibrant Dark */
 .btn-secondary {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.01) 100%);
+  background: rgba(30, 30, 30, 0.6);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(16px) saturate(130%);
-  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow: 
-    inset 0 1px 1px rgba(255, 255, 255, 0.2),
-    0 4px 15px rgba(0, 0, 0, 0.2);
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.02) 100%);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-2px);
+  background: rgba(35, 35, 35, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1.5px);
   box-shadow: 
-    inset 0 1px 2px rgba(255, 255, 255, 0.3),
-    0 8px 25px rgba(0, 0, 0, 0.3);
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary:active {
   transform: translateY(0) scale(0.98);
 }
 
-/* --- ГЛАВНЫЙ БЛОК --- */
+/* --- ТРИГГЕР МЕНЮ БУРГЕРА (macOS CONTROL PANEL CIRCLE) --- */
+.burger-trigger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%; /* macOS Control Center Style */
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(24px) saturate(190%);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  outline: none;
+}
+
+.burger-trigger:hover {
+  background: rgba(35, 35, 35, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.burger-line {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: center;
+}
+
+.burger-trigger.active .burger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger-trigger.active .burger-line:nth-child(2) {
+  opacity: 0;
+  transform: scale(0);
+}
+
+.burger-trigger.active .burger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- ГЛАВНЫЙ БЛОК (HERO CONTENT) --- */
 .hero-main {
   display: flex;
   flex-direction: column;
@@ -355,30 +386,19 @@
 }
 
 .hero-title {
-  font-size: 39px;
+  font-size: clamp(1.75rem, 1.452rem + 1.27vw, 2.438rem);
   font-weight: 700;
   line-height: 1.15;
   letter-spacing: -0.02em;
   margin: 0 0 1.5rem 0;
-  @media (max-width: 1024px) {
-    font-size: 32px;
-  }
-  @media (max-width: 768px) {
-    font-size: 28px;
-  }
-}
-
-.highlight-text {
-  background: linear-gradient(135deg, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
-  -webkit-text-fill-color: transparent;
 }
 
 .hero-subtitle {
-  font-size: clamp(1rem, 1.25vw, 1.25rem);
+  font-size: clamp(0.95rem, 1.25vw, 1.25rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.75);
   margin: 0 auto 2.5rem auto;
-  max-width: 540px;
+  max-width: 580px;
 }
 
 .hero-buttons {
@@ -386,53 +406,32 @@
   gap: 1rem;
 }
 
-/* --- ЛОГОТИПЫ ПАРТНЕРОВ --- */
+/* --- ЛОГОТИПЫ БРЕНДОВ --- */
 .hero-brands-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  padding-bottom: 1rem;
-}
-
-.brands-title {
-  font-size: 0.8125rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0;
+  padding-bottom: 2rem;
+  width: 100%;
 }
 
 .brands-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  gap: 100px;
+  gap: 2rem 3rem;
   width: 100%;
+  max-width: 1200px;
 }
 
-.brand-logo-placeholder {
-  width: 100px;
-  height: 24px;
-  opacity: 0.35;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  transition: opacity 0.2s ease;
-  border: 1px dashed rgba(255, 255, 255, 0.2);
-}
-
-.brand-logo-placeholder:hover {
-  opacity: 0.7;
-}
-
-/* Базовые стили для изображений брендов (с анимацией) */
 .brands-grid img {
   display: block;
-  max-height: 60px; /* Корректно увеличенный и оптимизированный размер */
+  max-height: 60px;
   width: auto;
   object-fit: contain;
-  opacity: 0.40;
+  opacity: 0.35;
   transition: opacity 0.3s ease, transform 0.3s ease;
   animation: brandWave 4s ease-in-out infinite;
 }
@@ -451,100 +450,304 @@
   }
 }
 
-.brands-grid img:nth-child(1) { animation-delay: 0.0s; }
-.brands-grid img:nth-child(2) { animation-delay: 0.25s; }
-.brands-grid img:nth-child(3) { animation-delay: 0.5s; }
-.brands-grid img:nth-child(4) { animation-delay: 0.75s; }
-.brands-grid img:nth-child(5) { animation-delay: 1.0s; }
-.brands-grid img:nth-child(6) { animation-delay: 1.25s; }
-.brands-grid img:nth-child(7) { animation-delay: 1.5s; }
+/* Расширенная анимация волны на десктопе для всех 14 логотипов (включая зацикливающий клон) */
+.brands-grid img:nth-child(1)  { animation-delay: 0.0s; }
+.brands-grid img:nth-child(2)  { animation-delay: 0.25s; }
+.brands-grid img:nth-child(3)  { animation-delay: 0.5s; }
+.brands-grid img:nth-child(4)  { animation-delay: 0.75s; }
+.brands-grid img:nth-child(5)  { animation-delay: 1.0s; }
+.brands-grid img:nth-child(6)  { animation-delay: 1.25s; }
+.brands-grid img:nth-child(7)  { animation-delay: 1.5s; }
+.brands-grid img:nth-child(8)  { animation-delay: 1.75s; }
+.brands-grid img:nth-child(9)  { animation-delay: 2.0s; }
+.brands-grid img:nth-child(10) { animation-delay: 2.25s; }
+.brands-grid img:nth-child(11) { animation-delay: 2.5s; }
+.brands-grid img:nth-child(12) { animation-delay: 2.75s; }
+.brands-grid img:nth-child(13) { animation-delay: 3.0s; }
+.brands-grid img:nth-child(14) { animation-delay: 3.25s; }
 
-/* Общий базовый стиль для заглушки флага */
+/* --- ПОЛНОЭКРАННОЕ СИСТЕМНОЕ МЕНЮ (macOS DARK VIBRANCY OVERLAY) --- */
 
-.flag-icon-image {
-  width: 18px;
-  height: 12px;
-  object-fit: cover; /* Заполняет область без искажения пропорций */
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Деликатная рамка вокруг флага */
+.mobile-menu-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(1, 4, 8, 0.4); /* Облегченный оверлей для акцента на размытии */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1010;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.5s;
+}
+
+.mobile-menu-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Выдвижное полноэкранное боковое меню — macOS Dark Acrylic */
+.mobile-menu-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  /* Плотный слой акрила (0.97) полностью перекрывает текст на фоне */
+  background: rgba(18, 18, 18, 0.97); 
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(35px) saturate(200%);
+  -webkit-backdrop-filter: blur(35px) saturate(200%);
+  z-index: 1020;
+
+  opacity: 0;
+  visibility: hidden;
+  filter: blur(15px);
+  transform: scale3d(0.94, 0.94, 1) translate3d(0, 40px, 0);
+  
+  transition: 
+    transform 0.55s cubic-bezier(0.25, 1.15, 0.4, 1),
+    opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    filter 0.45s ease,
+    visibility 0.55s;
+}
+
+.mobile-menu-drawer.open {
+  opacity: 1;
+  visibility: visible;
+  filter: blur(0px);
+  transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
+}
+
+/* Каскадный эффект ссылок */
+.mobile-nav-link {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   display: block;
+  
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: 
+    opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+    transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.flag-icon-placeholder {
+.mobile-nav-link:hover {
+  color: #ffffff;
+  transform: scale(1.05) translate3d(0, 0, 0);
+}
+
+.mobile-menu-drawer.open .mobile-nav-link {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.mobile-menu-drawer .mobile-nav a:nth-child(1) { transition-delay: 0.12s; }
+.mobile-menu-drawer .mobile-nav a:nth-child(2) { transition-delay: 0.19s; }
+.mobile-menu-drawer .mobile-nav a:nth-child(3) { transition-delay: 0.26s; }
+.mobile-menu-drawer .mobile-nav a:nth-child(4) { transition-delay: 0.33s; }
+
+.mobile-menu-drawer .mobile-lang-section {
+  opacity: 0;
+  transform: translate3d(0, 15px, 0);
+  transition: 
+    opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), 
+    transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+  transition-delay: 0.4s;
+}
+
+.mobile-menu-drawer.open .mobile-lang-section {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Кнопка закрытия macOS */
+.mobile-menu-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  outline: none;
+  transition: transform 0.15s ease, background-color 0.2s ease;
+}
+
+.mobile-menu-close-btn:hover {
+  background: rgba(35, 35, 35, 0.7);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.mobile-menu-close-btn:active {
+  transform: scale(0.96);
+}
+
+.close-btn-line {
+  display: block;
   width: 18px;
-  height: 12px;
-  border-radius: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background-size: cover; /* Растягивает изображение по размеру */
-  background-position: center;
-  background-repeat: no-repeat;
-  display: inline-block;
+  height: 2px;
+  background-color: #ffffff;
+  border-radius: 10px;
 }
 
-/* Пути к изображениям ваших флагов */
-.flag-en {
-  background-image: url('/en.png');
+.close-btn-line:nth-child(1) {
+  transform: translateY(1px) rotate(45deg);
 }
 
-.flag-ru {
-  background-image: url('/ru.png');
+.close-btn-line:nth-child(2) {
+  transform: translateY(-1px) rotate(-45deg);
 }
 
-.flag-ru {
-  background-image: url('/uz.png');
+/* Содержимое мобильного меню */
+.mobile-menu-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  height: 100%;
+  width: 100%;
+  padding: 2rem;
+  box-sizing: border-box;
+  gap: 4rem;
 }
 
-/* --- АДАПТИВНОСТЬ --- */
+/* Вертикальные адаптивные ссылки */
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 2.5rem;
+}
 
-/* Планшетная версия */
+/* Языковая панель бугер-меню */
+.mobile-lang-section {
+  width: 100%;
+  max-width: 200px;
+  display: flex;
+  justify-content: start;
+}
+
+.mobile-lang-section .lang-selector {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.mobile-lang-section .lang-dropdown {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* --- ВЫСОКОКАЧЕСТВЕННЫЙ АДАПТИВ (ОТКЛИК, ВЫРАВНИВАНИЕ И БЕСШОВНАЯ КАРУСЕЛЬ) --- */
+
 @media (max-width: 1024px) {
   .hero-container {
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 2.5rem;
   }
 
-  .header-nav {
-    display: none; /* Скрываем десктопную навигацию */
+  /* Скрытие десктопных элементов */
+  .header-nav,
+  .header-actions {
+    display: none !important;
+  }
+
+  /* Отображение триггера бургер-меню */
+  .burger-trigger {
+    display: flex;
+  }
+}
+
+/* 
+  ПОЛНАЯ ПЕРЕНАСТРОЙКА БРЕНДОВ В БЕСШОВНУЮ КАРУСЕЛЬ БЕЗ РАЗРЫВОВ И СКАЧКОВ (<= 768px)
+*/
+@media (max-width: 768px) {
+  .hero-brands-section {
+    width: 100%;
+    overflow: hidden; /* Маскируем выход за пределы экрана */
+    padding-bottom: 2rem;
+    box-sizing: border-box;
+    position: relative;
+    
+    /* Деликатные градиентные маски для мягкого исчезновения логотипов по краям */
+    mask-image: linear-gradient(to right, transparent 0%, #000000 12%, #000000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000000 12%, #000000 88%, transparent 100%);
   }
 
   .brands-grid {
-    gap: 2rem;
+    display: flex;
+    flex-wrap: nowrap; /* Строго в один бесконечный ряд */
+    justify-content: flex-start;
+    gap: 4.5rem; /* Зазор между увеличенными логотипами */
+    width: max-content;
+    padding: 0;
+    will-change: transform;
+    
+    /* 
+      Линейное бесконечное скольжение в левую сторону.
+      Используется линейная скорость (linear) и бесконечный цикл (infinite) без отката назад.
+    */
+    animation: brandsContinuousScroll 25s linear infinite;
+  }
+
+  .brands-grid img {
+    animation: none !important; /* Отключаем вертикальную волну */
+    flex-shrink: 0; /* Исключаем деформацию пропорций */
+    max-height: 44px; /* Увеличенный размер логотипов для четкой видимости */
+    opacity: 0.45;
+  }
+
+  /* 
+    Магический сдвиг ровно на -50% (на один полный набор из 7 логотипов).
+    Поскольку правая половина карусели — точная копия левой, сброс к 0% 
+    происходит мгновенно и абсолютно незаметно для глаза.
+  */
+  @keyframes brandsContinuousScroll {
+    0% {
+      transform: translate3d(0, 0, 0);
+    }
+    100% {
+      transform: translate3d(-50%, 0, 0);
+    }
   }
 }
 
-/* Мобильная версия */
 @media (max-width: 640px) {
   .hero-container {
     padding: 1rem 1.25rem;
   }
 
-  .header-actions .btn-secondary {
-    display: none; /* Скрываем второстепенную кнопку в шапке на мобильном */
+  .hero-header {
+    height: 4.5rem;
+  }
+
+  .header-logo img {
+    max-height: 120px;
   }
 
   .hero-main {
-    padding: 2.5rem 0;
+    padding: 3rem 0;
   }
 
   .hero-buttons {
-    flex-direction: column;
     width: 100%;
     gap: 0.75rem;
   }
 
   .hero-buttons .btn {
     width: 100%;
-  }
-
-  .brands-grid {
-    gap: 1.5rem;
-  }
-
-  .brands-grid img {
-    max-height: 25px; /* Корректный размер на смартфонах */
-  }
-
-  .brand-logo-placeholder {
-    width: 80px;
-    height: 20px;
   }
 }
