@@ -5,10 +5,42 @@
     "blog": "Blog",
     "about": "About",
     "bookCall": "Consultation",
-    "titlePart1": "Comprehensive IT Solutions – From Architecture Design to Development, Implementation, and Scaling.",
+    "titlePart1": "Comprehensive IT Solutions - From Architecture Design to Development, Implementation, and Scaling.",
     "titleHighlight": "Digital transformation",
-    "subtitle": "NEUROTECH – your partner in digital transformation.",
+    "subtitle": "NEUROTECH - your partner in digital transformation.",
     "getStarted": "Services",
     "trustedBy": "Trusted by 200+ brands"
+  },
+  "expertise": {
+    "badge": "Services",
+    "title": "Our Expertise",
+    "cantFind": "Can't find what you're looking for?",
+    "cta": "Book a consultation",
+    "cards": {
+      "cloud": {
+        "title": "Mobile App Development",
+        "desc": "We design and build scalable mobile applications for iOS and Android tailored to your business goals."
+      },
+      "data": {
+        "title": "AI Solutions Implementation",
+        "desc": "We integrate AI-powered software into your infrastructure with security in mind—on-premises or in the cloud."
+      },
+      "cyber": {
+        "title": "AI & IT Consulting",
+        "desc": "We audit processes, shape your digital transformation strategy, and help you make sound technology decisions for your business."
+      },
+      "workplace": {
+        "title": "Backend & Infrastructure",
+        "desc": "We build server architecture, APIs, and integrations with fault tolerance, security, and horizontal scalability for any workload."
+      },
+      "strategy": {
+        "title": "Business Process Automation",
+        "desc": "We automate routine processes to cut operational costs and speed up task execution across your company."
+      },
+      "modern": {
+        "title": "Big Data & Geoanalytics",
+        "desc": "We analyze big data and audience behavior to support targeted decisions as you scale your business."
+      }
+    }
   }
 }

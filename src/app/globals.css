@@ -6,9 +6,13 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Azeret Mono', monospace;
-    background-color: #10141E;
+    background-color: #03101C;
     color: #fff;
 }
 

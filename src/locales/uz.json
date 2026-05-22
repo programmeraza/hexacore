@@ -10,5 +10,37 @@
     "subtitle": "NEUROTECH — raqamli transformatsiyadagi hamkoringiz.",
     "getStarted": "Xizmatlar",
     "trustedBy": "200+ brend bizga ishonadi"
+  },
+  "expertise": {
+    "badge": "Xizmatlar",
+    "title": "Bizning tajribamiz",
+    "cantFind": "Qidirganingizni topa olmadingizmi?",
+    "cta": "Konsultatsiyaga yozilish",
+    "cards": {
+      "cloud": {
+        "title": "Mobil ilovalarni ishlab chiqish",
+        "desc": "Biznesingiz vazifalariga mos iOS va Android uchun masshtablanadigan mobil ilovalarni loyihalashtiramiz va ishlab chiqamiz."
+      },
+      "data": {
+        "title": "AI yechimlarini joriy etish",
+        "desc": "Sun'iy intellekt asosidagi dasturiy mahsulotlarni xavfsizlik talablariga rioya qilgan holda infratuzilmangizga mahalliy yoki bulutda integratsiya qilamiz."
+      },
+      "cyber": {
+        "title": "AI va IT konsalting",
+        "desc": "Jarayonlarni audit qilamiz, raqamli transformatsiya strategiyasini shakllantiramiz va biznes uchun asosli texnologik qarorlar qabul qilishga yordam beramiz."
+      },
+      "workplace": {
+        "title": "Backend va infratuzilma",
+        "desc": "Server arxitekturasi, API va integratsiyalarni ishlab chiqamiz — har qanday yuklama uchun bardoshlilik, xavfsizlik va gorizontal masshtablanish bilan."
+      },
+      "strategy": {
+        "title": "Biznes-jarayonlarni avtomatlashtirish",
+        "desc": "Kundalik jarayonlarni avtomatlashtiramiz, operatsion xarajatlarni kamaytiramiz va kompaniyangizda vazifalarni bajarish tezligini oshiramiz."
+      },
+      "modern": {
+        "title": "Big Data va geoanalitika",
+        "desc": "Katta ma'lumotlar va auditoriya xatti-harakatini tahlil qilib, biznesingizni kengaytirishda aniq qarorlar qabul qilishga yordam beramiz."
+      }
+    }
   }
 }

@@ -74,7 +74,7 @@ export default function HeroSection() {
           cursorSize={100}
           isViscous={false}
           resolution={0.55}
-          colors={['#032230', '#009DBD', '#00B8DB']}
+          colors={['#03080c', '#009DBD', '#00B8DB']}
           autoDemo={true}
           autoSpeed={0.4}
         />

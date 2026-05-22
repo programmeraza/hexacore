@@ -1,0 +1,258 @@
+/* Основной контейнер секции */
+.expertise-section {
+    position: relative;
+    width: 100%;
+    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 5vw, 4rem);
+    box-sizing: border-box;
+    overflow: hidden;
+    color: #ffffff;
+
+    &::before {
+        width: 100%;
+        height: 1px;
+        /* display: flex;
+        flex-direction: column;
+        align-items: center; */
+        background-color: #fff;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(3, 16, 28, 1) 100%);
+    }
+}
+
+/* 
+  Глянцевое фоновое свечение в нижней части блока.
+  Цвета #009DBD и #00B8DB полностью согласованы с цветами вашей интерактивной жидкости.
+*/
+
+.expertise-section::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    /* Смещаем свечение на границу следующего блока */
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 60vw, 800px);
+    /* Резиновая ширина диска */
+    height: clamp(200px, 25vw, 350px);
+    /* Резиновая высота диска */
+
+    /* Мягкий радиальный градиент с переходом от фирменного teal в полную прозрачность */
+    background: radial-gradient(circle,
+            rgba(0, 157, 189, 0.18) 0%,
+            rgba(0, 184, 219, 0.05) 45%,
+            rgba(3, 8, 12, 0) 70%);
+
+    /* Размытие краев для эффекта дымки/aurora */
+    filter: blur(80px);
+
+    /* Исключаем любое влияние на клики по кнопкам */
+    pointer-events: none;
+    z-index: 1;
+}
+
+.expertise-section::after {
+    content: '';
+    position: absolute;
+    bottom: -150px;
+    /* Смещаем свечение на границу следующего блока */
+    left: 50%;
+    transform: translateX(-50%);
+    width: clamp(300px, 60vw, 800px);
+    /* Резиновая ширина диска */
+    height: clamp(200px, 25vw, 350px);
+    /* Резиновая высота диска */
+
+    /* Мягкий радиальный градиент с переходом от фирменного teal в полную прозрачность */
+    background: radial-gradient(circle,
+            rgba(0, 157, 189, 0.18) 0%,
+            rgba(0, 184, 219, 0.05) 45%,
+            rgba(3, 8, 12, 0) 70%);
+
+    /* Размытие краев для эффекта дымки/aurora */
+    filter: blur(80px);
+
+    /* Исключаем любое влияние на клики по кнопкам */
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* 
+    Для того чтобы псевдоэлемент не перекрывал кнопки внутри контейнера, 
+    задаем контенту относительный z-index выше, чем у свечения.
+*/
+
+/* Контент-контейнер */
+.expertise-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- ВЕРХНИЙ БЕЙДЖ --- */
+.expertise-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 100px;
+    padding: 0.4rem 1.1rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.expertise-badge span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* --- ГЛАВНЫЙ ЗАГОЛОВОК --- */
+.expertise-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 clamp(2.5rem, 5vw, 4rem) 0;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff 50%, rgba(255, 255, 255, 0.4) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+/* --- ПОЛНОСТЬЮ «РЕЗИНОВАЯ» СЕТКА КАРТОЧЕК --- */
+.expertise-grid {
+    display: grid;
+    /* Резиновая сетка: автоматически рассчитывает колонки на основе доступного места */
+    grid-template-columns: repeat(auto-fit, minmax(clamp(280px, 25vw, 360px), 1fr));
+    gap: clamp(1rem, 2vw, 1.75rem);
+    /* Резиновые зазоры */
+    width: 100%;
+    margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* --- КАРТОЧКА НА СТИЛЕ macOS GLASS (С АНИМАЦИЕЙ И РЕЗИНОВЫМИ ОТСТУПАМИ) --- */
+.expertise-card {
+    background: rgba(30, 30, 30, 0.6);
+    /* Нейтральное акриловое macOS-стекло */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    /* Резиновые внутренние отступы */
+    padding: clamp(1.75rem, 3vw, 2.5rem) clamp(1.25rem, 2.5vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    backdrop-filter: blur(24px) saturate(190%);
+    -webkit-backdrop-filter: blur(24px) saturate(190%);
+    height: 100%;
+    /* box-shadow:
+        inset 0 0 0 0 rgba(255, 255, 255, 0.12),
+        0 0px 0px rgba(0, 0, 0, 0.25); */
+    /* Карточки всегда равны по высоте в ряду */
+
+    /* Начальные параметры для анимации плавного появления при скролле */
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+    transition:
+        transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 0.5s;
+    /* transition:
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.5s,
+    border-color 0.25s ease,
+    background-color 0.25s ease,
+    box-shadow 0.5s; */
+}
+
+/* Срабатывание плавного проявления карточек при скролле */
+.expertise-section.visible .expertise-card {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+
+    /* Эффект каскада: появление карточек по очереди */
+    transition-delay: calc(var(--card-index) * .5s);
+}
+
+/* Эффект наведения на карточку */
+.expertise-card:hover {
+    background-color: rgba(35, 35, 35, 0.75);
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0px 0px 18px 8px rgba(34, 60, 80, 0.3);
+    transform: translateY(-4px);
+    /* Мягкое всплытие при наведении */
+}
+
+/* Иконки в стиле минимализма */
+.card-icon-wrapper {
+    color: #ffffff;
+    width: 24px;
+    height: 24px;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+    transition: transform 0.3s ease;
+}
+
+.expertise-card:hover .card-icon-wrapper {
+    transform: scale(1.08);
+}
+
+.card-icon-wrapper svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.card-title {
+    /* Резиновый размер заголовка карточки */
+    font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+    font-weight: 700;
+    margin: 0 0 0.85rem 0;
+    letter-spacing: -0.01em;
+}
+
+.card-description {
+    /* Резиновый размер описания карточки */
+    font-size: clamp(0.85rem, 1.1vw, 0.9375rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+/* --- НИЖНИЙ БЛОК CTA --- */
+.expertise-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.footer-prompt {
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    font-weight: 500;
+    text-align: center;
+}
+
+.footer-cta-btn {
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.8rem 2.25rem;
+}
+
+/* --- АДАПТИВНОСТЬ КНОПКИ CTA --- */
+@media (max-width: 640px) {
+    .footer-cta-btn {
+        width: 100%;
+        /* Кнопка растягивается на всю ширину только на смартфонах */
+    }
+}
