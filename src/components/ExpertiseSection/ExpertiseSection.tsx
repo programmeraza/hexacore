@@ -127,9 +127,9 @@ export default function ExpertiseSection() {
             <div className="expertise-container">
 
                 {/* Верхний бейдж */}
-                <div className="expertise-badge">
+                {/* <div className="expertise-badge">
                     <span>{t('expertise.badge')}</span>
-                </div>
+                </div> */}
 
                 {/* Главный заголовок */}
                 <h2 className="expertise-title">

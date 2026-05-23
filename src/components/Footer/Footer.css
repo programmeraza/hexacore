@@ -302,7 +302,7 @@
 
     .footer-brand-column {
         max-width: 100%;
-        align-items: center;
+        align-items: start;
         text-align: center;
     }
 
@@ -346,17 +346,16 @@
         gap: 3rem;
     }
 
-    .footer-links-grid {
+    /* .footer-links-grid {
         grid-template-columns: 1fr;
-        /* Полноценный 1-колоночный стек ссылок */
         gap: 2rem;
-    }
+    } */
 
     .footer-column {
-        align-items: center;
+        align-items: start;
     }
 
     .column-links {
-        align-items: center;
+        align-items: start;
     }
 }

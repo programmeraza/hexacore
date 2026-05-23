@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap'); */
 
 * {
     padding: 0;
@@ -11,7 +11,9 @@ html {
 }
 
 body {
-    font-family: 'Azeret Mono', monospace;
+    /* font-family: 'Azeret Mono', monospace; */
+    /* font-family: 'Geist', sans-serif; */
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #03101C;
     color: #fff;
 }

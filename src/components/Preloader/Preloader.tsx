@@ -63,7 +63,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
         </div>
 
         {/* Название бренда */}
-        <h1 className="preloader-brand">HEXACORE</h1>
+        <img src="./logo2.png" alt="" />
 
         {/* Прогресс-бар и счетчик */}
         <div className="preloader-progress-wrapper">

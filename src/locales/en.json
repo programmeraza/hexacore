@@ -5,7 +5,7 @@
     "blog": "Blog",
     "about": "About",
     "bookCall": "Consultation",
-    "titlePart1": "Comprehensive IT Solutions - From Architecture Design to Development, Implementation, and Scaling.",
+    "titlePart1": "Comprehensive IT Solutions, From Architecture Design to Development, Implementation, and Scaling.",
     "titleHighlight": "Digital transformation",
     "subtitle": "NEUROTECH - your partner in digital transformation.",
     "getStarted": "Services",
@@ -84,5 +84,11 @@
         "accessibility": "Accessibility"
       }
     }
+  },
+  "stats": {
+    "titlePart1": "Don't take our word for it.",
+    "satisfied": "satisfied clients",
+    "retention": "client retention rate",
+    "rating": "average rating"
   }
 }

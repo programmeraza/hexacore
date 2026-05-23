@@ -2,7 +2,7 @@
 .preloader-overlay {
     position: fixed;
     inset: 0;
-    background-color: #020609;
+    background-color: #03101C;
     /* Глубокий темный фон */
     z-index: 99999;
     /* Самый приоритетный слой поверх всех элементов */
@@ -40,6 +40,10 @@
     gap: 2rem;
     width: 100%;
     max-width: 320px;
+    img {
+        width: 100%;
+        max-width: 300px;
+    }
 }
 
 /* --- ПАРЯЩИЙ 3D КУБ (CSS 3D TRANSFORMATIONS) --- */
@@ -159,9 +163,9 @@
 
 /* Моноширинный текстовый счетчик */
 .preloader-percentage {
-    font-size: 0.8125rem;
+    font-size: 20px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.527);
     letter-spacing: 0.05em;
 }
 

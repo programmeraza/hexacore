@@ -5,7 +5,7 @@
     "blog": "Kontaktlar",
     "about": "Biz haqimizda",
     "bookCall": "Maslahat",
-    "titlePart1": "Kompleks IT Yechimlar — Arxitektura Dizaynidan Rivojlantirish, Joriy Etish va Masshtablashgacha",
+    "titlePart1": "Kompleks IT Yechimlar, Arxitektura Dizaynidan Rivojlantirish, Joriy Etish va Masshtablashgacha",
     "titleHighlight": "Raqamli transformatsiya",
     "subtitle": "NEUROTECH — raqamli transformatsiyadagi hamkoringiz.",
     "getStarted": "Xizmatlar",
@@ -84,5 +84,11 @@
         "accessibility": "Qulaylik"
       }
     }
+  },
+  "stats": {
+    "titlePart1": "Bizga gapga ishonmang.",
+    "satisfied": "mamnun mijozlar",
+    "retention": "mijozlarni saqlab qolish darajasi",
+    "rating": "o'rtacha baho"
   }
 }

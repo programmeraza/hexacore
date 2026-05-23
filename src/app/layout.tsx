@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "HexaCore",
+  title: "NEUROTECH",
   description: "...",
   icons: {
     icon: "./logo-favicon.svg",
@@ -27,10 +27,12 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
+    
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      {/* <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></link> */}
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
