@@ -8,7 +8,7 @@ import './HeroSection.css';
 
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
-  
+
   // Состояния для десктопного меню выбора языка
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
   const desktopDropdownRef = useRef<HTMLDivElement>(null);
@@ -39,7 +39,7 @@ export default function HeroSection() {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const target = event.target as Node;
-      
+
       if (desktopDropdownRef.current && !desktopDropdownRef.current.contains(target)) {
         setIsDesktopDropdownOpen(false);
       }
@@ -137,7 +137,7 @@ export default function HeroSection() {
           </div>
 
           {/* Бургер-кнопка триггера мобильного меню */}
-          <button 
+          <button
             className={`burger-trigger ${isBurgerOpen ? 'active' : ''}`}
             onClick={() => setIsBurgerOpen(!isBurgerOpen)}
             aria-label="Toggle menu"
@@ -159,7 +159,9 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-buttons">
-            <button className="btn btn-secondary">{t('hero.getStarted')}</button>
+            <a href="#services">
+              <button className="btn btn-secondary">{t('hero.getStarted')}</button>
+            </a>
             <button className="btn btn-primary">{t('hero.bookCall')}</button>
           </div>
         </main>
@@ -175,7 +177,7 @@ export default function HeroSection() {
             <img src="./5.png" alt="" />
             <img src="./6.png" alt="" />
             <img src="./7.png" alt="" />
-            
+
             {/* Набор №2 (Копия первого набора для бесшовного бесконечного зацикливания) */}
             <img src="./1.png" alt="" />
             <img src="./2.png" alt="" />
@@ -190,23 +192,25 @@ export default function HeroSection() {
       </div>
 
       {/* Затемняющая фоновая подложка */}
-      <div 
+      <div
         className={`mobile-menu-overlay ${isBurgerOpen ? 'show' : ''}`}
         onClick={() => setIsBurgerOpen(false)}
       />
 
       {/* Выдвижное полноэкранное меню */}
       <aside className={`mobile-menu-drawer ${isBurgerOpen ? 'open' : ''}`}>
-        
-        {/* Кнопка закрытия */}
-        <button 
-          className="mobile-menu-close-btn"
-          onClick={() => setIsBurgerOpen(false)}
-          aria-label="Close menu"
-        >
-          <span className="close-btn-line" />
-          <span className="close-btn-line" />
-        </button>
+        <div className="mobile-menu-drawer-flex">
+          <img className='mobile-menu-drawer-img' src="./logo2.png" alt="" />
+          {/* Кнопка закрытия */}
+          <button
+            className="mobile-menu-close-btn"
+            onClick={() => setIsBurgerOpen(false)}
+            aria-label="Close menu"
+          >
+            <span className="close-btn-line" />
+            <span className="close-btn-line" />
+          </button>
+        </div>
 
         <div className="mobile-menu-content">
           <nav className="mobile-nav">
