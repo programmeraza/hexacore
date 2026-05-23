@@ -1,0 +1,205 @@
+/* Главный оверлей во весь экран */
+.preloader-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: #020609;
+    /* Глубокий темный фон */
+    z-index: 99999;
+    /* Самый приоритетный слой поверх всех элементов */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+
+    /* Эффект выхода: размытие + увеличение + растворение */
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+    transition:
+        opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+        filter 0.8s ease;
+    will-change: opacity, transform, filter;
+}
+
+/* Класс исчезновения, активируемый из JS */
+.preloader-overlay.fade-out {
+    opacity: 0;
+    transform: scale(1.05);
+    /* Легкое отдаление вглубь экрана */
+    filter: blur(25px);
+    /* Плавное расфокусирование */
+    pointer-events: none;
+}
+
+/* Контентная область по центру */
+.preloader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 320px;
+}
+
+/* --- ПАРЯЩИЙ 3D КУБ (CSS 3D TRANSFORMATIONS) --- */
+.preloader-logo-area {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 600px;
+    /* Включение 3D-пространства */
+}
+
+/* Мягкий неоновый ореол за кубом */
+.preloader-cube-glow {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 157, 189, 0.4) 0%, rgba(0, 184, 219, 0) 70%);
+    filter: blur(15px);
+    animation: glowPulse 2s ease-in-out infinite alternate;
+}
+
+/* Сам 3D куб */
+.preloader-cube {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-25deg) rotateY(45deg);
+    animation: cubeRotate 6s linear infinite;
+    /* Бесконечное мягкое вращение */
+}
+
+/* Грани куба в стиле полупрозрачного акрила */
+.cube-face {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Позиционирование граней в 3D пространстве */
+.face-front {
+    transform: translateZ(20px);
+}
+
+.face-back {
+    transform: rotateY(180deg) translateZ(20px);
+}
+
+.face-left {
+    transform: rotateY(-90deg) translateZ(20px);
+}
+
+.face-right {
+    transform: rotateY(90deg) translateZ(20px);
+}
+
+.face-top {
+    transform: rotateX(90deg) translateZ(20px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.face-bottom {
+    transform: rotateX(-90deg) translateZ(20px);
+}
+
+/* --- БРЕНДИНГ --- */
+.preloader-brand {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    color: #ffffff;
+    margin: 0;
+    text-align: center;
+    opacity: 0.9;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* --- ИНДИКАТОР ПРОГРЕССА --- */
+.preloader-progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+}
+
+/* Дорожка полосы загрузки */
+.preloader-progress-track {
+    width: 100%;
+    height: 2px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Активная светящаяся полоса прогресса */
+.preloader-progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #009dbd, #00b8db);
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 184, 219, 0.6);
+    /* Свечение шлейфа */
+    width: 0%;
+    transition: width 0.1s linear;
+    will-change: width;
+}
+
+/* Моноширинный текстовый счетчик */
+.preloader-percentage {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+}
+
+/* Фиксация прыжков чисел при смене с 9 на 10 и т.д. */
+.preloader-percentage span {
+    display: inline-block;
+    min-width: 24px;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    /* Включение моноширинных системных цифр */
+}
+
+/* --- АНИМАЦИИ --- */
+
+/* Вращение 3D куба */
+@keyframes cubeRotate {
+    0% {
+        transform: rotateX(-25deg) rotateY(45deg);
+    }
+
+    50% {
+        transform: rotateX(25deg) rotateY(225deg);
+    }
+
+    100% {
+        transform: rotateX(-25deg) rotateY(405deg);
+    }
+}
+
+/* Пульсация фонового свечения */
+@keyframes glowPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
