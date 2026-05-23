@@ -200,17 +200,17 @@ export default function HeroSection() {
       {/* Выдвижное полноэкранное меню */}
       <aside className={`mobile-menu-drawer ${isBurgerOpen ? 'open' : ''}`}>
         <div className="mobile-menu-drawer-flex">
-          <img className='mobile-menu-drawer-img' src="./logo2.png" alt="" />
-          {/* Кнопка закрытия */}
-          <button
-            className="mobile-menu-close-btn"
-            onClick={() => setIsBurgerOpen(false)}
-            aria-label="Close menu"
-          >
-            <span className="close-btn-line" />
-            <span className="close-btn-line" />
-          </button>
-        </div>
+        <img className='mobile-menu-drawer-img' src="./logo2.png" alt="" />       
+        {/* Кнопка закрытия */}
+        <button
+          className="mobile-menu-close-btn"
+          onClick={() => setIsBurgerOpen(false)}
+          aria-label="Close menu"
+        >
+          <span className="close-btn-line" />
+          <span className="close-btn-line" />
+        </button>  
+        </div> 
 
         <div className="mobile-menu-content">
           <nav className="mobile-nav">

@@ -191,7 +191,7 @@
 .lang-dropdown {
   position: absolute;
   top: calc(100% + 6px);
-  right: 0;
+  right: 40px;
   background: rgba(28, 28, 28, 0.88); /* Плотный акрил для перекрытия текстов сзади */
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 12px;
@@ -690,6 +690,10 @@
   .burger-trigger {
     display: flex;
   }
+
+  .lang-dropdown {
+    right: 0;
+  }
 }
 
 /* 
@@ -731,6 +735,10 @@
     opacity: 0.45;
   }
 
+  .lang-dropdown {
+    right: 0;
+  }
+
   /* 
     --- АКТИВАЦИЯ ДУБЛИКАТОВ НА МОБИЛЬНЫХ ---
     Восстанавливаем отображение всех 14 логотипов (7 оригинальных + 7 клонов) 
@@ -762,6 +770,10 @@
 @media (max-width: 640px) {
   .hero-container {
     padding: 1rem 1.25rem;
+  }
+
+  .lang-dropdown {
+    right: 0;
   }
 
   .hero-header {
