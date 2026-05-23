@@ -3,7 +3,7 @@
     position: relative;
     width: 100%;
     /* Плавный переход от предыдущего блока */
-    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 5vw, 4rem);
+    padding: clamp(1rem, 2vw, 8rem) clamp(1.25rem, 5vw, 4rem);
     box-sizing: border-box;
     overflow: hidden;
     color: #ffffff;
@@ -52,6 +52,7 @@
     /* 3 колонки на десктопе */
     gap: clamp(1rem, 2vw, 1.75rem);
     width: 100%;
+    margin: 0 0 70px 0;
 }
 
 /* Базовая Bento карточка в стиле macOS Glass */

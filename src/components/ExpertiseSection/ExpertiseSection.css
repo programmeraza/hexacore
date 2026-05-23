@@ -2,7 +2,7 @@
 .expertise-section {
     position: relative;
     width: 100%;
-    padding: clamp(4rem, 8vw, 8rem) clamp(1.25rem, 5vw, 4rem);
+    padding: clamp(1rem, 0vw, 8rem) clamp(1.25rem, 5vw, 4rem);
     box-sizing: border-box;
     overflow: hidden;
     color: #ffffff;
@@ -98,7 +98,7 @@
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin: 0 0 clamp(2.5rem, 5vw, 4rem) 0;
+    margin: 16px 0 clamp(2.5rem, 5vw, 4rem) 0;
     text-align: center;
     background: linear-gradient(135deg, #ffffff 50%, rgba(255, 255, 255, 0.4) 100%);
     background-clip: text;
