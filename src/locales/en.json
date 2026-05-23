@@ -89,5 +89,30 @@
     "satisfied": "satisfied clients",
     "retention": "client retention rate",
     "rating": "average rating"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "cards": {
+      "support": {
+        "title": "Personalized Support",
+        "desc": "Work with dedicated consultants who understand your business goals."
+      },
+      "step": {
+        "title": "With You Every Step",
+        "desc": "We stay with you from the first consultation to post-launch."
+      },
+      "impact": {
+        "title": "Measurable Impact",
+        "desc": "We track progress and show ROI at every stage to ensure lasting success."
+      },
+      "solutions": {
+        "title": "Future-Ready Solutions",
+        "desc": "We design scalable systems that keep you competitive tomorrow."
+      },
+      "process": {
+        "title": "Transparent Process",
+        "desc": "You'll always know what's happening with clear timelines, regular updates, and open communication."
+      }
+    }
   }
 }

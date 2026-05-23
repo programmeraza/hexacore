@@ -89,5 +89,30 @@
     "satisfied": "mamnun mijozlar",
     "retention": "mijozlarni saqlab qolish darajasi",
     "rating": "o'rtacha baho"
+  },
+  "portfolio": {
+    "title": "Portfoliomiz",
+    "cards": {
+      "support": {
+        "title": "Shaxsiy yordam",
+        "desc": "Sizning biznes maqsadlaringizni tushunadigan maxsus maslahatchilar bilan ishlang."
+      },
+      "step": {
+        "title": "Har bir qadamda siz bilanmiz",
+        "desc": "Biz birinchi maslahatlashuvdan tortib, loyihani ishga tushirishgacha siz bilan qolamiz."
+      },
+      "impact": {
+        "title": "O'lchanadigan natija",
+        "desc": "Biz uzoq muddatli muvaffaqiyatni ta'minlash uchun har bir bosqichda taraqqiyotni va ROI ko'rsatkichlarini kuzatamiz."
+      },
+      "solutions": {
+        "title": "Kelajakka tayyor yechimlar",
+        "desc": "Biz sizni ertaga ham raqobatbardosh qiladigan kengaytiriladigan tizimlarni loyihalashtiramiz."
+      },
+      "process": {
+        "title": "Shaffof jarayon",
+        "desc": "Aniq muddatlar, muntazam hisobotlar va ochiq muloqot tufayli nimalar bo'layotganini doimo bilib turasiz."
+      }
+    }
   }
 }
