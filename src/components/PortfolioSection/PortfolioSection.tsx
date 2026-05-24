@@ -1,40 +1,86 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './PortfolioSection.css';
+
+// Регистрируем плагин ScrollTrigger для GSAP
+gsap.registerPlugin(ScrollTrigger);
 
 export default function PortfolioSection() {
   const { t } = useTranslation();
-  const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          if (sectionRef.current) {
-            observer.unobserve(sectionRef.current);
-          }
+    const ctx = gsap.context(() => {
+        const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
+      
+      // Инициализируем начальные позиции карт через GSAP:
+      // Первая карта на месте (0%), остальные скрыты внизу (100%)
+      gsap.set(cards, { yPercent: (i) => (i === 0 ? 0 : 100) });
+
+      // Создаем таймлайн скролла для стэка (работает на всех устройствах)
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true, // Замораживаем экран на месте
+          scrub: 1.2, // Плавный реверс анимации при скролле
+          start: 'top top', // Фиксируем, как только верх секции касается верха экрана
+          end: () => `+=${window.innerHeight * 3.5}`, // Длина скролла (длина стэка)
+          invalidateOnRefresh: true,
+          anticipatePin: 1, // Предотвращает рывки браузера при фиксации
         }
-      },
-      { threshold: 0.12 } // Анимация запускается, когда 12% блока в зоне видимости
-    );
+      });
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+      // Поочередно анимируем наслоение карт и размытие предыдущих
+      cards.forEach((card, index) => {
+        if (index === 0) return; // Первая карта уже на месте
 
-    return () => observer.disconnect();
+        const label = `card-${index}`;
+
+        tl.to(card, {
+          yPercent: 0, // Карта выезжает снизу вверх
+          ease: 'none',
+        }, label)
+        .to(cards[index - 1], {
+          scale: 0.92, // Предыдущая карта уменьшается
+          opacity: 0.35, // Предыдущая карта затухает
+          filter: 'blur(4px)', // Предыдущая карта уходит в мягкий фокус
+          ease: 'none',
+        }, label); // Запускаем строго одновременно с заходом новой карты
+      });
+
+      // Буферный интервал в конце таймлайна для плавного выхода из секции
+      tl.to({}, { duration: 0.3 });
+
+    }, sectionRef);
+
+    // Обновляем триггеры после завершения рендеринга Next.js
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert(); // Полная очистка триггеров во избежание утечек памяти
+    };
   }, []);
 
+  // Вычисление координат мыши относительно карты для Spotlight-подсветки
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    e.currentTarget.style.setProperty('--x', `${x}px`);
+    e.currentTarget.style.setProperty('--y', `${y}px`);
+  };
+
   return (
-    <section 
-      className={`portfolio-section ${isVisible ? 'visible' : ''}`} 
-      id="work" 
-      ref={sectionRef}
-    >
+    <section className="portfolio-section" id="work" ref={sectionRef}>
       <div className="portfolio-container">
         
         {/* Заголовок блока */}
@@ -42,18 +88,17 @@ export default function PortfolioSection() {
           {t('portfolio.title')}
         </h2>
 
-        {/* Адаптивная bento-сетка */}
-        <div className="portfolio-bento-grid">
+        {/* Стек-контейнер карт */}
+        <div className="portfolio-stack-container" ref={containerRef}>
           
           {/* КАРТОЧКА 1: Personalized Support */}
-          <div className="bento-card bento-card-small" style={{ '--card-index': 0 } as React.CSSProperties}>
+          <div 
+            className="portfolio-card card-first" 
+            onMouseMove={handleMouseMove}
+          >
             <div className="bento-graphic-wrapper">
-              {/* Плейсхолдер для аватарок */}
               <div className="avatars-placeholder">
-                <div className="avatar-circle"></div>
-                <div className="avatar-circle"></div>
-                <div className="avatar-circle"></div>
-                <div className="avatar-circle"></div>
+                <img width={220} src="./beeline1.png" alt="" />
               </div>
             </div>
             <div className="bento-text-content">
@@ -63,14 +108,13 @@ export default function PortfolioSection() {
           </div>
 
           {/* КАРТОЧКА 2: With You Every Step */}
-          <div className="bento-card bento-card-small" style={{ '--card-index': 1 } as React.CSSProperties}>
+          <div 
+            className="portfolio-card" 
+            onMouseMove={handleMouseMove}
+          >
             <div className="bento-graphic-wrapper">
-              {/* Плейсхолдер чата Maddy */}
               <div className="chat-placeholder">
-                <div className="chat-header-line">Maddy • 10:15 AM</div>
-                <div className="chat-bubble bubble-received">Hi, Daniel! Your design draft is ready.</div>
-                <div className="chat-bubble bubble-received">Want feedback before next step?</div>
-                <div className="chat-bubble bubble-dots">...</div>
+                <img src="./akfa-medline.png" alt="" />
               </div>
             </div>
             <div className="bento-text-content">
@@ -80,9 +124,11 @@ export default function PortfolioSection() {
           </div>
 
           {/* КАРТОЧКА 3: Measurable Impact */}
-          <div className="bento-card bento-card-small" style={{ '--card-index': 2 } as React.CSSProperties}>
+          <div 
+            className="portfolio-card" 
+            onMouseMove={handleMouseMove}
+          >
             <div className="bento-graphic-wrapper">
-              {/* Плейсхолдер графиков */}
               <div className="chart-placeholder">
                 <div className="chart-title">Uptime Trends</div>
                 <div className="chart-bars">
@@ -103,9 +149,11 @@ export default function PortfolioSection() {
           </div>
 
           {/* КАРТОЧКА 4: Future-Ready Solutions */}
-          <div className="bento-card bento-card-medium" style={{ '--card-index': 3 } as React.CSSProperties}>
+          <div 
+            className="portfolio-card" 
+            onMouseMove={handleMouseMove}
+          >
             <div className="bento-graphic-wrapper">
-              {/* Плейсхолдер 3D куба с нодами */}
               <div className="cube-nodes-placeholder">
                 <div className="cube-node-glow"></div>
                 <div className="cube-node-3d"></div>
@@ -118,9 +166,11 @@ export default function PortfolioSection() {
           </div>
 
           {/* КАРТОЧКА 5: Transparent Process */}
-          <div className="bento-card bento-card-large" style={{ '--card-index': 4 } as React.CSSProperties}>
+          <div 
+            className="portfolio-card" 
+            onMouseMove={handleMouseMove}
+          >
             <div className="bento-graphic-wrapper">
-              {/* Плейсхолдер таймлайна */}
               <div className="timeline-placeholder">
                 <div className="timeline-item">Brief approval</div>
                 <div className="timeline-item">Content plan</div>

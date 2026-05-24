@@ -2,42 +2,53 @@
 .portfolio-section {
     position: relative;
     width: 100%;
-    /* Плавный переход от предыдущего блока */
-    padding: clamp(1rem, 2vw, 8rem) clamp(1.25rem, 5vw, 4rem);
     box-sizing: border-box;
     overflow: hidden;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Секция занимает ровно экран для корректного пиннинга */
+}
+
+/* Мягкий параллакс-фон внутри секции */
+.portfolio-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 30%,
+            rgba(0, 184, 219, 0.04),
+            transparent 30%),
+        radial-gradient(circle at 80% 60%,
+            rgba(255, 255, 255, 0.02),
+            transparent 35%);
+    z-index: 0;
+    pointer-events: none;
 }
 
 /* Контент-контейнер */
 .portfolio-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-
-    /* Исходное состояние для плавной анимации появления при скролле */
-    opacity: 0;
-    transform: translate3d(0, 35px, 0);
-    transition:
-        opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-        transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Срабатывание плавной анимации при скролле */
-.portfolio-section.visible .portfolio-container {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    padding: 0 clamp(1rem, 3vw, 2rem);
+    box-sizing: border-box;
+    height: 100%;
 }
 
 /* --- ЗАГОЛОВОК --- */
 .portfolio-title {
-    font-size: clamp(2.25rem, 4vw, 3rem);
+    font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin: 0 0 clamp(3rem, 6vw, 4.5rem) 0;
+    margin: 40px 0 clamp(1.5rem, 3vw, 9rem) 0;
     text-align: center;
     background: linear-gradient(135deg, #ffffff 60%, rgba(255, 255, 255, 0.4) 100%);
     background-clip: text;
@@ -45,19 +56,26 @@
     -webkit-text-fill-color: transparent;
 }
 
-/* --- АДАПТИВНАЯ BENTO-СЕТКА --- */
-.portfolio-bento-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    /* 3 колонки на десктопе */
-    gap: clamp(1rem, 2vw, 1.75rem);
+/* --- КОНТЕЙНЕР ДЛЯ СТЕКА КАРТ (АДАПТИВНЫЙ РАЗМЕР) --- */
+.portfolio-stack-container {
+    position: relative;
     width: 100%;
-    margin: 0 0 70px 0;
+    max-width: 840px;
+    /* Сбалансированная ширина для исключения растянутости контента */
+    height: clamp(380px, 190vh, 520px);
+    /* Резиновая высота стэка под высоту любого экрана */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Базовая Bento карточка в стиле macOS Glass */
-.bento-card {
-    background: rgba(30, 30, 30, 0.6);
+/* Базовая карточка в стиле macOS Glass */
+.portfolio-card {
+    position: absolute;
+    /* Накладываем карты друг на друга */
+    inset: 0;
+    background: rgba(30, 30, 30, 0.7);
+    /* Плотное темное macOS-акриловое стекло */
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     display: flex;
@@ -65,98 +83,91 @@
     justify-content: space-between;
     overflow: hidden;
     box-sizing: border-box;
-    backdrop-filter: blur(24px) saturate(130%);
-    -webkit-backdrop-filter: blur(24px) saturate(130%);
+    backdrop-filter: blur(28px) saturate(130%);
+    -webkit-backdrop-filter: blur(28px) saturate(130%);
     box-shadow:
         inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-        0 10px 30px rgba(0, 0, 0, 0.15);
-    transition:
-        background-color 0.25s ease,
-        border-color 0.25s ease,
-        transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-        box-shadow 0.25s ease;
-    height: 100%;
-    min-height: 380px;
+        0 15px 40px rgba(0, 0, 0, 0.35);
+
+    /* Исходное смещение transform убрано из CSS, его теперь контролирует GSAP */
+    will-change: transform, opacity, filter;
 }
 
-/* Плавный каскад появления карточек в сетке */
-.bento-card {
-    opacity: 0;
-    transform: translate3d(0, 30px, 0);
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-        background-color 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.portfolio-section.visible .bento-card {
-    opacity: 1;
+/* Первая карта всегда находится на экране изначально */
+.portfolio-card.card-first {
     transform: translate3d(0, 0, 0);
-    transition-delay: calc(var(--card-index) * 0.12s);
 }
 
-.bento-card:hover {
-    background-color: rgba(35, 35, 35, 0.75);
+/* --- ИНТЕРАКТИВНЫЙ HOVER SPOTLIGHT --- */
+.portfolio-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(500px circle at var(--x, 0px) var(--y, 0px),
+            rgba(0, 184, 219, 0.12),
+            transparent 40%);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.portfolio-card:hover::before {
+    opacity: 1;
+}
+
+.portfolio-card:hover {
+    background-color: rgba(35, 35, 35, 0.82);
     border-color: rgba(255, 255, 255, 0.18);
     box-shadow:
         inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
-        0 15px 40px rgba(0, 0, 0, 0.3);
-    transform: translateY(-4px);
-}
-
-/* Распределение колонок во втором ряду */
-.bento-card-medium {
-    grid-column: span 1;
-}
-
-.bento-card-large {
-    grid-column: span 2;
-    /* 5-я карточка занимает 2/3 ширины */
+        0 20px 45px rgba(0, 0, 0, 0.45);
 }
 
 /* --- ВНУТРЕННИЙ ТЕКСТ КАРТОЧЕК --- */
 .bento-text-content {
-    padding: 1.75rem 2rem 2.25rem 2rem;
+    padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem) clamp(1.5rem, 3vw, 2.25rem);
+    position: relative;
+    z-index: 2;
 }
 
 .bento-card-title {
-    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    font-size: clamp(1.1rem, 1.5vw, 1.35rem);
     font-weight: 700;
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 0.6rem 0;
     letter-spacing: -0.01em;
 }
 
 .bento-card-desc {
-    font-size: clamp(0.85rem, 1.1vw, 0.9375rem);
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: clamp(0.8125rem, 1vw, 0.9rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.5);
     margin: 0;
 }
 
-/* --- ГРАФИЧЕСКИЙ СЛОЙ (ВЫ МОЖЕТЕ ЗАМЕНИТЬ ИХ НА СВОИ IMG) --- */
+/* --- ГРАФИЧЕСКИЙ СЛОЙ --- */
 .bento-graphic-wrapper {
     position: relative;
+    z-index: 2;
     flex-grow: 1;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 70%);
-    padding: 2rem;
+    padding: clamp(1rem, 2.5vw, 2rem);
     box-sizing: border-box;
 }
 
-/* Карточка 1: Перекрывающиеся аватарки (CSS Имитация) */
+/* Карточка 1: Аватарки */
 .avatars-placeholder {
     display: flex;
     align-items: center;
 }
 
 .avatar-circle {
-    width: 50px;
-    height: 50px;
+    width: clamp(38px, 5vw, 50px);
+    height: clamp(38px, 5vw, 50px);
     border-radius: 50%;
     border: 2px solid #03080c;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 100%);
@@ -168,13 +179,13 @@
     margin-left: 0;
 }
 
-/* Карточка 2: Имитация диалога Maddy (CSS Имитация) */
+/* Карточка 2: Имитация диалога Maddy */
 .chat-placeholder {
     width: 100%;
     max-width: 220px;
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.5rem;
 }
 
 .chat-header-line {
@@ -185,8 +196,8 @@
 }
 
 .chat-bubble {
-    font-size: 0.75rem;
-    padding: 0.55rem 0.85rem;
+    font-size: clamp(0.7rem, 0.9vw, 0.75rem);
+    padding: 0.5rem 0.75rem;
     border-radius: 12px;
     max-width: 90%;
     line-height: 1.4;
@@ -208,13 +219,13 @@
     font-weight: bold;
 }
 
-/* Карточка 3: Тренды аптайма (CSS Имитация) */
+/* --- Карточка 3: Тренды аптайма (ДЫШАЩИЕ СТОЛБЦЫ) --- */
 .chart-placeholder {
     width: 100%;
     max-width: 220px;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.75rem;
 }
 
 .chart-title {
@@ -227,13 +238,16 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    height: 60px;
+    height: clamp(45px, 6vw, 60px);
+    /* Резиновая высота графика */
 }
 
 .chart-bar {
-    width: 8px;
-    background-color: rgba(255, 255, 255, 0.15);
+    width: clamp(6px, 0.8vw, 8px);
     border-radius: 4px;
+    background: rgba(255, 255, 255, 0.12);
+    transform-origin: bottom;
+    animation: pulseBars 2.4s ease-in-out infinite;
 }
 
 .chart-bar.active {
@@ -241,7 +255,47 @@
     box-shadow: 0 0 10px rgba(0, 184, 219, 0.6);
 }
 
-/* Карточка 4: 3D Куб с нодами */
+.chart-bar:nth-child(1) {
+    animation-delay: .0s;
+}
+
+.chart-bar:nth-child(2) {
+    animation-delay: .1s;
+}
+
+.chart-bar:nth-child(3) {
+    animation-delay: .2s;
+}
+
+.chart-bar:nth-child(4) {
+    animation-delay: .3s;
+}
+
+.chart-bar:nth-child(5) {
+    animation-delay: .4s;
+}
+
+.chart-bar:nth-child(6) {
+    animation-delay: .5s;
+}
+
+.chart-bar:nth-child(7) {
+    animation-delay: .6s;
+}
+
+@keyframes pulseBars {
+
+    0%,
+    100% {
+        transform: scaleY(.8);
+    }
+
+    50% {
+        transform: scaleY(1.15);
+    }
+}
+
+/* --- Карточка 4: 3D Куб с нодами (МЯГКОЕ ВРАЩЕНИЕ) --- */
 .cube-nodes-placeholder {
     position: relative;
     width: 80px;
@@ -260,27 +314,38 @@
 }
 
 .cube-node-3d {
-    width: 32px;
-    height: 32px;
+    width: clamp(24px, 3.5vw, 32px);
+    height: clamp(24px, 3.5vw, 32px);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.03) 100%);
     border: 1px solid rgba(255, 255, 255, 0.2);
     transform: rotateX(45deg) rotateY(45deg);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    animation: cubeRotate 10s linear infinite;
+}
+
+@keyframes cubeRotate {
+    from {
+        transform: rotateX(45deg) rotateY(0deg);
+    }
+
+    to {
+        transform: rotateX(45deg) rotateY(360deg);
+    }
 }
 
 /* Карточка 5: Прогресс таймлайна Gantt */
 .timeline-placeholder {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.6rem;
     width: 100%;
     max-width: 360px;
 }
 
 .timeline-item {
-    font-size: 0.75rem;
+    font-size: clamp(0.6875rem, 0.8vw, 0.75rem);
     font-weight: 600;
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.85rem;
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -288,7 +353,6 @@
     align-self: flex-start;
 }
 
-/* Сдвигаем элементы по диагонали как на Gantt-диаграммах */
 .timeline-item:nth-child(2) {
     margin-left: 15%;
 }
@@ -308,88 +372,109 @@
     box-shadow: 0 4px 15px rgba(0, 184, 219, 0.1);
 }
 
-/* --- СВЕЧЕНИЕ СНИЗУ БЛОКА (ОРИГИНАЛЬНОЕ СВЕЧЕНИЕ ЭКСПЕРТИЗЫ) --- */
+/* --- СВЕЧЕНИЕ СНИЗУ БЛОКА (AURORA GLOW DISK) --- */
 .portfolio-section::after {
     content: '';
     position: absolute;
     bottom: -150px;
-    /* Смещаем свечение на границу следующего блока */
     left: 50%;
     transform: translateX(-50%);
     width: clamp(300px, 60vw, 800px);
-    /* Резиновая ширина диска */
     height: clamp(200px, 25vw, 350px);
-    /* Резиновая высота диска */
-
-    /* Мягкий радиальный градиент с переходом от фирменного teal в полную прозрачность */
     background: radial-gradient(circle,
             rgba(0, 157, 189, 0.18) 0%,
             rgba(0, 184, 219, 0.05) 45%,
             rgba(3, 8, 12, 0) 70%);
-
-    /* Размытие краев для эффекта дымки/aurora */
     filter: blur(80px);
-
-    /* Исключаем любое влияние на клики по кнопкам */
     pointer-events: none;
     z-index: 1;
 }
 
-/* --- ИДЕАЛЬНЫЙ BENTO-АДАПТИВ --- */
+/* --- ВЫСОКОКАЧЕСТВЕННЫЙ АДАПТИВ ДЛЯ СМАРТФОНОВ (БЕЗ ВЫЛЕЗАНИЯ КОНТЕНТА) --- */
 
-/* Планшетные устройства */
-@media (max-width: 1024px) {
-    .portfolio-section {
-        padding: 6rem 2.5rem;
-    }
-
-    .portfolio-bento-grid {
-        grid-template-columns: repeat(2, 1fr);
-        /* 2 колонки на планшетах */
-    }
-
-    /* Перераспределяем ячейки для 2-колонной сетки */
-    .bento-card-small {
-        grid-column: span 1;
-    }
-
-    .bento-card-medium {
-        grid-column: span 1;
-    }
-
-    .bento-card-large {
-        grid-column: span 2;
-        /* 5-я карточка занимает всю ширину ряда */
-    }
-}
-
-/* Смартфоны */
 @media (max-width: 768px) {
     .portfolio-section {
         padding: 5rem 1.25rem;
+        height: 100vh;
+        /* Сохраняем стэк и пиннинг на мобильных */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .portfolio-container {
+        padding: 0;
     }
 
     .portfolio-title {
-        margin-bottom: 3.5rem;
+        margin-top: 0rem;
+        margin-bottom: 2rem;
     }
 
-    /* На мобильных устройствах все Bento-карточки выстраиваются строго в 1 колонку */
-    .portfolio-bento-grid {
-        grid-template-columns: 1fr;
-        gap: 1.25rem;
+    /* Резиновая усадка высоты контейнера под мобильные экраны */
+    .portfolio-stack-container {
+        height: 65vh;
+        /* Карты занимают 65% высоты маленького экрана */
+        max-width: 100%;
     }
 
-    .bento-card {
-        grid-column: span 1 !important;
-        min-height: 360px;
+    /* Масштабируем внутренние отступы карт на смартфонах */
+    .portfolio-card {
+        border-radius: 20px;
+    }
+
+    .bento-text-content {
+        padding: 1.25rem 1.25rem 1.5rem 1.25rem;
+        /* Уменьшенные отступы текста */
+    }
+
+    .bento-card-title {
+        font-size: 1.15rem;
+        /* Оптимальный заголовок для мобильных */
+        margin-bottom: 0.4rem;
+    }
+
+    .bento-card-desc {
+        font-size: 0.8125rem;
+        /* Аккуратный шрифт описания */
+        line-height: 1.45;
+    }
+
+    /* Сжатие графических плейсхолдеров на мобильных */
+    .bento-graphic-wrapper {
+        padding: 1rem;
     }
 
     .timeline-placeholder {
         align-items: center;
+        gap: 0.5rem;
     }
 
     .timeline-item {
         align-self: center !important;
         margin-left: 0 !important;
+        font-size: 0.6875rem;
+        padding: 0.35rem 0.75rem;
+    }
+}
+
+/* Для самых маленьких экранов (iPhone SE и т.д.) */
+@media (max-height: 680px) {
+    .portfolio-stack-container {
+        height: 60vh;
+    }
+
+    .bento-card-desc {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        /* Ограничиваем описание в 2 строки на экстремально низких экранах */
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .bento-graphic-wrapper {
+        transform: scale(0.9);
+        /* Пропорционально сжимаем графику */
     }
 }
