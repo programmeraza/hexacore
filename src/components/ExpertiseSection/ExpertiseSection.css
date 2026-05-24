@@ -158,7 +158,7 @@
     transform: translate3d(0, 0, 0);
 
     /* Эффект каскада: появление карточек по очереди */
-    transition-delay: calc(var(--card-index) * .5s);
+    transition-delay: calc(var(--card-index) * .3s);
 }
 
 /* Эффект наведения на карточку */
