@@ -6,7 +6,7 @@ import HeroSection from '../components/HeroSection/HeroSection';
 import ExpertiseSection from '../components/ExpertiseSection/ExpertiseSection';
 import Footer from '../components/Footer/Footer';
 import StatsSection from '../components/StatsSection/StatsSection';
-import PortfolioSection from '../components/PortfolioSection/PortfolioSection';
+// import PortfolioSection from '../components/PortfolioSection/PortfolioSection';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +38,7 @@ export default function App() {
       <div className={`app-content-wrapper ${isLoading ? 'locked' : 'ready'}`}>
         <HeroSection />
         <ExpertiseSection />
-        <PortfolioSection/>
+        {/* <PortfolioSection/> */}
         <StatsSection/>
         <Footer />
       </div>

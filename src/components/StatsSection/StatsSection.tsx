@@ -64,9 +64,9 @@ export default function StatsSection() {
       requestAnimationFrame(update);
     };
 
-    animateNumber(0, 350, 1000, false, setSatisfiedCount, () => {
+    animateNumber(0, 30, 1000, false, setSatisfiedCount, () => {
       animateNumber(0, 90, 800, false, setRetentionCount, () => {
-        animateNumber(0, 4.97, 800, true, setRatingCount);
+        animateNumber(0, 4.7, 800, true, setRatingCount);
       });
     });
 

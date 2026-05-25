@@ -1,9 +1,9 @@
 {
   "hero": {
-    "service": "Xizmatlar",
-    "work": "Portfolio",
-    "blog": "Kontaktlar",
-    "about": "Biz haqimizda",
+    "service": "Bosh sahifa",
+    "work": "Xizmatlar",
+    "blog": "Biz haqimizda ",
+    "about": "Kontaktlar",
     "bookCall": "Maslahat",
     "titlePart1": "Kompleks IT Yechimlar, Arxitektura Dizaynidan Rivojlantirish, Joriy Etish va Masshtablashgacha",
     "titleHighlight": "Raqamli transformatsiya",
@@ -44,48 +44,20 @@
   },
   "footer": {
     "cta": {
-      "titlePart1": "Raqamli transformatsiyangizni boshlashga ",
-      "titleHighlight": "tayyormisiz?",
-      "subtitle": "NEUROTECH biznesingizni qanday masshtablash, innovatsiyalarni joriy etish va muvaffaqiyatga erishishda qanday yordam berishini muhokama qilaylik.",
-      "getStarted": "Loyihani boshlash",
-      "bookCall": "Qo'ng'iroq buyurtma qilish"
+      "titlePart1": "NEURO",
+      "titleHighlight1": "TECH — sun'iy intellekt asosidagi ilg'or dasturiy yechimlarni ishlab chiquvchi va integrator. Biz loyihalarni barcha bosqichlarda qo'llab-quvvatlaymiz — talablar tahlilidan va arxitektura loyihalashdan tortib joriy etish, tashqi tizimlar bilan integratsiya va texnik qo'llab-quvvatlashgacha.",
+      "titleHighlight2": "Biz asosiy biznes-jarayonlarni avtomatlashtiradigan, boshqaruv samaradorligini oshiradigan va ma'lumotlar bilan ishlashni soddalashtiradigan raqamli platformalarni yaratamiz, joriy etamiz va masshtablaymiz. Yechimlarimiz uzoq muddatli rivojlanishga yo'naltirilgan: biz o'zgaruvchan talablarga oson moslashadigan, davlat platformalari bilan integratsiyani qo'llab-quvvatlaydigan va buyurtmachilarga raqamli ekotizimni bitta yetkazib beruvchiga bog'lanmasdan rivojlantirish imkonini beradigan mahsulotlar yaratamiz.",
+      "titleHighlight3": "Jamoamiz SaaS mahsulotlari, aqlli axborot tizimlari va korporativ platformalar — jumladan LMS tizimlari, tahliliy yechimlar, AI-yordamchilar hamda davlat va xususiy tashkilotlar uchun integratsiya modullari ishlab chiqishga ixtisoslashgan. Biz dasturiy muhandislik, sun'iy intellekt va tizim arxitekturasi kesishmasida ishlaymiz va real ekspluatatsiya hamda masshtablashga tayyor yechimlarni taklif qilamiz. NEUROTECH — bugun ishlaydigan va ertangi kun vazifalariga tayyor texnologiyalar."
     },
-    "copyright": "© 2026 NEUROTECH LLC. Barcha huquqlar himoyalangan.",
-    "columns": {
-      "company": {
-        "title": "Kompaniya",
-        "about": "Biz haqimizda",
-        "careers": "Vakansiyalar",
-        "culture": "Madaniyat",
-        "sustainability": "Barqarorlik",
-        "contact": "Kontaktlar"
-      },
-      "resources": {
-        "title": "Resurslar",
-        "blog": "Blog",
-        "whitepapers": "Oq kitoblar",
-        "webinars": "Vebinarlar",
-        "toolkits": "Asboblar",
-        "press": "Press-relizlar"
-      },
-      "solutions": {
-        "title": "Yechimlar",
-        "service": "Xizmatlar",
-        "work": "Portfolio",
-        "stories": "Mijozlar hikoyalari",
-        "lab": "Innovatsion laboratoriya"
-      },
-      "legal": {
-        "title": "Qo'llab-quvvatlash va qonun",
-        "help": "Yordam markazi",
-        "status": "Tizim holati",
-        "docs": "Hujjatlar",
-        "accessibility": "Qulaylik"
-      }
-    }
+    "instagram": "Instagram",
+    "telegram": "Telegram",
+    "address": "Toshkent shahri, Yunusobod tumani, Adolat MFY, 4-mavze, 28/1-uy",
+    "phone": "+998 94 990-00-07",
+    "copyright": "Barcha huquqlar himoyalangan",
+    "designedBy": "Aziz tomonidan ishlab chiqilgan"
   },
   "stats": {
-    "titlePart1": "Bizga gapga ishonmang.",
+    "titlePart1": "Biz haqimizda",
     "satisfied": "mamnun mijozlar",
     "retention": "mijozlarni saqlab qolish darajasi",
     "rating": "o'rtacha baho"

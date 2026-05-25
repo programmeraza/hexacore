@@ -64,7 +64,6 @@
 /* Контент-контейнер */
 .expertise-container {
     position: relative;
-    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;

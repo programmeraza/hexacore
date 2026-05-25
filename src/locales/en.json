@@ -1,9 +1,9 @@
 {
   "hero": {
-    "service": "Service",
-    "work": "Work",
-    "blog": "Blog",
-    "about": "About",
+    "service": "Home",
+    "work": "Services",
+    "blog": "About",
+    "about": "Contact",
     "bookCall": "Consultation",
     "titlePart1": "Comprehensive IT Solutions, From Architecture Design to Development, Implementation, and Scaling.",
     "titleHighlight": "Digital transformation",
@@ -44,48 +44,21 @@
   },
   "footer": {
     "cta": {
-      "titlePart1": "Ready to Start Your ",
-      "titleHighlight": "Digital Transformation?",
-      "subtitle": "Let's discuss how NEUROTECH can help your business scale, innovate, and succeed.",
-      "getStarted": "Get Started",
-      "bookCall": "Book a Call"
+      "titlePart1": "NEURO",
+      "titleHighlight1": "TECH — a developer and integrator of advanced AI-powered software solutions. We support projects at every stage—from requirements analysis and architecture design to implementation, integration with external systems, and technical support.",
+      "titleHighlight2": "We build, deploy, and scale digital platforms that automate core business processes, improve management efficiency, and simplify data workflows. Our solutions are built for long-term growth: we create products that adapt easily to changing requirements, integrate with government platforms, and enable customers to grow their digital ecosystem without dependence on a single vendor.",
+      "titleHighlight3": "Our team specializes in SaaS products, intelligent information systems, and enterprise platforms—including LMS systems, analytics solutions, AI assistants, and integration modules for public and private organizations. We work at the intersection of software engineering, artificial intelligence, and systems architecture, delivering solutions ready for real-world operation and scaling. NEUROTECH is technology that works today and is ready for tomorrow's challenges."
     },
     "copyright": "© 2026 NEUROTECH LLC. All rights reserved.",
-    "columns": {
-      "company": {
-        "title": "Company",
-        "about": "About",
-        "careers": "Careers",
-        "culture": "Culture",
-        "sustainability": "Sustainability",
-        "contact": "Contact"
-      },
-      "resources": {
-        "title": "Resources",
-        "blog": "Blog",
-        "whitepapers": "Whitepapers",
-        "webinars": "Webinars",
-        "toolkits": "Toolkits",
-        "press": "Press Releases"
-      },
-      "solutions": {
-        "title": "Solutions",
-        "service": "Service",
-        "work": "Work",
-        "stories": "Client Stories",
-        "lab": "Innovation Lab"
-      },
-      "legal": {
-        "title": "Legal & Support",
-        "help": "Help Center",
-        "status": "System Status",
-        "docs": "Developer Docs",
-        "accessibility": "Accessibility"
-      }
-    }
+    "instagram": "Instagram",
+    "telegram": "Telegram",
+    "address": "Tashkent city, Yunusabad district, Adolat neighborhood, 4th block, house 28/1",
+    "phone": "+998 94 990-00-07",
+    "designedBy": "Designed by Aziz"
+    
   },
   "stats": {
-    "titlePart1": "Don't take our word for it.",
+    "titlePart1": "About us",
     "satisfied": "satisfied clients",
     "retention": "client retention rate",
     "rating": "average rating"

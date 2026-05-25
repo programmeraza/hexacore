@@ -19,6 +19,7 @@ export default function HeroSection() {
 
   // Состояние мобильного бургер-меню
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // Текущий активный язык
   const currentLang = (i18n.resolvedLanguage || 'ru').toUpperCase();
@@ -53,6 +54,18 @@ export default function HeroSection() {
     };
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const languages = [
     { code: 'en' as const, label: 'EN' },
     { code: 'ru' as const, label: 'RU' },
@@ -84,17 +97,17 @@ export default function HeroSection() {
       <div className="hero-container">
 
         {/* Шапка (Header) */}
-        <header className="hero-header">
+        <header className={`hero-header ${isScrolled ? "scrolled" : ""}`}>
           <div className="header-logo">
             <img src="./logo2.png" alt="logo" />
           </div>
 
           {/* Десктопная навигация */}
           <nav className="header-nav">
-            <a href="#services" className="nav-link">{t('hero.service')}</a>
-            <a href="#work" className="nav-link">{t('hero.work')}</a>
-            <a href="#blog" className="nav-link">{t('hero.blog')}</a>
-            <a href="#about" className="nav-link">{t('hero.about')}</a>
+            <a href="#home" className="nav-link">{t('hero.service')}</a>
+            <a href="#services" className="nav-link">{t('hero.work')}</a>
+            <a href="#about" className="nav-link">{t('hero.blog')}</a>
+            <a href="#contact" className="nav-link">{t('hero.about')}</a>
           </nav>
 
           {/* Десктопные действия */}

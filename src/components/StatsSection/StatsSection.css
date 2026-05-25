@@ -2,9 +2,7 @@
 .stats-section {
     position: relative;
     width: 100%;
-    background-color: #03101C;
-    /* Идеальное слияние с концом прошлой секции */
-    padding: clamp(6rem, 10vw, 10rem) clamp(1.25rem, 5vw, 4rem);
+    padding: clamp(5rem, 6vw, 5rem) clamp(1.25rem, 5vw, 4rem);
     box-sizing: border-box;
     overflow: hidden;
     color: #ffffff;
@@ -15,7 +13,6 @@
 
 .stats-container {
     position: relative;
-    z-index: 3;
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
@@ -40,12 +37,11 @@
 
 /* --- ЗАГОЛОВОК --- */
 .stats-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
     letter-spacing: -0.02em;
-    margin: 0 0 clamp(3rem, 6vw, 5rem) 0;
+    margin: 0 0 clamp(2.5rem, 5vw, 4rem) 0;
     text-align: center;
-    /* line-height: 1.25; */
     background: linear-gradient(135deg, #ffffff 50%, rgba(255, 255, 255, 0.4) 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -58,7 +54,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     /* 3 колонки на десктопе */
-    gap: clamp(2rem, 5vw, 6rem);
+    gap: clamp(14rem, 7vw, 6rem);
     /* Резиновые зазоры */
     width: 100%;
     max-width: 1000px;
