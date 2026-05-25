@@ -51,7 +51,6 @@
   box-sizing: border-box;
   pointer-events: none;
   padding-top: 120px;
-  /* Пропускаем клики сквозь контейнер для работы физики жидкости */
 }
 
 /* Все интерактивные элементы возвращаем в рабочий режим кликов */
@@ -63,13 +62,13 @@
   pointer-events: auto;
 }
 
-/* --- ШАПКА --- */
+/* --- ШАПКА (ГЛОБАЛЬНОЕ ФИКСИРОВАННОЕ ПОЗИЦИОНИРОВАНИЕ) --- */
 .hero-header {
-  position: fixed;
+  position: fixed; /* Абсолютное фиксирование над всеми секциями */
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2000;
+  z-index: 9999; /* Максимальный приоритет наложения, выше любых других секций */
 
   width: 100%;
   height: 5rem;
@@ -80,15 +79,14 @@
 
   padding: 0 4rem;
   box-sizing: border-box;
+  backdrop-filter: blur(var(--header-blur, 0px)) saturate(180%);
+  -webkit-backdrop-filter: blur(var(--header-blur, 0px)) saturate(180%);
 
   transition: all 0.4s ease;
 }
 
 .hero-header.scrolled {
   background: rgba(10, 12, 18, 0.55);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
 }
 
@@ -127,23 +125,20 @@
   width: auto;
 }
 
-/* --- НАВИГАЦИОННАЯ ПАНЕЛЬ (macOS VIBRANT ACRYLIC) --- */
+/* --- НАВИГАЦИОННАЯ ПАНЕЛЬ --- */
 .header-nav {
   width: 450px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: rgba(30, 30, 30, 0.6);
-  /* Нейтральное темное macOS-акриловое стекло */
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  /* Прямоугольный скругленный форм-фактор macOS */
   padding: 15px 25px;
   backdrop-filter: blur(24px) saturate(190%);
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   box-shadow:
     inset 0 1px 0 0 rgba(255, 255, 255, 0.12),
-    /* Верхний световой срез фаски */
     0 1px 1px rgba(0, 0, 0, 0.15),
     0 8px 30px rgba(0, 0, 0, 0.2);
   transition: background-color 0.25s ease, border-color 0.25s ease;
@@ -159,7 +154,6 @@
   text-decoration: none;
   font-size: 0.875rem;
   font-weight: 500;
-  /* padding: 0.45rem 1.15rem; */
 }
 
 .header-actions {
@@ -168,7 +162,7 @@
   gap: 1.5rem;
 }
 
-/* --- СЕЛЕКТОР ЯЗЫКА (macOS CONTROL PANEL STYLE) --- */
+/* --- СЕЛЕКТОР ЯЗЫКА --- */
 .lang-selector-wrapper {
   position: relative;
   display: inline-block;
@@ -195,10 +189,6 @@
     0 4px 15px rgba(0, 0, 0, 0.15);
   transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.1s ease;
   user-select: none;
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-  }
 }
 
 .lang-selector:active {
@@ -240,7 +230,6 @@
   top: calc(100% + 6px);
   right: 40px;
   background: rgba(28, 28, 28, 0.88);
-  /* Плотный акрил для перекрытия текстов сзади */
   border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 12px;
   padding: 5px;
@@ -304,7 +293,6 @@
   font-size: 0.875rem;
   font-weight: 500;
   border-radius: 10px;
-  /* Характерные углы кнопок в macOS */
   cursor: pointer;
   border: none;
   position: relative;
@@ -320,7 +308,6 @@
 /* Светлое насыщенное акриловое стекло macOS Vibrant Light */
 .btn-primary {
   background: rgba(255, 255, 255, 0.85);
-  /* Плотный светлый акрил */
   color: #000000;
   padding: 0.7rem 1.45rem;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -369,7 +356,7 @@
   transform: translateY(0) scale(0.98);
 }
 
-/* --- ТРИГГЕР МЕНЮ БУРГЕРА (macOS CONTROL PANEL CIRCLE) --- */
+/* --- ТРИГГЕР МЕНЮ БУРГЕРА --- */
 .burger-trigger {
   display: none;
   flex-direction: column;
@@ -379,7 +366,6 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  /* macOS Control Center Style */
   background: rgba(30, 30, 30, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(24px) saturate(190%);
@@ -510,16 +496,12 @@
   }
 }
 
-/* 
-  --- ОГРАНИЧЕНИЕ ОТОБРАЖЕНИЯ НА ДЕСКТОПЕ ---
-  Скрываем дубликаты (элементы с 8 по 14) на экранах компьютеров и ноутбуков (>768px).
-  В результате отображаются ровно оригинальные 7 брендов.
-*/
+/* Скрываем дубликаты на десктопе */
 .brands-grid img:nth-child(n+8) {
   display: none !important;
 }
 
-/* Индивидуальные волновые задержки для первых 7 оригинальных логотипов */
+/* Индивидуальные волновые задержки */
 .brands-grid img:nth-child(1) {
   animation-delay: 0.0s;
 }
@@ -554,7 +536,6 @@
   position: fixed;
   inset: 0;
   background-color: rgba(1, 4, 8, 0.4);
-  /* Облегченный оверлей для акцента на размытии */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   z-index: 1010;
@@ -576,13 +557,12 @@
   bottom: 0;
   width: 100%;
   height: 100vh;
-  /* Плотный слой акрила (0.97) полностью перекрывает текст на фоне */
   background: rgba(18, 18, 18, 0.97);
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: -15px 0 50px rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(35px) saturate(200%);
   -webkit-backdrop-filter: blur(35px) saturate(200%);
-  z-index: 1020;
+  z-index: 10000; /* Переведено на сверх-высокий приоритет, чтобы ложиться поверх всего */
 
   opacity: 0;
   visibility: hidden;
@@ -727,7 +707,6 @@
 .mobile-menu-drawer-img {
   width: 100%;
   max-width: 200px;
-
 }
 
 /* Вертикальные адаптивные ссылки */
@@ -786,12 +765,10 @@
   .hero-brands-section {
     width: 100%;
     overflow: hidden;
-    /* Маскируем выход за пределы экрана */
     padding-bottom: 2rem;
     box-sizing: border-box;
     position: relative;
 
-    /* Деликатные градиентные маски для мягкого исчезновения логотипов по краям */
     mask-image: linear-gradient(to right, transparent 0%, #000000 12%, #000000 88%, transparent 100%);
     -webkit-mask-image: linear-gradient(to right, transparent 0%, #000000 12%, #000000 88%, transparent 100%);
   }
@@ -799,28 +776,18 @@
   .brands-grid {
     display: flex;
     flex-wrap: nowrap;
-    /* Строго в один бесконечный ряд */
     justify-content: flex-start;
     gap: 4.5rem;
-    /* Зазор между увеличенными логотипами */
     width: max-content;
     padding: 0;
     will-change: transform;
-
-    /* 
-      Линейное бесконечное скольжение в левую сторону.
-      Используется линейная скорость (linear) и бесконечный цикл (infinite) без отката назад.
-    */
     animation: brandsContinuousScroll 25s linear infinite;
   }
 
   .brands-grid img {
     animation: none !important;
-    /* Отключаем вертикальную волну */
     flex-shrink: 0;
-    /* Исключаем деформацию пропорций */
     max-height: 44px;
-    /* Увеличенный размер логотипов для четкой видимости */
     opacity: 0.45;
   }
 
@@ -828,11 +795,6 @@
     right: 0;
   }
 
-  /* 
-    --- АКТИВАЦИЯ ДУБЛИКАТОВ НА МОБИЛЬНЫХ ---
-    Восстанавливаем отображение всех 14 логотипов (7 оригинальных + 7 клонов) 
-    для создания непрерывного круговорота без визуальных швов.
-  */
   .brands-grid img:nth-child(n+8) {
     display: block !important;
   }
@@ -847,14 +809,8 @@
 
   .hero-header.scrolled {
     background: #03101C;
-
-    /* сильное искажение */
-    backdrop-filter:
-      blur(34px) saturate(220%) contrast(1.15);
-
-    -webkit-backdrop-filter:
-      blur(34px) saturate(220%) contrast(1.15);
-
+    backdrop-filter: blur(34px) saturate(220%) contrast(1.15);
+    -webkit-backdrop-filter: blur(34px) saturate(220%) contrast(1.15);
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, .12),
       0 8px 32px rgba(0, 0, 0, .22);
@@ -864,11 +820,6 @@
     padding-top: 96px;
   }
 
-  /* 
-    Магический сдвиг ровно на -50% (на один полный набор из 7 логотипов).
-    Поскольку правая половина карусели — точная копия левой, сброс к 0% 
-    происходит мгновенно и абсолютно незаметно для глаза.
-  */
   @keyframes brandsContinuousScroll {
     0% {
       transform: translate3d(0, 0, 0);

@@ -20,9 +20,28 @@ export default function HeroSection() {
   // Состояние мобильного бургер-меню
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [blur, setBlur] = useState(0);
 
   // Текущий активный язык
   const currentLang = (i18n.resolvedLanguage || 'ru').toUpperCase();
+
+  const smoothBlur = useRef(0);
+
+  useEffect(() => {
+    const animate = () => {
+      const target = blur;
+      smoothBlur.current += (target - smoothBlur.current) * 0.15;
+
+      document.documentElement.style.setProperty(
+        "--header-blur",
+        `${smoothBlur.current}px`
+      );
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+  }, [blur]);
 
   // Блокировка прокрутки страницы при открытом бургер-меню
   useEffect(() => {
@@ -58,12 +77,38 @@ export default function HeroSection() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-  
+
     window.addEventListener("scroll", handleScroll);
-  
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+    let lastTime = performance.now();
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      const currentTime = performance.now();
+
+      const deltaY = Math.abs(currentScrollY - lastScrollY);
+      const deltaTime = currentTime - lastTime;
+
+      const speed = deltaTime > 0 ? deltaY / deltaTime : 0;
+
+      const newBlur = Math.min(speed * 80, 25);
+
+      setBlur(newBlur);
+
+      lastScrollY = currentScrollY;
+      lastTime = currentTime;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const languages = [
@@ -94,72 +139,81 @@ export default function HeroSection() {
         <div className="hero-overlay" />
       </div>
 
+      {/* 
+        Шапка (Header) вынесена из hero-container на самый верхний уровень вложенности. 
+        Теперь у нее глобальный контекст наложения z-index.
+      */}
+      <header
+        className={`hero-header ${isScrolled ? "scrolled" : ""}`}
+        style={{
+          backdropFilter: `blur(${blur}px) saturate(180%)`,
+          WebkitBackdropFilter: `blur(${blur}px) saturate(180%)`,
+        }}
+      >
+        <div className="header-logo">
+          <img src="./logo2.png" alt="logo" />
+        </div>
+
+        {/* Десктопная навигация */}
+        <nav className="header-nav">
+          <a href="#home" className="nav-link">{t('hero.service')}</a>
+          <a href="#services" className="nav-link">{t('hero.work')}</a>
+          <a href="#about" className="nav-link">{t('hero.blog')}</a>
+          <a href="#contact" className="nav-link">{t('hero.about')}</a>
+        </nav>
+
+        {/* Десктопные действия */}
+        <div className="header-actions">
+          <div className="lang-selector-wrapper" ref={desktopDropdownRef}>
+            <button
+              className={`lang-selector ${isDesktopDropdownOpen ? 'active' : ''}`}
+              onClick={() => setIsDesktopDropdownOpen(!isDesktopDropdownOpen)}
+              aria-haspopup="listbox"
+              aria-expanded={isDesktopDropdownOpen}
+            >
+              <img
+                src={`./${currentLang.toLowerCase()}.png`}
+                alt={currentLang}
+                className="flag-icon-image"
+              />
+              <span className="lang-text">{currentLang}</span>
+              <span className="arrow-down-placeholder" />
+            </button>
+
+            <ul className={`lang-dropdown ${isDesktopDropdownOpen ? 'open' : ''}`} role="listbox">
+              {languages.map(({ code, label }) => (
+                <li
+                  key={code}
+                  className={`lang-option ${currentLang === label ? 'selected' : ''}`}
+                  onClick={() => handleLanguageChange(code)}
+                  role="option"
+                  aria-selected={currentLang === label}
+                >
+                  <img
+                    src={`./${code}.png`}
+                    alt={label}
+                    className="flag-icon-image"
+                  />
+                  <span className="option-text">{label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Бургер-кнопка триггера мобильного меню */}
+        <button
+          className={`burger-trigger ${isBurgerOpen ? 'active' : ''}`}
+          onClick={() => setIsBurgerOpen(!isBurgerOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className="burger-line" />
+          <span className="burger-line" />
+          <span className="burger-line" />
+        </button>
+      </header>
+
       <div className="hero-container">
-
-        {/* Шапка (Header) */}
-        <header className={`hero-header ${isScrolled ? "scrolled" : ""}`}>
-          <div className="header-logo">
-            <img src="./logo2.png" alt="logo" />
-          </div>
-
-          {/* Десктопная навигация */}
-          <nav className="header-nav">
-            <a href="#home" className="nav-link">{t('hero.service')}</a>
-            <a href="#services" className="nav-link">{t('hero.work')}</a>
-            <a href="#about" className="nav-link">{t('hero.blog')}</a>
-            <a href="#contact" className="nav-link">{t('hero.about')}</a>
-          </nav>
-
-          {/* Десктопные действия */}
-          <div className="header-actions">
-            <div className="lang-selector-wrapper" ref={desktopDropdownRef}>
-              <button
-                className={`lang-selector ${isDesktopDropdownOpen ? 'active' : ''}`}
-                onClick={() => setIsDesktopDropdownOpen(!isDesktopDropdownOpen)}
-                aria-haspopup="listbox"
-                aria-expanded={isDesktopDropdownOpen}
-              >
-                <img
-                  src={`./${currentLang.toLowerCase()}.png`}
-                  alt={currentLang}
-                  className="flag-icon-image"
-                />
-                <span className="lang-text">{currentLang}</span>
-                <span className="arrow-down-placeholder" />
-              </button>
-
-              <ul className={`lang-dropdown ${isDesktopDropdownOpen ? 'open' : ''}`} role="listbox">
-                {languages.map(({ code, label }) => (
-                  <li
-                    key={code}
-                    className={`lang-option ${currentLang === label ? 'selected' : ''}`}
-                    onClick={() => handleLanguageChange(code)}
-                    role="option"
-                    aria-selected={currentLang === label}
-                  >
-                    <img
-                      src={`./${code}.png`}
-                      alt={label}
-                      className="flag-icon-image"
-                    />
-                    <span className="option-text">{label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Бургер-кнопка триггера мобильного меню */}
-          <button
-            className={`burger-trigger ${isBurgerOpen ? 'active' : ''}`}
-            onClick={() => setIsBurgerOpen(!isBurgerOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className="burger-line" />
-            <span className="burger-line" />
-            <span className="burger-line" />
-          </button>
-        </header>
 
         {/* Главный блок (Hero Content) */}
         <main className="hero-main">
@@ -191,7 +245,7 @@ export default function HeroSection() {
             <img src="./6.png" alt="" />
             <img src="./7.png" alt="" />
 
-            {/* Набор №2 (Копия первого набора для бесшовного бесконечного зацикливания) */}
+            {/* Набор №2 */}
             <img src="./1.png" alt="" />
             <img src="./2.png" alt="" />
             <img src="./3.png" alt="" />
@@ -213,17 +267,16 @@ export default function HeroSection() {
       {/* Выдвижное полноэкранное меню */}
       <aside className={`mobile-menu-drawer ${isBurgerOpen ? 'open' : ''}`}>
         <div className="mobile-menu-drawer-flex">
-        <img className='mobile-menu-drawer-img' src="./logo2.png" alt="" />       
-        {/* Кнопка закрытия */}
-        <button
-          className="mobile-menu-close-btn"
-          onClick={() => setIsBurgerOpen(false)}
-          aria-label="Close menu"
-        >
-          <span className="close-btn-line" />
-          <span className="close-btn-line" />
-        </button>  
-        </div> 
+          <img className='mobile-menu-drawer-img' src="./logo2.png" alt="logo" />
+          <button
+            className="mobile-menu-close-btn"
+            onClick={() => setIsBurgerOpen(false)}
+            aria-label="Close menu"
+          >
+            <span className="close-btn-line" />
+            <span className="close-btn-line" />
+          </button>
+        </div>
 
         <div className="mobile-menu-content">
           <nav className="mobile-nav">
