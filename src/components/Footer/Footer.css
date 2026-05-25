@@ -321,6 +321,7 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 2.5rem;
+        margin-bottom: 30px;
     }
 
     .footer-copyright {

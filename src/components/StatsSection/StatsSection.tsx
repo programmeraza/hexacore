@@ -74,6 +74,7 @@ export default function StatsSection() {
 
   return (
     <section 
+      id='about'
       className={`stats-section ${isVisible ? 'visible' : ''}`} 
       ref={sectionRef}
     >

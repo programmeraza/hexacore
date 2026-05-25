@@ -79,7 +79,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="hero-section">
+    <section id='home' className="hero-section">
       {/* 3D-эффект в качестве интерактивного фона */}
       <div className="hero-background">
         <LiquidEther
@@ -227,16 +227,16 @@ export default function HeroSection() {
 
         <div className="mobile-menu-content">
           <nav className="mobile-nav">
-            <a href="#services" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
+            <a href="#home" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.service')}
             </a>
-            <a href="#work" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
+            <a href="#services" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.work')}
             </a>
-            <a href="#blog" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
+            <a href="#about" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.blog')}
             </a>
-            <a href="#about" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
+            <a href="#contact" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.about')}
             </a>
           </nav>

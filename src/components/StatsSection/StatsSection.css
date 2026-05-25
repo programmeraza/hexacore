@@ -187,7 +187,7 @@
 /* Планшетные устройства */
 @media (max-width: 1024px) {
     .stats-section {
-        padding: 6rem 2.5rem;
+        padding: 5rem 2.5rem;
     }
 
     .stats-grid {
