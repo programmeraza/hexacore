@@ -6,6 +6,7 @@ import HeroSection from '../components/HeroSection/HeroSection';
 import ExpertiseSection from '../components/ExpertiseSection/ExpertiseSection';
 import Footer from '../components/Footer/Footer';
 import StatsSection from '../components/StatsSection/StatsSection';
+import ConsultationModal from '../components/ConsultationModal/ConsultationModal';
 // import PortfolioSection from '../components/PortfolioSection/PortfolioSection';
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
       {/* Основной контент рендерится всегда (или плавно проявляется), 
           но взаимодействие разблокируется после окончания загрузки */}
       <div className={`app-content-wrapper ${isLoading ? 'locked' : 'ready'}`}>
+        <ConsultationModal />
         <HeroSection />
         <ExpertiseSection />
         {/* <PortfolioSection/> */}

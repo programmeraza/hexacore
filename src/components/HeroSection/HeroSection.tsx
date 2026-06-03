@@ -229,7 +229,12 @@ export default function HeroSection() {
             <a href="#services">
               <button className="btn btn-secondary">{t('hero.getStarted')}</button>
             </a>
-            <button className="btn btn-primary">{t('hero.bookCall')}</button>
+            <button
+              className="btn btn-primary"
+              onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
+            >
+              {t('hero.bookCall')}
+            </button>
           </div>
         </main>
 
