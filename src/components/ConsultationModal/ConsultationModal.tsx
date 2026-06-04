@@ -1,39 +1,46 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import './ConsultationModal.css';
 
-// Константы для интеграции с Telegram (Замените на свои данные из BotFather)
+// Константы для интеграции с Telegram
+// ВНИМАНИЕ: Если это группа или канал, ID должен начинаться с -100 (например, '-1005178082257')
 const TELEGRAM_BOT_TOKEN = '8804223977:AAGqbDjSkYRhmECAbQ0l_n3MREC5N1EONHM';
-const TELEGRAM_CHAT_ID = '-5178082257';
+const TELEGRAM_CHAT_ID = '-1003905895594'; // Попробуйте этот ID, если прошлый выдавал 400
 
 export default function ConsultationModal() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [projectType, setProjectType] = useState<string>('');
-  // const [comment, setComment] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Варианты типов проектов из макета
   const projectTypes = [
-    { id: 'mobile', label: 'Мобильное приложение' },
-    { id: 'desktop', label: 'Автоматизация бизнеса' },
-    { id: 'web', label: 'RAG архитектура' },
-    { id: 'saas', label: 'SaaS решение' },
-    { id: 'crm', label: 'CRM / ERP системы' },
-    { id: 'ai', label: 'AI решение' },
-    { id: 'other', label: 'Другое' }
+    { id: 'mobile', translationKey: 'modal.types.mobile', defaultLabel: 'Мобильное приложение' },
+    { id: 'desktop', translationKey: 'modal.types.desktop', defaultLabel: 'Автоматизация бизнеса' },
+    { id: 'web', translationKey: 'modal.types.web', defaultLabel: 'RAG архитектура' },
+    { id: 'saas', translationKey: 'modal.types.saas', defaultLabel: 'SaaS решение' },
+    { id: 'crm', translationKey: 'modal.types.crm', defaultLabel: 'CRM / ERP системы' },
+    { id: 'ai', translationKey: 'modal.types.ai', defaultLabel: 'AI решение' },
+    { id: 'other', translationKey: 'modal.types.other', defaultLabel: 'Другое' }
   ];
 
-  // Глобальное прослушивание события открытия
+  // Функция для безопасного экранирования HTML-символов, чтобы Telegram не выдавал ошибку 400
+  const escapeHtml = (text: string): string => {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  };
+
   useEffect(() => {
     const handleOpen = () => {
       setIsOpen(true);
       setStatus('idle');
-      // Блокируем скролл страницы
       document.body.style.overflow = 'hidden';
     };
 
@@ -43,36 +50,40 @@ export default function ConsultationModal() {
     };
   }, []);
 
-  // Функция закрытия окна
   const handleClose = () => {
     setIsOpen(false);
-    // Разблокируем скролл страницы
     document.body.style.overflow = '';
   };
 
-  // Закрытие при клике на оверлей вне модального окна
   const handleOverlayClick = (e: React.MouseEvent) => {
     if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
       handleClose();
     }
   };
 
-  // Отправка данных в Telegram
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !contact) {
-      alert('Пожалуйста, заполните обязательные поля: Имя и Контактные данные.');
+      alert(t('modal.validationAlert'));
       return;
     }
 
     setStatus('loading');
 
-    // Форматируем сообщение для отправки в Telegram (поддерживает HTML разметку)
+    // Находим название выбранного типа проекта
+    const selectedType = projectTypes.find((p) => p.id === projectType);
+    const resolvedTypeLabel = selectedType ? t(selectedType.translationKey) : t('modal.types.other');
+
+    // Экранируем введенные пользователем данные перед отправкой в Telegram HTML
+    const safeName = escapeHtml(name);
+    const safeContact = escapeHtml(contact);
+    const safeType = escapeHtml(resolvedTypeLabel);
+
     const message = `
 <b>🔔 Новая заявка на консультацию!</b>\n
-<b>👤 Имя:</b> ${name}\n
-<b>📱 Контакт (TG/Тел):</b> ${contact}\n
-<b>💻 Тип проекта:</b> ${projectType || 'Не выбран'}\n
+<b>👤 Имя:</b> ${safeName}\n
+<b>📱 Контакт (TG/Тел):</b> ${safeContact}\n
+<b>💻 Тип проекта:</b> ${safeType}\n
     `.trim();
 
     try {
@@ -90,11 +101,9 @@ export default function ConsultationModal() {
 
       if (response.ok) {
         setStatus('success');
-        // Очищаем форму после успешной отправки
         setName('');
         setContact('');
         setProjectType('');
-        // Закрываем окно через 2 секунды после успеха
         setTimeout(() => {
           handleClose();
         }, 2000);
@@ -112,74 +121,57 @@ export default function ConsultationModal() {
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-window" ref={modalRef}>
 
-        {/* Кнопка закрытия окна (Крестик) */}
         <button className="modal-close-btn" onClick={handleClose} aria-label="Close modal">
           <span className="close-line" />
           <span className="close-line" />
         </button>
 
         <div className="modal-header">
-          <h2>Ваша заявка</h2>
+          <h2>{t('modal.title')}</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="modal-form">
 
-          {/* Поле: Имя */}
           <div className="form-group">
-            <label htmlFor="name">ФИО</label>
+            <label htmlFor="name">{t('modal.nameLabel')}</label>
             <input
               type="text"
               id="name"
-              placeholder="Как к вам обращаться?"
+              placeholder={t('modal.namePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
 
-          {/* Поле: Контакт */}
           <div className="form-group">
-            <label htmlFor="contact">Telegram или телефон</label>
+            <label htmlFor="contact">{t('modal.contactLabel')}</label>
             <input
               type="text"
               id="contact"
-              placeholder="@username или +998..."
+              placeholder={t('modal.contactPlaceholder')}
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
             />
           </div>
 
-          {/* Поле: Выбор типа проекта (Pills) */}
           <div className="form-group">
-            <label>Тип проекта</label>
+            <label>{t('modal.projectTypeLabel')}</label>
             <div className="project-types-grid">
               {projectTypes.map((type) => (
                 <button
                   key={type.id}
                   type="button"
-                  className={`project-type-pill ${projectType === type.label ? 'active' : ''}`}
-                  onClick={() => setProjectType(type.label)}
+                  className={`project-type-pill ${projectType === type.id ? 'active' : ''}`}
+                  onClick={() => setProjectType(type.id)}
                 >
-                  {type.label}
+                  {t(type.translationKey, type.defaultLabel)}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Поле: Комментарий */}
-          {/* <div className="form-group">
-            <label htmlFor="comment">Комментарий <span>необязательно</span></label>
-            <textarea
-              id="comment"
-              placeholder="Кратко опишите задачу или вопрос..."
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              rows={3}
-            />
-          </div> */}
-
-          {/* Кнопка отправки формы */}
           <button
             type="submit"
             className={`modal-submit-btn ${status === 'loading' ? 'loading' : ''} ${status === 'success' ? 'success' : ''}`}
@@ -191,21 +183,20 @@ export default function ConsultationModal() {
                   <line x1="22" y1="2" x2="11" y2="13" />
                   <polygon points="22 2 15 22 11 13 2 9 22 2" />
                 </svg>
-                <span>Отправить заявку</span>
+                <span>{t('modal.submitBtn')}</span>
               </>
             )}
-            {status === 'loading' && <span>Отправка данных...</span>}
-            {status === 'success' && <span>Заявка успешно отправлена!</span>}
-            {status === 'error' && <span>Ошибка. Повторить отправку</span>}
+            {status === 'loading' && <span>{t('modal.sending')}</span>}
+            {status === 'success' && <span>{t('modal.success')}</span>}
+            {status === 'error' && <span>{t('modal.error')}</span>}
           </button>
 
-          {/* Футер безопасности */}
           <div className="modal-form-footer">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lock-icon">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
-            <span>Данные не передаются третьим лицам</span>
+            <span>{t('modal.securityText')}</span>
           </div>
 
         </form>

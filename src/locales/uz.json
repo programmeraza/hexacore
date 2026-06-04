@@ -86,5 +86,28 @@
         "desc": "Aniq muddatlar, muntazam hisobotlar va ochiq muloqot tufayli nimalar bo'layotganini doimo bilib turasiz."
       }
     }
+  },
+  "modal": {
+    "title": "Sizning so'rovingiz",
+    "nameLabel": "F.I.SH.",
+    "namePlaceholder": "Sizga qanday murojaat qilishimiz kerak?",
+    "contactLabel": "Telegram yoki telefon",
+    "contactPlaceholder": "@username yoki +998...",
+    "projectTypeLabel": "Loyiha turi",
+    "submitBtn": "So'rovni yuborish",
+    "sending": "Ma'lumotlar yuborilmoqda...",
+    "success": "So'rov muvaffaqiyatli yuborildi!",
+    "error": "Xatolik. Qaytadan urinib ko'ring",
+    "securityText": "Ma'lumotlar uchinchi shaxslarga berilmaydi",
+    "validationAlert": "Iltimos, majburiy maydonlarni to'ldiring: F.I.SH. va Aloqa ma'lumotlari.",
+    "types": {
+      "mobile": "Mobil ilova",
+      "desktop": "Biznesni avtomatlashtirish",
+      "web": "RAG arxitekturasi",
+      "saas": "SaaS yechimi",
+      "crm": "CRM / ERP tizimlari",
+      "ai": "Sun'iy intellekt yechimi",
+      "other": "Boshqa"
+    }
   }
 }
