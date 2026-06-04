@@ -12,7 +12,7 @@ export default function ConsultationModal() {
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [projectType, setProjectType] = useState<string>('');
-  const [comment, setComment] = useState('');
+  // const [comment, setComment] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -24,7 +24,7 @@ export default function ConsultationModal() {
     { id: 'web', label: 'RAG архитектура' },
     { id: 'saas', label: 'SaaS решение' },
     { id: 'crm', label: 'CRM / ERP системы' },
-    { id: 'ai', label: 'AI-решение' },
+    { id: 'ai', label: 'AI решение' },
     { id: 'other', label: 'Другое' }
   ];
 
@@ -73,7 +73,6 @@ export default function ConsultationModal() {
 <b>👤 Имя:</b> ${name}\n
 <b>📱 Контакт (TG/Тел):</b> ${contact}\n
 <b>💻 Тип проекта:</b> ${projectType || 'Не выбран'}\n
-<b>💬 Комментарий:</b> ${comment || 'Отсутствует'}
     `.trim();
 
     try {
@@ -95,7 +94,6 @@ export default function ConsultationModal() {
         setName('');
         setContact('');
         setProjectType('');
-        setComment('');
         // Закрываем окно через 2 секунды после успеха
         setTimeout(() => {
           handleClose();
