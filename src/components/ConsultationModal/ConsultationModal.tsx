@@ -22,9 +22,9 @@ export default function ConsultationModal() {
     { id: 'mobile', label: 'Мобильное приложение' },
     { id: 'desktop', label: 'Автоматизация бизнеса' },
     { id: 'web', label: 'RAG архитектура' },
-    { id: 'saas', label: 'SaaS решения' },
+    { id: 'saas', label: 'SaaS решение' },
     { id: 'crm', label: 'CRM / ERP системы' },
-    { id: 'ai', label: 'ИИ-решения' },
+    { id: 'ai', label: 'AI-решение' },
     { id: 'other', label: 'Другое' }
   ];
 
