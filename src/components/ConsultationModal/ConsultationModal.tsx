@@ -14,15 +14,17 @@ export default function ConsultationModal() {
   const [projectType, setProjectType] = useState<string>('');
   const [comment, setComment] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  
+
   const modalRef = useRef<HTMLDivElement>(null);
 
   // Варианты типов проектов из макета
   const projectTypes = [
     { id: 'mobile', label: 'Мобильное приложение' },
-    { id: 'web', label: 'Веб-сайт / платформа' },
-    { id: 'crm', label: 'CRM / ERP' },
-    { id: 'ai', label: 'ИИ-решение' },
+    { id: 'desktop', label: 'Автоматизация бизнеса' },
+    { id: 'web', label: 'RAG архитектура' },
+    { id: 'saas', label: 'SaaS решения' },
+    { id: 'crm', label: 'CRM / ERP системы' },
+    { id: 'ai', label: 'ИИ-решения' },
     { id: 'other', label: 'Другое' }
   ];
 
@@ -111,7 +113,7 @@ export default function ConsultationModal() {
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className="modal-window" ref={modalRef}>
-        
+
         {/* Кнопка закрытия окна (Крестик) */}
         <button className="modal-close-btn" onClick={handleClose} aria-label="Close modal">
           <span className="close-line" />
@@ -119,19 +121,18 @@ export default function ConsultationModal() {
         </button>
 
         <div className="modal-header">
-          <h2>Бесплатная консультация</h2>
-          <p>Расскажите о проекте — свяжемся в течение 2 часов</p>
+          <h2>Ваша заявка</h2>
         </div>
 
         <form onSubmit={handleSubmit} className="modal-form">
-          
+
           {/* Поле: Имя */}
           <div className="form-group">
-            <label htmlFor="name">Имя</label>
-            <input 
-              type="text" 
+            <label htmlFor="name">ФИО</label>
+            <input
+              type="text"
               id="name"
-              placeholder="Как к вам обращаться?" 
+              placeholder="Как к вам обращаться?"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -141,10 +142,10 @@ export default function ConsultationModal() {
           {/* Поле: Контакт */}
           <div className="form-group">
             <label htmlFor="contact">Telegram или телефон</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="contact"
-              placeholder="@username или +998..." 
+              placeholder="@username или +998..."
               value={contact}
               onChange={(e) => setContact(e.target.value)}
               required
@@ -169,20 +170,20 @@ export default function ConsultationModal() {
           </div>
 
           {/* Поле: Комментарий */}
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="comment">Комментарий <span>необязательно</span></label>
-            <textarea 
+            <textarea
               id="comment"
               placeholder="Кратко опишите задачу или вопрос..."
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
             />
-          </div>
+          </div> */}
 
           {/* Кнопка отправки формы */}
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             className={`modal-submit-btn ${status === 'loading' ? 'loading' : ''} ${status === 'success' ? 'success' : ''}`}
             disabled={status === 'loading' || status === 'success'}
           >
