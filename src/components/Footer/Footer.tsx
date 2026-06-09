@@ -83,10 +83,16 @@ export default function Footer() {
           </div>
         </div>
 
-        <div  id="contact" className="footer-content">
+        <div id="contact" className="footer-content">
           <div className="col">
 
             <div className="row1">
+
+              <img
+                width={200}
+                src="/logo2.png"
+                alt="logo"
+              />
               <div className="footer-socials">
                 <a
                   href="#"
@@ -106,12 +112,6 @@ export default function Footer() {
                   <FaTelegramPlane />
                 </a>
               </div>
-
-              <img
-                width={200}
-                src="/logo2.png"
-                alt="logo"
-              />
             </div>
 
             <div className="row2">
@@ -120,8 +120,10 @@ export default function Footer() {
                   {t('footer.address')}
                 </p>
 
+
                 <div className="location-tel">
-                  <a href="tel:+998949900007">
+                  <a className="location-email" target="_blank" rel="noopener noreferrer" href="mailto:info@ntec.uz">info@ntec.uz</a>
+                  <a className="location-phone" target="_blank" rel="noopener noreferrer" href="tel:+998949900007">
                     {t('footer.phone')}
                   </a>
                 </div>
