@@ -80,6 +80,9 @@ export default function Footer() {
               </span>{" "} */}
               {t('footer.cta.titleHighlight3')}
             </p>
+            <p>
+              {t('footer.cta.titleHighlight4')}
+            </p>
           </div>
         </div>
 
