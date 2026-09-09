@@ -1,20 +1,9 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioItems, type PortfolioItem } from './portfolioData';
 import './PortfolioSection.css';
-
-// Регистрируем плагины GSAP. useGSAP используем вместо обычного useEffect —
-// это useLayoutEffect под капотом, как и в Footer.tsx. Если этот pin
-// создавать в обычном useEffect, React сначала выполнит ВСЕ layout-эффекты
-// (в т.ч. useGSAP в Footer.tsx) и только потом — этот, уже пассивный, эффект.
-// Тогда триггер в футере посчитает свою позицию до того, как здесь появится
-// pin-spacer, и посчитает её неверно — ровно на длину скролла этого пина.
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Вычисление координат мыши относительно карты для Spotlight-подсветки
 function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -31,7 +20,7 @@ function PortfolioVisual({ item, title }: { item: PortfolioItem; title: string }
     case 'image':
       return (
         <div className="image-placeholder">
-          <img src={item.image} alt={title} loading="lazy" />
+          <img src={item.image} alt={title} loading="lazy" draggable={false} />
         </div>
       );
 
@@ -74,79 +63,225 @@ function PortfolioVisual({ item, title }: { item: PortfolioItem; title: string }
   }
 }
 
+const pad = (n: number) => String(n).padStart(2, '0');
+
 export default function PortfolioSection() {
   const { t } = useTranslation();
   const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [progress, setProgress] = useState({ widthPct: 100, leftPct: 0 });
+  const [hasInteracted, setHasInteracted] = useState(false);
 
-    // Инициализируем начальные позиции карт через GSAP:
-    // Первая карта на месте (0%), остальные скрыты внизу (100%)
-    gsap.set(cards, { yPercent: (i) => (i === 0 ? 0 : 100) });
+  // Проявление секции при попадании в вьюпорт (без скролл-джекинга)
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
-    // Создаем таймлайн скролла для стэка (работает на всех устройствах)
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: sectionRef.current,
-        pin: true, // Замораживаем экран на месте
-        scrub: 1.2, // Плавный реверс анимации при скролле
-        start: 'top top', // Фиксируем, как только верх секции касается верха экрана
-        end: () => `+=${window.innerHeight * 3.5}`, // Длина скролла (длина стэка)
-        invalidateOnRefresh: true,
-        anticipatePin: 1, // Предотвращает рывки браузера при фиксации
+  // Пересчёт "активной" (центральной) карточки, прогресс-бара и
+  // фокус-эффекта (центральная карта крупнее и ярче соседних).
+  // Обновляется по событию scroll трека, throttled одним rAF за раз.
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let rafId: number | null = null;
+
+    const measure = () => {
+      rafId = null;
+      const trackRect = track.getBoundingClientRect();
+      const centerX = trackRect.left + trackRect.width / 2;
+
+      const cards = Array.from(track.querySelectorAll<HTMLElement>('.portfolio-card'));
+      let closestIndex = 0;
+      let closestDist = Infinity;
+
+      cards.forEach((card, i) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + cardRect.width / 2;
+        const dist = Math.abs(centerX - cardCenter);
+        const norm = Math.min(dist / (trackRect.width / 2), 1);
+
+        card.style.setProperty('--focus', String(1 - norm));
+
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIndex = i;
+        }
+      });
+
+      setActiveIndex(closestIndex);
+
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      const scrollPct = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
+      const widthPct = Math.max((track.clientWidth / track.scrollWidth) * 100, 8);
+      setProgress({ widthPct, leftPct: scrollPct * (100 - widthPct) });
+    };
+
+    const handleScroll = () => {
+      if (rafId === null) rafId = requestAnimationFrame(measure);
+      setHasInteracted(true);
+    };
+
+    measure();
+    track.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      track.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  // Перетаскивание мышью (на тач-устройствах и трекпаде работает нативный скролл)
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+    let moved = false;
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
+      isDragging = true;
+      moved = false;
+      startX = e.clientX;
+      startScrollLeft = track.scrollLeft;
+      track.classList.add('dragging');
+      track.setPointerCapture(e.pointerId);
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      if (Math.abs(dx) > 4) moved = true;
+      track.scrollLeft = startScrollLeft - dx;
+    };
+
+    const onPointerUp = (e: PointerEvent) => {
+      if (!isDragging) return;
+      isDragging = false;
+      track.classList.remove('dragging');
+      track.releasePointerCapture(e.pointerId);
+    };
+
+    // Клик по ссылке/кнопке внутри карты не должен считаться перетаскиванием
+    const onClickCapture = (e: MouseEvent) => {
+      if (moved) {
+        e.preventDefault();
+        e.stopPropagation();
       }
-    });
+    };
 
-    // Поочередно анимируем наслоение карт и размытие предыдущих
-    cards.forEach((card, index) => {
-      if (index === 0) return; // Первая карта уже на месте
+    track.addEventListener('pointerdown', onPointerDown);
+    track.addEventListener('pointermove', onPointerMove);
+    track.addEventListener('pointerup', onPointerUp);
+    track.addEventListener('pointercancel', onPointerUp);
+    track.addEventListener('click', onClickCapture, true);
 
-      const label = `card-${index}`;
+    return () => {
+      track.removeEventListener('pointerdown', onPointerDown);
+      track.removeEventListener('pointermove', onPointerMove);
+      track.removeEventListener('pointerup', onPointerUp);
+      track.removeEventListener('pointercancel', onPointerUp);
+      track.removeEventListener('click', onClickCapture, true);
+    };
+  }, []);
 
-      tl.to(card, {
-        yPercent: 0, // Карта выезжает снизу вверх
-        ease: 'none',
-      }, label)
-      .to(cards[index - 1], {
-        scale: 0.92, // Предыдущая карта уменьшается
-        opacity: 0.35, // Предыдущая карта затухает
-        filter: 'blur(4px)', // Предыдущая карта уходит в мягкий фокус
-        ease: 'none',
-      }, label); // Запускаем строго одновременно с заходом новой карты
-    });
+  const scrollToIndex = useCallback((index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const clamped = Math.min(Math.max(index, 0), portfolioItems.length - 1);
+    const card = track.querySelectorAll<HTMLElement>('.portfolio-card')[clamped];
+    card?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }, []);
 
-    // Буферный интервал в конце таймлайна для плавного выхода из секции
-    tl.to({}, { duration: 0.3 });
-
-    // Обновляем триггеры после завершения рендеринга Next.js
-    const refreshTimer = setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => clearTimeout(refreshTimer);
-  }, { scope: sectionRef });
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') scrollToIndex(activeIndex + 1);
+    if (e.key === 'ArrowLeft') scrollToIndex(activeIndex - 1);
+  };
 
   return (
-    <section className="portfolio-section" id="work" ref={sectionRef}>
+    <section
+      className={`portfolio-section ${isVisible ? 'visible' : ''}`}
+      id="work"
+      ref={sectionRef}
+    >
       <div className="portfolio-container">
 
-        {/* Заголовок блока */}
-        <h2 className="portfolio-title">
-          {t('portfolio.title')}
-        </h2>
+        <div className="portfolio-header">
+          <div className="portfolio-heading">
+            <div className="portfolio-badge">
+              <span>{t('portfolio.eyebrow')}</span>
+            </div>
+            <h2 className="portfolio-title">{t('portfolio.title')}</h2>
+          </div>
 
-        {/* Стек-контейнер карт. Порядок карточек задаётся массивом portfolioItems */}
-        <div className="portfolio-stack-container" ref={containerRef}>
-          {portfolioItems.map((item, index) => {
+          <div className="portfolio-controls">
+            <span className="portfolio-counter">
+              <span className="portfolio-counter-current">{pad(activeIndex + 1)}</span>
+              <span className="portfolio-counter-sep">/</span>
+              <span className="portfolio-counter-total">{pad(portfolioItems.length)}</span>
+            </span>
+            <div className="portfolio-arrows">
+              <button
+                type="button"
+                className="portfolio-arrow"
+                onClick={() => scrollToIndex(activeIndex - 1)}
+                disabled={activeIndex === 0}
+                aria-label="Previous project"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="portfolio-arrow"
+                onClick={() => scrollToIndex(activeIndex + 1)}
+                disabled={activeIndex === portfolioItems.length - 1}
+                aria-label="Next project"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Горизонтальная лента карточек. Порядок задаётся массивом portfolioItems */}
+        <div
+          className="portfolio-track"
+          ref={trackRef}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+        >
+          {portfolioItems.map((item) => {
             const title = t(`portfolio.cards.${item.id}.title`);
             const desc = t(`portfolio.cards.${item.id}.desc`);
 
             return (
               <div
                 key={item.id}
-                className={`portfolio-card ${index === 0 ? 'card-first' : ''}`}
+                className="portfolio-card"
                 onMouseMove={handleMouseMove}
               >
                 <div className="bento-graphic-wrapper">
@@ -170,6 +305,18 @@ export default function PortfolioSection() {
               </div>
             );
           })}
+        </div>
+
+        <div className="portfolio-footer">
+          <div className="portfolio-progress-track">
+            <div
+              className="portfolio-progress-bar"
+              style={{ width: `${progress.widthPct}%`, left: `${progress.leftPct}%` }}
+            />
+          </div>
+          <p className={`portfolio-drag-hint ${hasInteracted ? 'hidden' : ''}`}>
+            {t('portfolio.dragHint')} →
+          </p>
         </div>
       </div>
     </section>

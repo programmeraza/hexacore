@@ -66,7 +66,9 @@
     "rating": "o'rtacha baho"
   },
   "portfolio": {
+    "eyebrow": "Bizning ishlarimiz",
     "title": "Portfoliomiz",
+    "dragHint": "Boshqa loyihalarni ko'rish uchun suring",
     "viewProject": "Loyihani ko'rish",
     "cards": {
       "beelineHambi": {
