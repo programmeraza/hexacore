@@ -20,7 +20,6 @@ export default function HeroSection() {
   // Состояние мобильного бургер-меню
   const [isBurgerOpen, setIsBurgerOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [blur, setBlur] = useState(0);
 
   // Текущий активный язык
   const currentLang = (i18n.resolvedLanguage || 'ru').toUpperCase();
@@ -60,31 +59,19 @@ export default function HeroSection() {
     };
   }, []);
 
-  // Единый обработчик скролла: следит за порогом "прилипания" шапки и
-  // скоростью прокрутки для динамического блюра. Расчёт сведён в один
-  // rAF-тик на кадр, чтобы не гонять несколько слушателей на каждое
-  // событие скролла (их может быть десятки за секунду).
+  // Следим за порогом "прилипания" шапки. Раньше здесь же на каждый кадр
+  // скролла пересчитывался backdrop-filter blur по скорости прокрутки —
+  // это на каждый скролл-тик (до ~60 раз в секунду) ре-рендерило весь
+  // HeroSection и заставляло браузер каждый раз пересчитывать дорогой
+  // backdrop-filter слой на fixed-шапке поверх всей страницы. Убрали:
+  // осталось только булево значение, при котором React не ре-рендерит,
+  // пока оно не меняется.
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let lastTime = performance.now();
     let rafId: number | null = null;
 
     const measure = () => {
       rafId = null;
-
-      const currentScrollY = window.scrollY;
-      const currentTime = performance.now();
-
-      setIsScrolled(currentScrollY > 20);
-
-      const deltaY = Math.abs(currentScrollY - lastScrollY);
-      const deltaTime = currentTime - lastTime;
-      const speed = deltaTime > 0 ? deltaY / deltaTime : 0;
-
-      setBlur(Math.min(speed * 80, 25));
-
-      lastScrollY = currentScrollY;
-      lastTime = currentTime;
+      setIsScrolled(window.scrollY > 20);
     };
 
     const handleScroll = () => {
@@ -133,13 +120,7 @@ export default function HeroSection() {
         Шапка (Header) вынесена из hero-container на самый верхний уровень вложенности. 
         Теперь у нее глобальный контекст наложения z-index.
       */}
-      <header
-        className={`hero-header ${isScrolled ? "scrolled" : ""}`}
-        style={{
-          backdropFilter: `blur(${blur}px) saturate(180%)`,
-          WebkitBackdropFilter: `blur(${blur}px) saturate(180%)`,
-        }}
-      >
+      <header className={`hero-header ${isScrolled ? "scrolled" : ""}`}>
         <div className="header-logo">
           <img src="./logo2.png" alt="logo" />
         </div>
