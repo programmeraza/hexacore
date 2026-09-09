@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -13,12 +13,56 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://hexacore-eight.vercel.app";
+const SITE_DESCRIPTION =
+  "NEUROTECH — разработчик и интегратор корпоративных ИИ-решений: AI-агенты, компьютерное зрение, RAG и автоматизация бизнес-процессов под ключ.";
+
 export const metadata: Metadata = {
-  title: "NEUROTECH",
-  description: "...",
-  icons: {
-    icon: "./logo-favicon.svg",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "NEUROTECH — AI-решения и цифровая трансформация бизнеса",
+    template: "%s | NEUROTECH",
   },
+  description: SITE_DESCRIPTION,
+  keywords: [
+    "NEUROTECH",
+    "AI решения",
+    "искусственный интеллект",
+    "разработка AI-агентов",
+    "RAG",
+    "автоматизация бизнес-процессов",
+    "цифровая трансформация",
+    "Uzbekistan IT",
+  ],
+  authors: [{ name: "NEUROTECH" }],
+  icons: {
+    icon: "/logo-favicon.svg",
+    apple: "/logo.png",
+  },
+  openGraph: {
+    title: "NEUROTECH — AI-решения и цифровая трансформация бизнеса",
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: "NEUROTECH",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "NEUROTECH" }],
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "NEUROTECH — AI-решения и цифровая трансформация бизнеса",
+    description: SITE_DESCRIPTION,
+    images: ["/logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#03101C",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -27,9 +71,9 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    
+
     <html
-      lang="en"
+      lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></link> */}

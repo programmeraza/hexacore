@@ -7,7 +7,7 @@ import ExpertiseSection from '../components/ExpertiseSection/ExpertiseSection';
 import Footer from '../components/Footer/Footer';
 import StatsSection from '../components/StatsSection/StatsSection';
 import ConsultationModal from '../components/ConsultationModal/ConsultationModal';
-// import PortfolioSection from '../components/PortfolioSection/PortfolioSection';
+import PortfolioSection from '../components/PortfolioSection/PortfolioSection';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +40,7 @@ export default function App() {
         <ConsultationModal />
         <HeroSection />
         <ExpertiseSection />
-        {/* <PortfolioSection/> */}
+        <PortfolioSection />
         <StatsSection/>
         <Footer />
       </div>

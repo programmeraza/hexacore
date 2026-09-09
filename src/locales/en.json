@@ -5,6 +5,7 @@
     "blog": "About",
     "about": "Contact",
     "bookCall": "Consultation",
+    "portfolioNav": "Portfolio",
     "titlePart1": "Comprehensive IT Solutions, From Architecture Design to Development, Implementation, and Scaling.",
     "titleHighlight": "Digital transformation",
     "subtitle": "NEUROTECH - your partner in digital transformation.",
@@ -65,14 +66,15 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "viewProject": "View project",
     "cards": {
-      "support": {
-        "title": "Personalized Support",
-        "desc": "Work with dedicated consultants who understand your business goals."
+      "beelineHambi": {
+        "title": "Beeline Hambi",
+        "desc": "Development and launch of AI agents, scaled to 100,000+ MAU. Ed-tech and Med-tech solutions."
       },
-      "step": {
-        "title": "With You Every Step",
-        "desc": "We stay with you from the first consultation to post-launch."
+      "akfaMedline": {
+        "title": "AKFA Medline",
+        "desc": "Virtual Doctor — an AI-powered solution for patient consultations. RAG architecture with on-premise model deployment."
       },
       "impact": {
         "title": "Measurable Impact",

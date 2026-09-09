@@ -25,6 +25,11 @@ export default function HeroSection() {
   // Текущий активный язык
   const currentLang = (i18n.resolvedLanguage || 'ru').toUpperCase();
 
+  // Синхронизируем атрибут lang у <html> с выбранным языком интерфейса
+  useEffect(() => {
+    document.documentElement.lang = i18n.resolvedLanguage || 'ru';
+  }, [i18n.resolvedLanguage]);
+
   const smoothBlur = useRef(0);
 
   useEffect(() => {
@@ -158,6 +163,7 @@ export default function HeroSection() {
         <nav className="header-nav">
           <a href="#home" className="nav-link">{t('hero.service')}</a>
           <a href="#services" className="nav-link">{t('hero.work')}</a>
+          <a href="#work" className="nav-link">{t('hero.portfolioNav')}</a>
           <a href="#about" className="nav-link">{t('hero.blog')}</a>
           <a href="#contact" className="nav-link">{t('hero.about')}</a>
         </nav>
@@ -290,6 +296,9 @@ export default function HeroSection() {
             </a>
             <a href="#services" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.work')}
+            </a>
+            <a href="#work" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
+              {t('hero.portfolioNav')}
             </a>
             <a href="#about" className="mobile-nav-link" onClick={() => setIsBurgerOpen(false)}>
               {t('hero.blog')}
