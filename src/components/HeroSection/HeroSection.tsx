@@ -30,24 +30,6 @@ export default function HeroSection() {
     document.documentElement.lang = i18n.resolvedLanguage || 'ru';
   }, [i18n.resolvedLanguage]);
 
-  const smoothBlur = useRef(0);
-
-  useEffect(() => {
-    const animate = () => {
-      const target = blur;
-      smoothBlur.current += (target - smoothBlur.current) * 0.15;
-
-      document.documentElement.style.setProperty(
-        "--header-blur",
-        `${smoothBlur.current}px`
-      );
-
-      requestAnimationFrame(animate);
-    };
-
-    animate();
-  }, [blur]);
-
   // Блокировка прокрутки страницы при открытом бургер-меню
   useEffect(() => {
     if (isBurgerOpen) {
@@ -78,42 +60,45 @@ export default function HeroSection() {
     };
   }, []);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+  // Единый обработчик скролла: следит за порогом "прилипания" шапки и
+  // скоростью прокрутки для динамического блюра. Расчёт сведён в один
+  // rAF-тик на кадр, чтобы не гонять несколько слушателей на каждое
+  // событие скролла (их может быть десятки за секунду).
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let lastTime = performance.now();
+    let rafId: number | null = null;
 
-    const handleScroll = () => {
+    const measure = () => {
+      rafId = null;
+
       const currentScrollY = window.scrollY;
       const currentTime = performance.now();
 
+      setIsScrolled(currentScrollY > 20);
+
       const deltaY = Math.abs(currentScrollY - lastScrollY);
       const deltaTime = currentTime - lastTime;
-
       const speed = deltaTime > 0 ? deltaY / deltaTime : 0;
 
-      const newBlur = Math.min(speed * 80, 25);
-
-      setBlur(newBlur);
+      setBlur(Math.min(speed * 80, 25));
 
       lastScrollY = currentScrollY;
       lastTime = currentTime;
     };
 
+    const handleScroll = () => {
+      if (rafId === null) {
+        rafId = requestAnimationFrame(measure);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const languages = [
@@ -246,6 +231,7 @@ export default function HeroSection() {
 
         {/* Блок партнеров (Trust Section) */}
         <footer className="hero-brands-section">
+          <p className="brands-caption">{t('hero.trustedBy')}</p>
           <div className="brands-grid">
             {/* Набор №1 */}
             <img src="./1.png" alt="" />

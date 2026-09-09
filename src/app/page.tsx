@@ -29,6 +29,16 @@ export default function App() {
     };
   }, []);
 
+  // Пока прелоадер на экране, блокируем скролл и клики по контенту под ним —
+  // иначе скролл фоном уже двигает GSAP ScrollTrigger и триггерит анимации
+  // до того, как сайт готов их показать.
+  useEffect(() => {
+    document.body.style.overflow = isLoading ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
+
   return (
     <>
       {/* Прелоадер */}

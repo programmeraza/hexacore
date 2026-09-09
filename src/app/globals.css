@@ -39,6 +39,15 @@ ol,ul,a,p {
     padding: 0 16px;
 }
 
+/* Контент под прелоадером не должен реагировать на клики, пока не готов */
+.app-content-wrapper.locked {
+    pointer-events: none;
+}
+
+.app-content-wrapper.ready {
+    pointer-events: auto;
+}
+
 /* h1,h2,h3,h4,h5,h6 {
     font-weight: 400;
     font-style: normal;
