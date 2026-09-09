@@ -68,20 +68,20 @@
     "title": "Portfolio",
     "viewSite": "View site",
     "cards": {
-      "inspection": {
+      "tdyu": {
         "category": "Government",
-        "title": "Inspection",
-        "subtitle": "Information system"
+        "title": "TDYU",
+        "subtitle": "Admissions website"
       },
-      "karate": {
-        "category": "Website",
-        "title": "Karate",
-        "subtitle": "Blog / Media platform"
+      "hambi": {
+        "category": "Ed-tech · Med-tech",
+        "title": "Hambi",
+        "subtitle": "AI agents · 100,000+ MAU"
       },
-      "ag47": {
-        "category": "Own product",
-        "title": "AG47",
-        "subtitle": "Startup"
+      "smartloc": {
+        "category": "Geoanalytics",
+        "title": "SmartLoc",
+        "subtitle": "Retail geoanalytics"
       }
     }
   },

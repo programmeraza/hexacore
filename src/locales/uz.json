@@ -68,20 +68,20 @@
     "title": "Portfoliomiz",
     "viewSite": "Saytni ko'rish",
     "cards": {
-      "inspection": {
+      "tdyu": {
         "category": "Davlat",
-        "title": "Inspeksiya",
-        "subtitle": "Axborot tizimi"
+        "title": "TDYU",
+        "subtitle": "Abituriyentlar uchun sayt"
       },
-      "karate": {
-        "category": "Veb-sayt",
-        "title": "Karate",
-        "subtitle": "Blog / Media-platforma"
+      "hambi": {
+        "category": "Ed-tech · Med-tech",
+        "title": "Hambi",
+        "subtitle": "AI-agentlar · 100 000+ MAU"
       },
-      "ag47": {
-        "category": "O'z mahsuloti",
-        "title": "AG47",
-        "subtitle": "Startap"
+      "smartloc": {
+        "category": "Geoanalitika",
+        "title": "SmartLoc",
+        "subtitle": "Chakana savdo uchun geoanalitika"
       }
     }
   },

@@ -237,6 +237,14 @@
     transform: scale(1.05);
 }
 
+/* Логотип клиента вместо скриншота: показываем целиком по центру, без обрезки */
+.portfolio-device-screen img.portfolio-device-logo {
+    object-fit: contain;
+    object-position: center;
+    padding: 14%;
+    box-sizing: border-box;
+}
+
 .portfolio-device-placeholder {
     width: 100%;
     height: 100%;

@@ -12,29 +12,34 @@
 export interface PortfolioItem {
   /** Stable identifier. Also used as the i18n key: portfolio.cards.<id>.title/category/subtitle */
   id: string;
-  /** Screenshot of the project shown inside the laptop mockup — path in /public. */
+  /** Screenshot or logo shown inside the laptop mockup — path in /public. */
   image?: string;
+  /** How `image` fits its frame: 'cover' for a website screenshot, 'contain' for a logo. */
+  imageFit?: 'cover' | 'contain';
   /** Optional live URL. When set, the card's arrow icon and "view site" link become clickable. */
   link?: string;
 }
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    id: 'inspection',
-    // TODO: replace with a real screenshot of the "Инспекция" dashboard
+    id: 'tdyu',
+    // TODO: replace with the real TDYU logo/screenshot once the file is provided
     image: undefined,
+    imageFit: 'contain',
     link: undefined,
   },
   {
-    id: 'karate',
-    // TODO: replace with a real screenshot of the karate federation site
+    id: 'hambi',
+    // TODO: replace with the real Hambi logo/screenshot once the file is provided
     image: undefined,
+    imageFit: 'contain',
     link: undefined,
   },
   {
-    id: 'ag47',
-    // TODO: replace with a real screenshot of the AG47 site
+    id: 'smartloc',
+    // TODO: replace with the real SmartLoc logo/screenshot once the file is provided
     image: undefined,
+    imageFit: 'contain',
     link: undefined,
   },
 ];
