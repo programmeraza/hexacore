@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Preloader from '../components/Preloader/Preloader';
 import HeroSection from '../components/HeroSection/HeroSection';
 import ExpertiseSection from '../components/ExpertiseSection/ExpertiseSection';
@@ -33,9 +34,27 @@ export default function App() {
   // иначе скролл фоном уже двигает GSAP ScrollTrigger и триггерит анимации
   // до того, как сайт готов их показать.
   useEffect(() => {
-    document.body.style.overflow = isLoading ? 'hidden' : '';
+    if (isLoading) {
+      // Компенсируем ширину скроллбара паддингом, чтобы его скрытие не сдвигало
+      // разметку (а вместе с ней — уже посчитанные позиции ScrollTrigger).
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
+
+      // Пока прелоадер был на экране, могла измениться раскладка (шрифты,
+      // картинки, сам возврат скроллбара) — все триггеры GSAP (в т.ч. проявление
+      // букв NEUROTECH в футере) были посчитаны на "старой" геометрии. Без этого
+      // пересчёта они могут сработать не в той точке скролла, и снаружи это
+      // выглядит так, будто анимация пропала.
+      requestAnimationFrame(() => ScrollTrigger.refresh());
+    }
+
     return () => {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, [isLoading]);
 
