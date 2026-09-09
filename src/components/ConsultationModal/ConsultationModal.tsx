@@ -4,11 +4,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import './ConsultationModal.css';
 
-// Константы для интеграции с Telegram
-// ВНИМАНИЕ: Если это группа или канал, ID должен начинаться с -100 (например, '-1005178082257')
-const TELEGRAM_BOT_TOKEN = '8804223977:AAGqbDjSkYRhmECAbQ0l_n3MREC5N1EONHM';
-const TELEGRAM_CHAT_ID = '-1003905895594'; // Попробуйте этот ID, если прошлый выдавал 400
-
 export default function ConsultationModal() {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -28,14 +23,6 @@ export default function ConsultationModal() {
     { id: 'ai', translationKey: 'modal.types.ai', defaultLabel: 'AI решение' },
     { id: 'other', translationKey: 'modal.types.other', defaultLabel: 'Другое' }
   ];
-
-  // Функция для безопасного экранирования HTML-символов, чтобы Telegram не выдавал ошибку 400
-  const escapeHtml = (text: string): string => {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-  };
 
   useEffect(() => {
     const handleOpen = () => {
@@ -70,33 +57,13 @@ export default function ConsultationModal() {
 
     setStatus('loading');
 
-    // Находим название выбранного типа проекта
-    const selectedType = projectTypes.find((p) => p.id === projectType);
-    const resolvedTypeLabel = selectedType ? t(selectedType.translationKey) : t('modal.types.other');
-
-    // Экранируем введенные пользователем данные перед отправкой в Telegram HTML
-    const safeName = escapeHtml(name);
-    const safeContact = escapeHtml(contact);
-    const safeType = escapeHtml(resolvedTypeLabel);
-
-    const message = `
-<b>🔔 Новая заявка на консультацию!</b>\n
-<b>👤 Имя:</b> ${safeName}\n
-<b>📱 Контакт (TG/Тел):</b> ${safeContact}\n
-<b>💻 Тип проекта:</b> ${safeType}\n
-    `.trim();
-
     try {
-      const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      const response = await fetch('/api/consultation', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: message,
-          parse_mode: 'HTML',
-        }),
+        body: JSON.stringify({ name, contact, projectType }),
       });
 
       if (response.ok) {
