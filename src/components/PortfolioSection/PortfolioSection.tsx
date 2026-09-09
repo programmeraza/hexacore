@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioItems, type PortfolioItem } from './portfolioData';
 import './PortfolioSection.css';
 
-// Регистрируем плагин ScrollTrigger для GSAP
-gsap.registerPlugin(ScrollTrigger);
+// Регистрируем плагины GSAP. useGSAP используем вместо обычного useEffect —
+// это useLayoutEffect под капотом, как и в Footer.tsx. Если этот pin
+// создавать в обычном useEffect, React сначала выполнит ВСЕ layout-эффекты
+// (в т.ч. useGSAP в Footer.tsx) и только потом — этот, уже пассивный, эффект.
+// Тогда триггер в футере посчитает свою позицию до того, как здесь появится
+// pin-spacer, и посчитает её неверно — ровно на длину скролла этого пина.
+gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 // Вычисление координат мыши относительно карты для Spotlight-подсветки
 function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
@@ -73,60 +79,54 @@ export default function PortfolioSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
+  useGSAP(() => {
+    const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
 
-      // Инициализируем начальные позиции карт через GSAP:
-      // Первая карта на месте (0%), остальные скрыты внизу (100%)
-      gsap.set(cards, { yPercent: (i) => (i === 0 ? 0 : 100) });
+    // Инициализируем начальные позиции карт через GSAP:
+    // Первая карта на месте (0%), остальные скрыты внизу (100%)
+    gsap.set(cards, { yPercent: (i) => (i === 0 ? 0 : 100) });
 
-      // Создаем таймлайн скролла для стэка (работает на всех устройствах)
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          pin: true, // Замораживаем экран на месте
-          scrub: 1.2, // Плавный реверс анимации при скролле
-          start: 'top top', // Фиксируем, как только верх секции касается верха экрана
-          end: () => `+=${window.innerHeight * 3.5}`, // Длина скролла (длина стэка)
-          invalidateOnRefresh: true,
-          anticipatePin: 1, // Предотвращает рывки браузера при фиксации
-        }
-      });
+    // Создаем таймлайн скролла для стэка (работает на всех устройствах)
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        pin: true, // Замораживаем экран на месте
+        scrub: 1.2, // Плавный реверс анимации при скролле
+        start: 'top top', // Фиксируем, как только верх секции касается верха экрана
+        end: () => `+=${window.innerHeight * 3.5}`, // Длина скролла (длина стэка)
+        invalidateOnRefresh: true,
+        anticipatePin: 1, // Предотвращает рывки браузера при фиксации
+      }
+    });
 
-      // Поочередно анимируем наслоение карт и размытие предыдущих
-      cards.forEach((card, index) => {
-        if (index === 0) return; // Первая карта уже на месте
+    // Поочередно анимируем наслоение карт и размытие предыдущих
+    cards.forEach((card, index) => {
+      if (index === 0) return; // Первая карта уже на месте
 
-        const label = `card-${index}`;
+      const label = `card-${index}`;
 
-        tl.to(card, {
-          yPercent: 0, // Карта выезжает снизу вверх
-          ease: 'none',
-        }, label)
-        .to(cards[index - 1], {
-          scale: 0.92, // Предыдущая карта уменьшается
-          opacity: 0.35, // Предыдущая карта затухает
-          filter: 'blur(4px)', // Предыдущая карта уходит в мягкий фокус
-          ease: 'none',
-        }, label); // Запускаем строго одновременно с заходом новой карты
-      });
+      tl.to(card, {
+        yPercent: 0, // Карта выезжает снизу вверх
+        ease: 'none',
+      }, label)
+      .to(cards[index - 1], {
+        scale: 0.92, // Предыдущая карта уменьшается
+        opacity: 0.35, // Предыдущая карта затухает
+        filter: 'blur(4px)', // Предыдущая карта уходит в мягкий фокус
+        ease: 'none',
+      }, label); // Запускаем строго одновременно с заходом новой карты
+    });
 
-      // Буферный интервал в конце таймлайна для плавного выхода из секции
-      tl.to({}, { duration: 0.3 });
-
-    }, sectionRef);
+    // Буферный интервал в конце таймлайна для плавного выхода из секции
+    tl.to({}, { duration: 0.3 });
 
     // Обновляем триггеры после завершения рендеринга Next.js
     const refreshTimer = setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
 
-    return () => {
-      clearTimeout(refreshTimer);
-      ctx.revert(); // Полная очистка триггеров во избежание утечек памяти
-    };
-  }, []);
+    return () => clearTimeout(refreshTimer);
+  }, { scope: sectionRef });
 
   return (
     <section className="portfolio-section" id="work" ref={sectionRef}>
