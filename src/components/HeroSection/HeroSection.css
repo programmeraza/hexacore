@@ -94,12 +94,14 @@
   position: absolute;
   inset: 0;
 
+  /* Раньше здесь ещё был backdrop-filter: blur(6px) contrast(1.2) — это
+     на весь экран непрерывно пересчитывало блюр поверх живого WebGL-фона
+     LiquidEther каждый кадр, пока герой на экране (то есть почти всегда).
+     Уносим эффект в саму заливку — то же затемнение, без постоянной
+     дорогой перерисовки. */
   background: radial-gradient(circle at center,
-      rgba(0, 0, 0, 0.1) 0%,
-      rgba(0, 0, 0, 0.85) 100%);
-
-  backdrop-filter: blur(6px) contrast(1.2);
-  -webkit-backdrop-filter: blur(6px) contrast(1.2);
+      rgba(0, 0, 0, 0.22) 0%,
+      rgba(0, 0, 0, 0.88) 100%);
 
   pointer-events: none;
 }
@@ -108,8 +110,9 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(20px);
+  /* Аналогично: было ещё blur(20px) поверх той же анимации — тоже убрано,
+     затемнение оставляем через фон. */
+  background: rgba(0, 0, 0, 0.4);
   z-index: -1;
 }
 
