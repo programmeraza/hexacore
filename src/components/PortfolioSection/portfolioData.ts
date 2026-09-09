@@ -1,52 +1,40 @@
 /**
  * Portfolio content config.
  *
- * — To REORDER cards: change the order of items in this array (top = first card).
- * — To EDIT a card's title/description: edit the matching key in
+ * — To REORDER cards: change the order of items in this array (left = first card).
+ * — To EDIT a card's title/category/subtitle: edit the matching key in
  *   src/locales/{ru,en,uz}.json under "portfolio.cards.<id>".
  * — To ADD a card: push a new object here with a unique `id`, then add the
  *   matching "portfolio.cards.<id>" block to all three locale files.
  * — To REMOVE a card: delete its object here (the locale text can stay unused).
  */
 
-export type PortfolioVisual = 'image' | 'chart' | 'cube' | 'timeline';
-
 export interface PortfolioItem {
-  /** Stable identifier. Also used as the i18n key: portfolio.cards.<id>.title/desc */
+  /** Stable identifier. Also used as the i18n key: portfolio.cards.<id>.title/category/subtitle */
   id: string;
-  /** Which graphic to render on the card. */
-  visual: PortfolioVisual;
-  /** Screenshot/logo path in /public — required when visual is 'image'. */
+  /** Screenshot of the project shown inside the laptop mockup — path in /public. */
   image?: string;
-  /** Short badge shown above the title, e.g. "Ed-tech · Med-tech". Optional. */
-  tag?: string;
-  /** Optional external link (case study, live product, etc). Renders a CTA when set. */
+  /** Optional live URL. When set, the card's arrow icon and "view site" link become clickable. */
   link?: string;
 }
 
 export const portfolioItems: PortfolioItem[] = [
   {
-    id: 'beelineHambi',
-    visual: 'image',
-    image: '/beeline1.png',
-    tag: 'Ed-tech · Med-tech',
+    id: 'inspection',
+    // TODO: replace with a real screenshot of the "Инспекция" dashboard
+    image: undefined,
+    link: undefined,
   },
   {
-    id: 'akfaMedline',
-    visual: 'image',
-    image: '/akfa-medline.png',
-    tag: 'Healthcare · RAG',
+    id: 'karate',
+    // TODO: replace with a real screenshot of the karate federation site
+    image: undefined,
+    link: undefined,
   },
   {
-    id: 'impact',
-    visual: 'chart',
-  },
-  {
-    id: 'solutions',
-    visual: 'cube',
-  },
-  {
-    id: 'process',
-    visual: 'timeline',
+    id: 'ag47',
+    // TODO: replace with a real screenshot of the AG47 site
+    image: undefined,
+    link: undefined,
   },
 ];

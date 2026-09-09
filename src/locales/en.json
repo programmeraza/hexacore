@@ -66,27 +66,22 @@
   },
   "portfolio": {
     "title": "Portfolio",
-    "viewProject": "View project",
+    "viewSite": "View site",
     "cards": {
-      "beelineHambi": {
-        "title": "Beeline Hambi",
-        "desc": "Development and launch of AI agents, scaled to 100,000+ MAU. Ed-tech and Med-tech solutions."
+      "inspection": {
+        "category": "Government",
+        "title": "Inspection",
+        "subtitle": "Information system"
       },
-      "akfaMedline": {
-        "title": "AKFA Medline",
-        "desc": "Virtual Doctor — an AI-powered solution for patient consultations. RAG architecture with on-premise model deployment."
+      "karate": {
+        "category": "Website",
+        "title": "Karate",
+        "subtitle": "Blog / Media platform"
       },
-      "impact": {
-        "title": "Measurable Impact",
-        "desc": "We track progress and show ROI at every stage to ensure lasting success."
-      },
-      "solutions": {
-        "title": "Future-Ready Solutions",
-        "desc": "We design scalable systems that keep you competitive tomorrow."
-      },
-      "process": {
-        "title": "Transparent Process",
-        "desc": "You'll always know what's happening with clear timelines, regular updates, and open communication."
+      "ag47": {
+        "category": "Own product",
+        "title": "AG47",
+        "subtitle": "Startup"
       }
     }
   },

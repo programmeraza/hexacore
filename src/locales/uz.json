@@ -66,27 +66,22 @@
   },
   "portfolio": {
     "title": "Portfoliomiz",
-    "viewProject": "Loyihani ko'rish",
+    "viewSite": "Saytni ko'rish",
     "cards": {
-      "beelineHambi": {
-        "title": "Beeline Hambi",
-        "desc": "100,000+ MAU gacha kengaytirilgan AI-agentlarni ishlab chiqish va ishga tushirish. Ed-tech va Med-tech yechimlari."
+      "inspection": {
+        "category": "Davlat",
+        "title": "Inspeksiya",
+        "subtitle": "Axborot tizimi"
       },
-      "akfaMedline": {
-        "title": "AKFA Medline",
-        "desc": "Virtual shifokor — o'qitilgan AI modeli yordamida bemorlarni maslahatlashtirish uchun yechim. RAG arxitekturasi. Modelni on-premise joylashtirish."
+      "karate": {
+        "category": "Veb-sayt",
+        "title": "Karate",
+        "subtitle": "Blog / Media-platforma"
       },
-      "impact": {
-        "title": "O'lchanadigan natija",
-        "desc": "Biz uzoq muddatli muvaffaqiyatni ta'minlash uchun har bir bosqichda taraqqiyotni va ROI ko'rsatkichlarini kuzatamiz."
-      },
-      "solutions": {
-        "title": "Kelajakka tayyor yechimlar",
-        "desc": "Biz sizni ertaga ham raqobatbardosh qiladigan kengaytiriladigan tizimlarni loyihalashtiramiz."
-      },
-      "process": {
-        "title": "Shaffof jarayon",
-        "desc": "Aniq muddatlar, muntazam hisobotlar va ochiq muloqot tufayli nimalar bo'layotganini doimo bilib turasiz."
+      "ag47": {
+        "category": "O'z mahsuloti",
+        "title": "AG47",
+        "subtitle": "Startap"
       }
     }
   },
