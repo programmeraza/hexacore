@@ -20,7 +20,7 @@
     width: 100%;
     max-width: 480px;
     /* Ограничение ширины */
-    background: linear-gradient(135deg, rgba(24, 24, 24, 0.95) 0%, rgba(14, 14, 14, 0.98) 100%);
+    background: linear-gradient(135deg, rgb(24, 24, 24) 0%, rgb(14, 14, 14) 100%);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     padding: clamp(1.5rem, 3vw, 2.5rem);

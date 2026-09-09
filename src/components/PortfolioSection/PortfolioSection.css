@@ -446,10 +446,22 @@
     }
 }
 
-/* Для самых маленьких экранов (iPhone SE и т.д.) */
+/* Для самых маленьких экранов (iPhone SE и т.д., включая landscape-телефоны) */
 @media (max-height: 680px) {
+    .portfolio-title {
+        margin: 8px 0 12px 0;
+        font-size: 1.75rem;
+    }
+
+    .bento-card-tag {
+        display: none;
+        /* На таких экранах приоритет — заголовку и описанию, бейдж не влезает */
+    }
+
     .portfolio-stack-container {
         height: 60vh;
+        min-height: 235px;
+        /* Не даём стеку сжаться настолько, что текст карточки перестанет влезать */
     }
 
     .bento-card-desc {
@@ -461,8 +473,23 @@
         overflow: hidden;
     }
 
+    /* transform: scale() только визуально уменьшает графику, а место в
+       flex-раскладке карточки под неё остаётся прежним — из-за этого текст
+       ниже обрезался. Уменьшаем реальный размер блока и разрешаем ему
+       сжиматься меньше собственного содержимого. */
     .bento-graphic-wrapper {
-        transform: scale(0.9);
-        /* Пропорционально сжимаем графику */
+        flex: 0 1 auto;
+        min-height: 0;
+        padding: 0.25rem;
+    }
+
+    .image-placeholder img {
+        max-height: 55px;
+    }
+
+    .chart-placeholder,
+    .cube-nodes-placeholder,
+    .timeline-placeholder {
+        transform: scale(0.75);
     }
 }
