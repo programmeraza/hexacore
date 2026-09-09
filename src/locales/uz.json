@@ -5,6 +5,7 @@
     "blog": "Biz haqimizda ",
     "about": "Kontaktlar",
     "bookCall": "Maslahat",
+    "portfolioNav": "Portfolio",
     "titlePart1": "Kompleks IT Yechimlar, Arxitektura Dizaynidan Rivojlantirish, Joriy Etish va Masshtablashgacha",
     "titleHighlight": "Raqamli transformatsiya",
     "subtitle": "NEUROTECH — raqamli transformatsiyadagi hamkoringiz.",
@@ -65,14 +66,15 @@
   },
   "portfolio": {
     "title": "Portfoliomiz",
+    "viewProject": "Loyihani ko'rish",
     "cards": {
-      "support": {
-        "title": "Shaxsiy yordam",
-        "desc": "Sizning biznes maqsadlaringizni tushunadigan maxsus maslahatchilar bilan ishlang."
+      "beelineHambi": {
+        "title": "Beeline Hambi",
+        "desc": "100,000+ MAU gacha kengaytirilgan AI-agentlarni ishlab chiqish va ishga tushirish. Ed-tech va Med-tech yechimlari."
       },
-      "step": {
-        "title": "Har bir qadamda siz bilanmiz",
-        "desc": "Biz birinchi maslahatlashuvdan tortib, loyihani ishga tushirishgacha siz bilan qolamiz."
+      "akfaMedline": {
+        "title": "AKFA Medline",
+        "desc": "Virtual shifokor — o'qitilgan AI modeli yordamida bemorlarni maslahatlashtirish uchun yechim. RAG arxitekturasi. Modelni on-premise joylashtirish."
       },
       "impact": {
         "title": "O'lchanadigan natija",

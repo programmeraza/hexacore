@@ -4,10 +4,69 @@ import React, { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { portfolioItems, type PortfolioItem } from './portfolioData';
 import './PortfolioSection.css';
 
 // Регистрируем плагин ScrollTrigger для GSAP
 gsap.registerPlugin(ScrollTrigger);
+
+// Вычисление координат мыши относительно карты для Spotlight-подсветки
+function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  e.currentTarget.style.setProperty('--x', `${x}px`);
+  e.currentTarget.style.setProperty('--y', `${y}px`);
+}
+
+function PortfolioVisual({ item, title }: { item: PortfolioItem; title: string }) {
+  switch (item.visual) {
+    case 'image':
+      return (
+        <div className="image-placeholder">
+          <img src={item.image} alt={title} loading="lazy" />
+        </div>
+      );
+
+    case 'chart':
+      return (
+        <div className="chart-placeholder">
+          <div className="chart-title">Uptime Trends</div>
+          <div className="chart-bars">
+            <div className="chart-bar" style={{ height: '55%' }}></div>
+            <div className="chart-bar" style={{ height: '70%' }}></div>
+            <div className="chart-bar" style={{ height: '60%' }}></div>
+            <div className="chart-bar" style={{ height: '85%' }}></div>
+            <div className="chart-bar active" style={{ height: '95%' }}></div>
+            <div className="chart-bar" style={{ height: '75%' }}></div>
+            <div className="chart-bar" style={{ height: '80%' }}></div>
+          </div>
+        </div>
+      );
+
+    case 'cube':
+      return (
+        <div className="cube-nodes-placeholder">
+          <div className="cube-node-glow"></div>
+          <div className="cube-node-3d"></div>
+        </div>
+      );
+
+    case 'timeline':
+      return (
+        <div className="timeline-placeholder">
+          <div className="timeline-item">Brief approval</div>
+          <div className="timeline-item">Content plan</div>
+          <div className="timeline-item active">Client feedback</div>
+          <div className="timeline-item">Launch setup</div>
+        </div>
+      );
+
+    default:
+      return null;
+  }
+}
 
 export default function PortfolioSection() {
   const { t } = useTranslation();
@@ -16,8 +75,8 @@ export default function PortfolioSection() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-        const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
-      
+      const cards = gsap.utils.toArray<HTMLElement>('.portfolio-card');
+
       // Инициализируем начальные позиции карт через GSAP:
       // Первая карта на месте (0%), остальные скрыты внизу (100%)
       gsap.set(cards, { yPercent: (i) => (i === 0 ? 0 : 100) });
@@ -69,121 +128,48 @@ export default function PortfolioSection() {
     };
   }, []);
 
-  // Вычисление координат мыши относительно карты для Spotlight-подсветки
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-
-    e.currentTarget.style.setProperty('--x', `${x}px`);
-    e.currentTarget.style.setProperty('--y', `${y}px`);
-  };
-
   return (
     <section className="portfolio-section" id="work" ref={sectionRef}>
       <div className="portfolio-container">
-        
+
         {/* Заголовок блока */}
         <h2 className="portfolio-title">
           {t('portfolio.title')}
         </h2>
 
-        {/* Стек-контейнер карт */}
+        {/* Стек-контейнер карт. Порядок карточек задаётся массивом portfolioItems */}
         <div className="portfolio-stack-container" ref={containerRef}>
-          
-          {/* КАРТОЧКА 1: Personalized Support */}
-          <div 
-            className="portfolio-card card-first" 
-            onMouseMove={handleMouseMove}
-          >
-            <div className="bento-graphic-wrapper">
-              <div className="avatars-placeholder">
-                <img width={220} src="./beeline1.png" alt="" />
-              </div>
-            </div>
-            <div className="bento-text-content">
-              <h3 className="bento-card-title">{t('portfolio.cards.support.title')}</h3>
-              <p className="bento-card-desc">{t('portfolio.cards.support.desc')}</p>
-            </div>
-          </div>
+          {portfolioItems.map((item, index) => {
+            const title = t(`portfolio.cards.${item.id}.title`);
+            const desc = t(`portfolio.cards.${item.id}.desc`);
 
-          {/* КАРТОЧКА 2: With You Every Step */}
-          <div 
-            className="portfolio-card" 
-            onMouseMove={handleMouseMove}
-          >
-            <div className="bento-graphic-wrapper">
-              <div className="chat-placeholder">
-                <img src="./akfa-medline.png" alt="" />
-              </div>
-            </div>
-            <div className="bento-text-content">
-              <h3 className="bento-card-title">{t('portfolio.cards.step.title')}</h3>
-              <p className="bento-card-desc">{t('portfolio.cards.step.desc')}</p>
-            </div>
-          </div>
-
-          {/* КАРТОЧКА 3: Measurable Impact */}
-          <div 
-            className="portfolio-card" 
-            onMouseMove={handleMouseMove}
-          >
-            <div className="bento-graphic-wrapper">
-              <div className="chart-placeholder">
-                <div className="chart-title">Uptime Trends</div>
-                <div className="chart-bars">
-                  <div className="chart-bar" style={{ height: '55%' }}></div>
-                  <div className="chart-bar" style={{ height: '70%' }}></div>
-                  <div className="chart-bar" style={{ height: '60%' }}></div>
-                  <div className="chart-bar" style={{ height: '85%' }}></div>
-                  <div className="chart-bar active" style={{ height: '95%' }}></div>
-                  <div className="chart-bar" style={{ height: '75%' }}></div>
-                  <div className="chart-bar" style={{ height: '80%' }}></div>
+            return (
+              <div
+                key={item.id}
+                className={`portfolio-card ${index === 0 ? 'card-first' : ''}`}
+                onMouseMove={handleMouseMove}
+              >
+                <div className="bento-graphic-wrapper">
+                  <PortfolioVisual item={item} title={title} />
+                </div>
+                <div className="bento-text-content">
+                  {item.tag && <span className="bento-card-tag">{item.tag}</span>}
+                  <h3 className="bento-card-title">{title}</h3>
+                  <p className="bento-card-desc">{desc}</p>
+                  {item.link && (
+                    <a
+                      className="bento-card-link"
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('portfolio.viewProject')} →
+                    </a>
+                  )}
                 </div>
               </div>
-            </div>
-            <div className="bento-text-content">
-              <h3 className="bento-card-title">{t('portfolio.cards.impact.title')}</h3>
-              <p className="bento-card-desc">{t('portfolio.cards.impact.desc')}</p>
-            </div>
-          </div>
-
-          {/* КАРТОЧКА 4: Future-Ready Solutions */}
-          <div 
-            className="portfolio-card" 
-            onMouseMove={handleMouseMove}
-          >
-            <div className="bento-graphic-wrapper">
-              <div className="cube-nodes-placeholder">
-                <div className="cube-node-glow"></div>
-                <div className="cube-node-3d"></div>
-              </div>
-            </div>
-            <div className="bento-text-content">
-              <h3 className="bento-card-title">{t('portfolio.cards.solutions.title')}</h3>
-              <p className="bento-card-desc">{t('portfolio.cards.solutions.desc')}</p>
-            </div>
-          </div>
-
-          {/* КАРТОЧКА 5: Transparent Process */}
-          <div 
-            className="portfolio-card" 
-            onMouseMove={handleMouseMove}
-          >
-            <div className="bento-graphic-wrapper">
-              <div className="timeline-placeholder">
-                <div className="timeline-item">Brief approval</div>
-                <div className="timeline-item">Content plan</div>
-                <div className="timeline-item active">Client feedback</div>
-                <div className="timeline-item">Launch setup</div>
-              </div>
-            </div>
-            <div className="bento-text-content">
-              <h3 className="bento-card-title">{t('portfolio.cards.process.title')}</h3>
-              <p className="bento-card-desc">{t('portfolio.cards.process.desc')}</p>
-            </div>
-          </div>
-
+            );
+          })}
         </div>
       </div>
     </section>
