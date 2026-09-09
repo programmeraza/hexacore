@@ -19,6 +19,18 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Хедер зафиксирован (position: fixed) и перекрывает верх экрана во всех
+   разрешениях. Без этого якорные ссылки в навигации подводят верх секции
+   ровно под хедер, и первые ~80px контента (например, заголовок) прячутся
+   под ним. */
+#home,
+#services,
+#work,
+#about,
+#contact {
+    scroll-margin-top: 5rem;
+}
+
 body {
     /* font-family: 'Azeret Mono', monospace; */
     /* font-family: 'Geist', sans-serif; */
