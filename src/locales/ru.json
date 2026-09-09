@@ -68,20 +68,20 @@
     "title": "Портфолио",
     "viewSite": "Посмотреть сайт",
     "cards": {
-      "inspection": {
+      "tdyu": {
         "category": "Государственный",
-        "title": "Инспекция",
-        "subtitle": "Информационная система"
+        "title": "TDYU",
+        "subtitle": "Сайт для абитуриентов"
       },
-      "karate": {
-        "category": "Веб-сайт",
-        "title": "Каратэ",
-        "subtitle": "Блог / Медиа-платформа"
+      "hambi": {
+        "category": "Ed-tech · Med-tech",
+        "title": "Hambi",
+        "subtitle": "ИИ-агенты · 100 000+ MAU"
       },
-      "ag47": {
-        "category": "Собственный продукт",
-        "title": "AG47",
-        "subtitle": "Стартап"
+      "smartloc": {
+        "category": "Геоаналитика",
+        "title": "SmartLoc",
+        "subtitle": "Геоаналитика для ритейла"
       }
     }
   },
