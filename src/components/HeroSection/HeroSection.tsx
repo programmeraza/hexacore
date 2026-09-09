@@ -217,11 +217,8 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-buttons">
-            <a href="#services">
-              <button className="btn btn-secondary">{t('hero.getStarted')}</button>
-            </a>
             <button
-              className="btn btn-primary"
+              className="btn btn-secondary"
               onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
             >
               {t('hero.bookCall')}
@@ -231,7 +228,6 @@ export default function HeroSection() {
 
         {/* Блок партнеров (Trust Section) */}
         <footer className="hero-brands-section">
-          <p className="brands-caption">{t('hero.trustedBy')}</p>
           <div className="brands-grid">
             {/* Набор №1 */}
             <img src="./1.png" alt="" />

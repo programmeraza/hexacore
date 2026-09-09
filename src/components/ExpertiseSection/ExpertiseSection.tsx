@@ -160,11 +160,6 @@ export default function ExpertiseSection() {
         >
             <div className="expertise-container">
 
-                {/* Верхний бейдж */}
-                <div className="expertise-badge">
-                    <span>{t('expertise.eyebrow')}</span>
-                </div>
-
                 {/* Главный заголовок */}
                 <h2 className="expertise-title">
                     {t('expertise.title')}
@@ -189,17 +184,6 @@ export default function ExpertiseSection() {
                             </p>
                         </div>
                     ))}
-                </div>
-
-                {/* CTA под сеткой услуг — открывает форму заявки */}
-                <div className="expertise-footer">
-                    <p className="footer-prompt">{t('expertise.cantFind')}</p>
-                    <button
-                        className="btn btn-primary footer-cta-btn"
-                        onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
-                    >
-                        {t('expertise.cta')}
-                    </button>
                 </div>
             </div>
         </section>
