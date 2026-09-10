@@ -122,14 +122,14 @@
 
 /* --- НАВИГАЦИОННАЯ ПАНЕЛЬ --- */
 .header-nav {
-  width: 620px;
+  width: 720px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: rgba(30, 30, 30, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 24px;
-  padding: 16px 40px;
+  padding: 18px 44px;
   -webkit-backdrop-filter: blur(24px) saturate(190%);
   backdrop-filter: blur(24px) saturate(190%);
   box-shadow:
