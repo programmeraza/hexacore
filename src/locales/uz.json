@@ -69,19 +69,19 @@
     "viewSite": "Saytni ko'rish",
     "cards": {
       "tdyu": {
-        "category": "Davlat",
-        "title": "TDYU",
-        "subtitle": "Abituriyentlar uchun sayt"
+        "category": "RAG • On-premise • LLM",
+        "title": "TOSHKENT DAVLAT YURIDIK UNIVERSITETI",
+        "subtitle": "Mahalliy sun'iy intellektga ega avtomatlashtirilgan axborot tizimi"
       },
       "hambi": {
-        "category": "Ed-tech · Med-tech",
-        "title": "Hambi",
-        "subtitle": "AI-agentlar · 100 000+ MAU"
+        "category": "Computer Vision • STT • RAG",
+        "title": "Hambi, Beeline O'zbekiston",
+        "subtitle": "Virtual agentlarni ishga tushirish: AI-dietolog, AI-o'qituvchi, Chatbot"
       },
       "smartloc": {
-        "category": "Geoanalitika",
-        "title": "SmartLoc",
-        "subtitle": "Chakana savdo uchun geoanalitika"
+        "category": "BI • ML • Data Visualization",
+        "title": "SmartLoc MChJ",
+        "subtitle": "Asosiy ko'rsatkichlarni monitoring va tahlil qilish axborot tizimi"
       }
     }
   },
