@@ -179,29 +179,25 @@
     margin-top: auto;
 }
 
+/* Раньше рамка имитировала ноутбук: тонкая обводка сверху/по бокам без
+   низа плюс отдельная "подставка" (.portfolio-device-base) снизу. На
+   белом фоне логотипов эта обводка почти не читалась — рамка и лого
+   сливались. Теперь это самостоятельная рамка-паспарту со своей тенью:
+   обводка со всех сторон и небольшой равномерный отступ, чтобы тёмный
+   кант вокруг белой картинки был явно виден. */
 .portfolio-device-screen {
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 10;
     background: #0a0e12;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-bottom: none;
-    border-radius: 10px 10px 4px 4px;
-    padding: 10px 10px 0 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    padding: 10px;
     box-sizing: border-box;
     overflow: hidden;
-}
-
-.portfolio-device-dot {
-    position: absolute;
-    top: 3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
-    z-index: 2;
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.06);
 }
 
 .portfolio-device-screen img {
@@ -209,7 +205,7 @@
     height: 100%;
     object-fit: cover;
     object-position: top center;
-    border-radius: 4px 4px 0 0;
+    border-radius: 6px;
     display: block;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -267,13 +263,13 @@
     justify-content: center;
     gap: 0.75rem;
     background: radial-gradient(circle at center, rgba(0, 184, 219, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
-    border-radius: 4px 4px 0 0;
+    border-radius: 6px;
 }
 
 .portfolio-device-bar {
     position: absolute;
     top: 10px;
-    left: 26px;
+    left: 12px;
     right: 12px;
     height: 8px;
     border-radius: 4px;
@@ -284,26 +280,6 @@
     font-size: clamp(2rem, 4vw, 2.75rem);
     font-weight: 700;
     color: rgba(255, 255, 255, 0.12);
-}
-
-.portfolio-device-base {
-    position: relative;
-    height: 9px;
-    background: linear-gradient(180deg, #2c2c2e 0%, #19191b 100%);
-    border-radius: 0 0 7px 7px;
-}
-
-.portfolio-device-base::after {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 15%;
-    min-width: 40px;
-    height: 4px;
-    border-radius: 0 0 6px 6px;
-    background: #19191b;
 }
 
 /* --- ССЫЛКА "ПОСМОТРЕТЬ САЙТ" --- */

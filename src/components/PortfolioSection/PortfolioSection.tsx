@@ -77,7 +77,6 @@ export default function PortfolioSection() {
 
                 <div className="portfolio-device">
                   <div className="portfolio-device-screen">
-                    <span className="portfolio-device-dot" />
                     {item.image ? (
                       item.imageFit === 'contain' ? (
                         <div
@@ -95,7 +94,6 @@ export default function PortfolioSection() {
                       </div>
                     )}
                   </div>
-                  <div className="portfolio-device-base" />
                 </div>
 
                 {item.link && (
