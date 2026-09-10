@@ -15,8 +15,8 @@ function escapeHtml(text: string): string {
 }
 
 export async function POST(request: Request) {
-  const botToken = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
+  const botToken = process.env.8804223977:AAGqbDjSkYRhmECAbQ0l_n3MREC5N1EONHM;
+  const chatId = process.env.5382704012;
 
   if (!botToken || !chatId) {
     console.error('TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID are not configured on the server');
