@@ -23,22 +23,19 @@ export interface PortfolioItem {
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 'tdyu',
-    // TODO: replace with the real TDYU logo/screenshot once the file is provided
-    image: undefined,
+    image: '/tdyu.png',
     imageFit: 'contain',
     link: undefined,
   },
   {
     id: 'hambi',
-    // TODO: replace with the real Hambi logo/screenshot once the file is provided
-    image: undefined,
+    image: '/hambi.png',
     imageFit: 'contain',
     link: undefined,
   },
   {
     id: 'smartloc',
-    // TODO: replace with the real SmartLoc logo/screenshot once the file is provided
-    image: undefined,
+    image: '/smartloc.png',
     imageFit: 'contain',
     link: undefined,
   },

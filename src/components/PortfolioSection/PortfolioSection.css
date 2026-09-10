@@ -238,12 +238,25 @@
     transform: scale(1.05);
 }
 
-/* Логотип клиента вместо скриншота: показываем целиком по центру, без обрезки */
-.portfolio-device-screen img.portfolio-device-logo {
+/* Логотип клиента вместо скриншота: светлая плашка по центру рамки —
+   логотипы бывают на прозрачном или белом фоне, тёмная карточка их "съедала" */
+.portfolio-device-logo-chip {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-device-logo-chip img {
+    width: 46%;
+    aspect-ratio: 1 / 1;
     object-fit: contain;
-    object-position: center;
-    padding: 14%;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 12%;
     box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
 .portfolio-device-placeholder {
