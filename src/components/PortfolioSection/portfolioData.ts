@@ -16,6 +16,8 @@ export interface PortfolioItem {
   image?: string;
   /** How `image` fits its frame: 'cover' for a website screenshot, 'contain' for a logo. */
   imageFit?: 'cover' | 'contain';
+  /** Logo has a transparent/dark background and needs a white backing chip to stay legible. */
+  logoOnWhite?: boolean;
   /** Optional live URL. When set, the card's arrow icon and "view site" link become clickable. */
   link?: string;
 }
@@ -25,6 +27,7 @@ export const portfolioItems: PortfolioItem[] = [
     id: 'tdyu',
     image: '/tdyu.png',
     imageFit: 'contain',
+    logoOnWhite: true,
     link: undefined,
   },
   {
