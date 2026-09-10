@@ -97,13 +97,13 @@ export default function PortfolioSection() {
                   <div className="portfolio-device-screen">
                     <span className="portfolio-device-dot" />
                     {item.image ? (
-                      <img
-                        src={item.image}
-                        alt={title}
-                        loading="lazy"
-                        draggable={false}
-                        className={item.imageFit === 'contain' ? 'portfolio-device-logo' : undefined}
-                      />
+                      item.imageFit === 'contain' ? (
+                        <div className="portfolio-device-logo-chip">
+                          <img src={item.image} alt={title} loading="lazy" draggable={false} />
+                        </div>
+                      ) : (
+                        <img src={item.image} alt={title} loading="lazy" draggable={false} />
+                      )
                     ) : (
                       <div className="portfolio-device-placeholder">
                         <span className="portfolio-device-bar" />
