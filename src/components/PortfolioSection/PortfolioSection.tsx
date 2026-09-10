@@ -98,7 +98,9 @@ export default function PortfolioSection() {
                     <span className="portfolio-device-dot" />
                     {item.image ? (
                       item.imageFit === 'contain' ? (
-                        <div className="portfolio-device-logo-chip">
+                        <div
+                          className={`portfolio-device-logo-chip ${item.logoOnWhite ? 'portfolio-device-logo-chip--white' : ''}`}
+                        >
                           <img src={item.image} alt={title} loading="lazy" draggable={false} />
                         </div>
                       ) : (
