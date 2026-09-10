@@ -69,19 +69,19 @@
     "viewSite": "View site",
     "cards": {
       "tdyu": {
-        "category": "Government",
-        "title": "TDYU",
-        "subtitle": "Admissions website"
+        "category": "RAG • On-premise • LLM",
+        "title": "TASHKENT STATE UNIVERSITY OF LAW",
+        "subtitle": "Automated Information System with On-Premise AI"
       },
       "hambi": {
-        "category": "Ed-tech · Med-tech",
-        "title": "Hambi",
-        "subtitle": "AI agents · 100,000+ MAU"
+        "category": "Computer Vision • STT • RAG",
+        "title": "Hambi, Beeline Uzbekistan",
+        "subtitle": "Launch of Virtual Agents: AI Nutritionist, AI Tutor, Chatbot"
       },
       "smartloc": {
-        "category": "Geoanalytics",
-        "title": "SmartLoc",
-        "subtitle": "Retail geoanalytics"
+        "category": "BI • ML • Data Visualization",
+        "title": "SmartLoc LLC",
+        "subtitle": "Information System for Monitoring and Analysis of Key Metrics"
       }
     }
   },

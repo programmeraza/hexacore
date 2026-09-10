@@ -69,19 +69,19 @@
     "viewSite": "Посмотреть сайт",
     "cards": {
       "tdyu": {
-        "category": "Государственный",
-        "title": "TDYU",
-        "subtitle": "Сайт для абитуриентов"
+        "category": "RAG • On-premise • LLM",
+        "title": "ТАШКЕНТСКИЙ ГОСУДАРСТВЕННЫЙ ЮРИДИЧЕСКИЙ УНИВЕРСИТЕТ",
+        "subtitle": "Автоматизированная Информационная Система с Локальным ИИ"
       },
       "hambi": {
-        "category": "Ed-tech · Med-tech",
-        "title": "Hambi",
-        "subtitle": "ИИ-агенты · 100 000+ MAU"
+        "category": "Computer Vision • STT • RAG",
+        "title": "Hambi, Beeline Узбекистан",
+        "subtitle": "Запуск Виртуальных Агентов: ИИ-диетолог, ИИ-преподаватель, Чатбот"
       },
       "smartloc": {
-        "category": "Геоаналитика",
-        "title": "SmartLoc",
-        "subtitle": "Геоаналитика для ритейла"
+        "category": "BI • ML • Data Visualization",
+        "title": "ООО «СМАРТЛОК»",
+        "subtitle": "Информационная Система Мониторинга и Анализа Ключевых Показателей"
       }
     }
   },
