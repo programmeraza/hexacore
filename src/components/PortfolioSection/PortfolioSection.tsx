@@ -61,12 +61,6 @@ export default function PortfolioSection() {
             const title = t(`portfolio.cards.${item.id}.title`);
             const subtitle = t(`portfolio.cards.${item.id}.subtitle`);
 
-            const CardArrow = (
-              <span className="portfolio-card-arrow" aria-hidden={!item.link}>
-                <ArrowIcon />
-              </span>
-            );
-
             return (
               <div
                 key={item.id}
@@ -76,18 +70,6 @@ export default function PortfolioSection() {
               >
                 <div className="portfolio-card-top">
                   <span className="portfolio-card-category">{category}</span>
-                  {item.link ? (
-                    <a
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`${t('portfolio.viewSite')}: ${title}`}
-                    >
-                      {CardArrow}
-                    </a>
-                  ) : (
-                    CardArrow
-                  )}
                 </div>
 
                 <h3 className="portfolio-card-title">{title}</h3>
