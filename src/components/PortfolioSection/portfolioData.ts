@@ -25,21 +25,17 @@ export interface PortfolioItem {
 export const portfolioItems: PortfolioItem[] = [
   {
     id: 'tdyu',
-    image: '/tdyu.png',
-    imageFit: 'contain',
-    logoOnWhite: true,
+    image: '/logo-tdyu.png',
     link: undefined,
   },
   {
     id: 'hambi',
-    image: '/hambi.png',
-    imageFit: 'contain',
+    image: '/logo-hambi.png',
     link: undefined,
   },
   {
     id: 'smartloc',
-    image: '/smartloc.png',
-    imageFit: 'contain',
+    image: '/logo-smartloc.png',
     link: undefined,
   },
 ];

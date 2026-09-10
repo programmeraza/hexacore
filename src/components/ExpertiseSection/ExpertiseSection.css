@@ -2,7 +2,12 @@
 .expertise-section {
     position: relative;
     width: 100%;
-    padding: clamp(1rem, 0vw, 8rem) clamp(1.25rem, 5vw, 4rem);
+    /* Раньше здесь было clamp(1rem, 0vw, 8rem) — предпочитаемое значение 0vw
+       не зависит от вьюпорта, поэтому clamp всегда упирался в минимум (1rem),
+       и отступ сверху/снизу секции был случайно в разы меньше, чем у соседних
+       секций. Используем тот же вертикальный отступ, что и у .portfolio-section,
+       чтобы расстояние до заголовка было одинаковым между блоками. */
+    padding: clamp(4rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem);
     box-sizing: border-box;
     overflow: hidden;
     color: #ffffff;
@@ -97,7 +102,7 @@
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 700;
     letter-spacing: -0.02em;
-    margin: 16px 0 clamp(2.5rem, 5vw, 4rem) 0;
+    margin: 0 0 clamp(2.5rem, 5vw, 4rem) 0;
     text-align: center;
     background: linear-gradient(135deg, #ffffff 50%, rgba(255, 255, 255, 0.4) 100%);
     background-clip: text;
@@ -114,7 +119,6 @@
     gap: clamp(1rem, 2vw, 1.75rem);
     /* Резиновые зазоры */
     width: 100%;
-    margin-bottom: clamp(3rem, 6vw, 5rem);
 }
 
 /* --- КАРТОЧКА НА СТИЛЕ macOS GLASS (С АНИМАЦИЕЙ И РЕЗИНОВЫМИ ОТСТУПАМИ) --- */
@@ -210,34 +214,3 @@
     margin: 0;
 }
 
-/* --- НИЖНИЙ БЛОК CTA --- */
-.expertise-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    margin-top: 1rem;
-    width: 100%;
-}
-
-.footer-prompt {
-    font-size: 0.9375rem;
-    color: rgba(255, 255, 255, 0.5);
-    margin: 0;
-    font-weight: 500;
-    text-align: center;
-}
-
-.footer-cta-btn {
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.8rem 2.25rem;
-}
-
-/* --- АДАПТИВНОСТЬ КНОПКИ CTA --- */
-@media (max-width: 640px) {
-    .footer-cta-btn {
-        width: 100%;
-        /* Кнопка растягивается на всю ширину только на смартфонах */
-    }
-}
