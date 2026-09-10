@@ -107,7 +107,6 @@ export default function ConsultationModal() {
               placeholder={t('modal.namePlaceholder')}
               value={name}
               onChange={(e) => setName(e.target.value)}
-              required
             />
           </div>
 
@@ -119,7 +118,6 @@ export default function ConsultationModal() {
               placeholder={t('modal.contactPlaceholder')}
               value={contact}
               onChange={(e) => setContact(e.target.value)}
-              required
             />
           </div>
 
