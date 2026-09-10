@@ -108,7 +108,9 @@ export default function HeroSection() {
           mouseForce={32}
           cursorSize={100}
           isViscous={false}
-          resolution={0.55}
+          resolution={0.18}
+          iterationsPoisson={6}
+          BFECC={false}
           colors={['#03080c', '#009DBD', '#00B8DB']}
           autoDemo={true}
           autoSpeed={0.4}
