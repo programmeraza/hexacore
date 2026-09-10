@@ -71,17 +71,17 @@
       "tdyu": {
         "category": "RAG • On-premise • LLM",
         "title": "TSUL",
-        "subtitle": "Automated Information System with On-Premise AI"
+        "subtitle": "Tashkent State University of Law. Information System with an On-Premise AI Model."
       },
       "hambi": {
         "category": "Computer Vision • STT • RAG",
         "title": "Hambi, Beeline Uzbekistan",
-        "subtitle": "Launch of Virtual Agents: AI Nutritionist, AI Tutor, Chatbot"
+        "subtitle": "Launch of Virtual Agents: AI Nutritionist, AI English Tutor, AI Chatbot."
       },
       "smartloc": {
         "category": "BI • ML • Data Visualization",
         "title": "SmartLoc LLC",
-        "subtitle": "Information System for Monitoring and Analysis of Key Metrics"
+        "subtitle": "BI Platform for Monitoring, Analysis, and Visualization of the Company's Key Metrics."
       }
     }
   },

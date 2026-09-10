@@ -71,17 +71,17 @@
       "tdyu": {
         "category": "RAG • On-premise • LLM",
         "title": "TDYU",
-        "subtitle": "Mahalliy sun'iy intellektga ega avtomatlashtirilgan axborot tizimi"
+        "subtitle": "Toshkent Davlat Yuridik Universiteti. Mahalliy AI Modeliga Ega Axborot Tizimi."
       },
       "hambi": {
         "category": "Computer Vision • STT • RAG",
         "title": "Hambi, Beeline O'zbekiston",
-        "subtitle": "Virtual agentlarni ishga tushirish: AI-dietolog, AI-o'qituvchi, Chatbot"
+        "subtitle": "Virtual Agentlarni Ishga Tushirish: AI-Dietolog, Ingliz Tili AI-O'qituvchisi, AI-Chatbot."
       },
       "smartloc": {
         "category": "BI • ML • Data Visualization",
         "title": "SmartLoc MChJ",
-        "subtitle": "Asosiy ko'rsatkichlarni monitoring va tahlil qilish axborot tizimi"
+        "subtitle": "Kompaniyaning Asosiy Ko'rsatkichlarini Monitoring Qilish, Tahlil Qilish va Vizualizatsiya Qilish uchun BI-Platforma."
       }
     }
   },
