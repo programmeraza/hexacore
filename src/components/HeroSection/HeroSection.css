@@ -831,6 +831,10 @@
     padding: 3rem 0;
   }
 
+  .hero-title {
+    font-size: calc(7.71vw - 3.069px);
+  }
+
   .hero-buttons {
     width: 100%;
     flex-direction: column;
@@ -840,7 +844,7 @@
 
   .hero-buttons .specular-button {
     width: auto;
-    padding: 11px 22px;
-    font-size: 0.9rem;
+    padding: 14px 32px;
+    font-size: 1.15rem;
   }
 }
