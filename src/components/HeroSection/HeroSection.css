@@ -412,7 +412,7 @@
   font-size: clamp(0.8rem, 0.8rem + 0.85vw, 1.4rem);
   line-height: 1.2;
   color: #9ca3af;
-  margin: 0 auto 2.5rem auto;
+  margin: 0 40px 2.5rem;
   max-width: 660px;
   opacity: 0;
   transform: translateY(24px);
