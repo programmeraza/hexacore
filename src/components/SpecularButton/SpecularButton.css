@@ -58,8 +58,8 @@
 }
 
 .specular-button--lg {
-  font-size: 1.15rem;
-  padding: 18px 40px;
+  font-size: 1.35rem;
+  padding: 17px 40px;
 }
 
 /* Canvas extends past the button so the rim glow can bleed outside the edge */
