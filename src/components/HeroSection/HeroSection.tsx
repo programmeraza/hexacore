@@ -211,6 +211,7 @@ export default function HeroSection() {
               textColor="#ffffff"
               shineSize={12}
               shineFade={45}
+              autoAnimate={true}
               onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
             >
               {t('hero.bookCall')}
