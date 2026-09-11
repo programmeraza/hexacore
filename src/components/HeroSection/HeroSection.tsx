@@ -2,13 +2,18 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import LightRays from '../LightRays/LightRays';
 import SpecularButton from '../SpecularButton/SpecularButton';
 import '../../i18n'; // Импортируем инициализацию i18n
 import './HeroSection.css';
 
+gsap.registerPlugin(useGSAP);
+
 export default function HeroSection() {
   const { t, i18n } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
 
   // Состояния для десктопного меню выбора языка
   const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
@@ -89,6 +94,19 @@ export default function HeroSection() {
     };
   }, []);
 
+  // Вступительная анимация вместо прелоадера: шапка и контент героя плавно
+  // поднимаются на место при каждой загрузке страницы. Стартовая поза (opacity:0
+  // + смещение) задана в CSS, чтобы не было вспышки уже видимого контента до
+  // того, как отработает эта анимация.
+  useGSAP(() => {
+    gsap.timeline({ defaults: { ease: 'power3.out' } })
+      .to('.hero-header', { y: 0, opacity: 1, duration: 0.8 })
+      .to('.hero-title', { y: 0, opacity: 1, duration: 0.9 }, '-=0.5')
+      .to('.hero-subtitle', { y: 0, opacity: 1, duration: 0.8 }, '-=0.6')
+      .to('.hero-buttons', { y: 0, opacity: 1, duration: 0.7 }, '-=0.5')
+      .to('.hero-brands-section', { y: 0, opacity: 1, duration: 0.8 }, '-=0.4');
+  }, { scope: sectionRef });
+
   const languages = [
     { code: 'en' as const, label: 'EN' },
     { code: 'ru' as const, label: 'RU' },
@@ -102,7 +120,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section id='home' className="hero-section">
+    <section id='home' className="hero-section" ref={sectionRef}>
       {/* Интерактивный фон — лучи света в фирменных цветах сайта */}
       <div className="hero-background">
         <LightRays

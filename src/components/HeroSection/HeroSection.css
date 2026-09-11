@@ -72,6 +72,10 @@
   padding: 0 4rem;
   box-sizing: border-box;
 
+  /* Стартовая поза для reveal-анимации при загрузке страницы (см. HeroSection.tsx) */
+  opacity: 0;
+  transform: translateY(-20px);
+
   transition: background-color 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
 }
 
@@ -399,6 +403,9 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  /* Стартовая поза для reveal-анимации при загрузке страницы (см. HeroSection.tsx) */
+  opacity: 0;
+  transform: translateY(32px);
 }
 
 .hero-subtitle {
@@ -407,11 +414,15 @@
   color: #9ca3af;
   margin: 0 auto 2.5rem auto;
   max-width: 660px;
+  opacity: 0;
+  transform: translateY(24px);
 }
 
 .hero-buttons {
   display: flex;
   gap: 1rem;
+  opacity: 0;
+  transform: translateY(18px);
 }
 
 /* --- ЛОГОТИПЫ БРЕНДОВ --- */
@@ -422,6 +433,8 @@
   gap: 1.5rem;
   padding-bottom: 2rem;
   width: 100%;
+  opacity: 0;
+  transform: translateY(14px);
 }
 
 .brands-grid {
