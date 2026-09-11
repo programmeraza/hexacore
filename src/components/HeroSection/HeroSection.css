@@ -839,5 +839,7 @@
 
   .hero-buttons .specular-button {
     width: 100%;
+    padding: 14px 28px;
+    font-size: 1rem;
   }
 }
