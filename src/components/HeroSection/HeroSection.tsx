@@ -2,7 +2,8 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import LiquidEther from '../LiquidEther/LiquidEther';
+import LightRays from '../LightRays/LightRays';
+import SpecularButton from '../SpecularButton/SpecularButton';
 import '../../i18n'; // Импортируем инициализацию i18n
 import './HeroSection.css';
 
@@ -102,18 +103,20 @@ export default function HeroSection() {
 
   return (
     <section id='home' className="hero-section">
-      {/* 3D-эффект в качестве интерактивного фона */}
+      {/* Интерактивный фон — лучи света в фирменных цветах сайта */}
       <div className="hero-background">
-        <LiquidEther
-          mouseForce={32}
-          cursorSize={100}
-          isViscous={false}
-          resolution={0.18}
-          iterationsPoisson={6}
-          BFECC={false}
-          colors={['#03080c', '#009DBD', '#00B8DB']}
-          autoDemo={true}
-          autoSpeed={0.4}
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#00b8db"
+          raysSpeed={1.1}
+          lightSpread={0.85}
+          rayLength={1.6}
+          fadeDistance={1.2}
+          saturation={0.9}
+          followMouse={true}
+          mouseInfluence={0.15}
+          noiseAmount={0.06}
+          distortion={0.04}
         />
         <div className="hero-overlay" />
       </div>
@@ -200,12 +203,18 @@ export default function HeroSection() {
           </p>
 
           <div className="hero-buttons">
-            <button
-              className="btn btn-secondary"
+            <SpecularButton
+              size="lg"
+              radius={999}
+              baseColor="#1e1e1e"
+              lineColor="#00b8db"
+              textColor="#ffffff"
+              shineSize={12}
+              shineFade={45}
               onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
             >
               {t('hero.bookCall')}
-            </button>
+            </SpecularButton>
           </div>
         </main>
 
