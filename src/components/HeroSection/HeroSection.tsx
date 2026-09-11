@@ -230,6 +230,7 @@ export default function HeroSection() {
               shineSize={12}
               shineFade={45}
               autoAnimate={true}
+              speed={0.7}
               onClick={() => window.dispatchEvent(new CustomEvent('open-consultation'))}
             >
               {t('hero.bookCall')}
