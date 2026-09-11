@@ -21,7 +21,7 @@ const SITE_DESCRIPTION =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "NEUROTECH — AI-решения и цифровая трансформация бизнеса",
+    default: "NEUROTECH",
     template: "%s | NEUROTECH",
   },
   description: SITE_DESCRIPTION,
