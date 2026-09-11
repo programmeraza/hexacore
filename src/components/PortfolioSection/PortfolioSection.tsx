@@ -69,7 +69,9 @@ export default function PortfolioSection() {
                 onMouseMove={handleMouseMove}
               >
                 <div className="portfolio-card-top">
-                  <span className="portfolio-card-category">{category}</span>
+                  {category.split(' • ').map((tag) => (
+                    <span key={tag} className="portfolio-card-category">{tag}</span>
+                  ))}
                 </div>
 
                 <h3 className="portfolio-card-title">{title}</h3>
