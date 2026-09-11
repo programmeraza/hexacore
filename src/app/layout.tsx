@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -77,7 +78,20 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       {/* <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></link> */}
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {/*
+          Браузер восстанавливает прежнюю позицию скролла при обновлении
+          страницы РАНЬШЕ, чем успевает выполниться React-эффект — поэтому
+          сброс scrollRestoration/позиции скролла из компонента иногда
+          не срабатывает. beforeInteractive гарантирует, что этот код
+          выполнится до того, как браузер восстановит скролл, — hero-секция
+          и её reveal-анимация при любом обновлении всегда стартуют сверху.
+        */}
+        <Script id="scroll-restoration-fix" strategy="beforeInteractive">
+          {`try{if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);}catch(e){}`}
+        </Script>
+        {children}
+      </body>
     </html>
   );
 }
