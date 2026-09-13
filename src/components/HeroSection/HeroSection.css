@@ -837,10 +837,6 @@
     font-size: calc(8vw - 3.7px);
   }
 
-  .hero-subtitle {
-    font-size: 18px;
-  }
-
   .hero-buttons {
     width: 100%;
     flex-direction: column;
