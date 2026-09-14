@@ -101,7 +101,7 @@ export default function Footer() {
               />
               <div className="footer-socials">
                 <a
-                  href="#"
+                  href="https://www.instagram.com/k_aziz011/"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
@@ -110,7 +110,7 @@ export default function Footer() {
                 </a>
 
                 <a
-                  href="#"
+                  href="https://t.me/aziz_k_11"
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Telegram"
