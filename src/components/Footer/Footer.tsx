@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useRef } from 'react';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -91,8 +92,10 @@ export default function Footer() {
 
             <div className="row1">
 
-              <img
-                width={200}
+              <Image
+                width={1134}
+                height={287}
+                style={{ width: 200, height: 'auto' }}
                 src="/logo2.png"
                 alt="logo"
               />

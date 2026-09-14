@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
@@ -145,7 +146,7 @@ export default function HeroSection() {
       */}
       <header className={`hero-header ${isScrolled ? "scrolled" : ""}`}>
         <div className="header-logo">
-          <img src="./logo2.png" alt="logo" />
+          <Image src="/logo2.png" alt="logo" width={1134} height={287} loading="eager" />
         </div>
 
         {/* Десктопная навигация */}
@@ -166,9 +167,11 @@ export default function HeroSection() {
               aria-haspopup="listbox"
               aria-expanded={isDesktopDropdownOpen}
             >
-              <img
-                src={`./${currentLang.toLowerCase()}.png`}
+              <Image
+                src={`/${currentLang.toLowerCase()}.png`}
                 alt={currentLang}
+                width={32}
+                height={32}
                 className="flag-icon-image"
               />
               <span className="lang-text">{currentLang}</span>
@@ -184,9 +187,11 @@ export default function HeroSection() {
                   role="option"
                   aria-selected={currentLang === label}
                 >
-                  <img
-                    src={`./${code}.png`}
+                  <Image
+                    src={`/${code}.png`}
                     alt={label}
+                    width={32}
+                    height={32}
                     className="flag-icon-image"
                   />
                   <span className="option-text">{label}</span>
@@ -242,22 +247,14 @@ export default function HeroSection() {
         <footer className="hero-brands-section">
           <div className="brands-grid">
             {/* Набор №1 */}
-            <img src="./1.png" alt="" />
-            <img src="./2.png" alt="" />
-            <img src="./3.png" alt="" />
-            <img src="./4.png" alt="" />
-            <img src="./5.png" alt="" />
-            <img src="./6.png" alt="" />
-            <img src="./7.png" alt="" />
+            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <Image key={`set1-${n}`} src={`/${n}.png`} alt="" width={62} height={62} />
+            ))}
 
-            {/* Набор №2 */}
-            <img src="./1.png" alt="" />
-            <img src="./2.png" alt="" />
-            <img src="./3.png" alt="" />
-            <img src="./4.png" alt="" />
-            <img src="./5.png" alt="" />
-            <img src="./6.png" alt="" />
-            <img src="./7.png" alt="" />
+            {/* Набор №2 (дублируем для бесшовной волновой анимации) */}
+            {[1, 2, 3, 4, 5, 6, 7].map((n) => (
+              <Image key={`set2-${n}`} src={`/${n}.png`} alt="" width={62} height={62} />
+            ))}
           </div>
         </footer>
 
@@ -272,7 +269,7 @@ export default function HeroSection() {
       {/* Выдвижное полноэкранное меню */}
       <aside className={`mobile-menu-drawer ${isBurgerOpen ? 'open' : ''}`}>
         <div className="mobile-menu-drawer-flex">
-          <img className='mobile-menu-drawer-img' src="./logo2.png" alt="logo" />
+          <Image className='mobile-menu-drawer-img' src="/logo2.png" alt="logo" width={1134} height={287} />
           <button
             className="mobile-menu-close-btn"
             onClick={() => setIsBurgerOpen(false)}
@@ -311,9 +308,11 @@ export default function HeroSection() {
                 aria-haspopup="listbox"
                 aria-expanded={isMobileDropdownOpen}
               >
-                <img
-                  src={`./${currentLang.toLowerCase()}.png`}
+                <Image
+                  src={`/${currentLang.toLowerCase()}.png`}
                   alt={currentLang}
+                  width={32}
+                  height={32}
                   className="flag-icon-image"
                 />
                 <span className="lang-text">{currentLang}</span>
@@ -329,9 +328,11 @@ export default function HeroSection() {
                     role="option"
                     aria-selected={currentLang === label}
                   >
-                    <img
-                      src={`./${code}.png`}
+                    <Image
+                      src={`/${code}.png`}
                       alt={label}
+                      width={32}
+                      height={32}
                       className="flag-icon-image"
                     />
                     <span className="option-text">{label}</span>

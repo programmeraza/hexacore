@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { portfolioItems } from './portfolioData';
 import './PortfolioSection.css';
@@ -84,10 +85,25 @@ export default function PortfolioSection() {
                         <div
                           className={`portfolio-device-logo-chip ${item.logoOnWhite ? 'portfolio-device-logo-chip--white' : ''}`}
                         >
-                          <img src={item.image} alt={title} loading="lazy" draggable={false} />
+                          {/* CSS caps this at max-height:78% and centers it — a fixed
+                              width/height (not `fill`) keeps that sizing intact. */}
+                          <Image
+                            src={item.image}
+                            alt={title}
+                            width={item.imageWidth ?? 1672}
+                            height={item.imageHeight ?? 941}
+                            draggable={false}
+                          />
                         </div>
                       ) : (
-                        <img src={item.image} alt={title} loading="lazy" draggable={false} />
+                        // Fills the 16:10 device frame and crops via object-fit: cover.
+                        <Image
+                          src={item.image}
+                          alt={title}
+                          fill
+                          sizes="(max-width: 900px) 100vw, 33vw"
+                          draggable={false}
+                        />
                       )
                     ) : (
                       <div className="portfolio-device-placeholder">
