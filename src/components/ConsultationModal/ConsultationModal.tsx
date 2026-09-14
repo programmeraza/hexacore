@@ -10,6 +10,7 @@ export default function ConsultationModal() {
   const [name, setName] = useState('');
   const [contact, setContact] = useState('');
   const [projectType, setProjectType] = useState<string>('');
+  const [website, setWebsite] = useState(''); // honeypot — must stay empty
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -63,7 +64,7 @@ export default function ConsultationModal() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, contact, projectType }),
+        body: JSON.stringify({ name, contact, projectType, website }),
       });
 
       if (response.ok) {
@@ -71,13 +72,14 @@ export default function ConsultationModal() {
         setName('');
         setContact('');
         setProjectType('');
+        setWebsite('');
         setTimeout(() => {
           handleClose();
         }, 2000);
       } else {
         setStatus('error');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
     }
   };
@@ -98,6 +100,19 @@ export default function ConsultationModal() {
         </div>
 
         <form onSubmit={handleSubmit} className="modal-form">
+
+          {/* Honeypot — hidden from real users, bots that auto-fill every
+              field trip it. Kept out of the tab order and screen readers. */}
+          <input
+            type="text"
+            name="website"
+            value={website}
+            onChange={(e) => setWebsite(e.target.value)}
+            className="modal-honeypot-field"
+            tabIndex={-1}
+            aria-hidden="true"
+            autoComplete="off"
+          />
 
           <div className="form-group">
             <label htmlFor="name">{t('modal.nameLabel')}</label>

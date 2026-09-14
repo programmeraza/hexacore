@@ -1,3 +1,14 @@
+/* Honeypot-поле формы: спрятано за пределы экрана (не display:none/visibility:hidden,
+   которые простые боты умеют распознавать и пропускать). */
+.modal-honeypot-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* Оверлей размытия заднего фона */
 .modal-overlay {
     position: fixed;

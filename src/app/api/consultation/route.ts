@@ -1,4 +1,9 @@
 import { NextResponse } from 'next/server';
+import { isRateLimited } from '@/lib/rate-limit';
+
+const MAX_FIELD_LENGTH = 200;
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 5;
 
 const PROJECT_TYPE_LABELS: Record<string, string> = {
   mobile: 'Мобильное приложение',
@@ -23,11 +28,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Server is not configured' }, { status: 500 });
   }
 
-  let body: { name?: unknown; contact?: unknown; projectType?: unknown };
+  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown';
+  if (isRateLimited(clientIp, RATE_LIMIT_MAX_REQUESTS, RATE_LIMIT_WINDOW_MS)) {
+    return NextResponse.json({ error: 'Too many requests' }, { status: 429 });
+  }
+
+  let body: { name?: unknown; contact?: unknown; projectType?: unknown; website?: unknown };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 });
+  }
+
+  // Honeypot: a field real visitors never see or fill (hidden off-screen in
+  // the form). Bots that auto-fill every input trip it — pretend success so
+  // they don't learn to skip the field, but drop the submission silently.
+  if (typeof body.website === 'string' && body.website.trim() !== '') {
+    return NextResponse.json({ ok: true });
   }
 
   const name = typeof body.name === 'string' ? body.name.trim() : '';
@@ -36,6 +53,10 @@ export async function POST(request: Request) {
 
   if (!name || !contact) {
     return NextResponse.json({ error: 'Name and contact are required' }, { status: 400 });
+  }
+
+  if (name.length > MAX_FIELD_LENGTH || contact.length > MAX_FIELD_LENGTH) {
+    return NextResponse.json({ error: 'Name or contact is too long' }, { status: 400 });
   }
 
   const typeLabel = PROJECT_TYPE_LABELS[projectType] ?? PROJECT_TYPE_LABELS.other;

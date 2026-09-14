@@ -74,7 +74,6 @@ export default function RootLayout({
       lang="ru"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      {/* <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></link> */}
       <body className="min-h-full flex flex-col">
         {/*
           Браузер восстанавливает прежнюю позицию скролла при обновлении
@@ -83,10 +82,10 @@ export default function RootLayout({
           не срабатывает. beforeInteractive гарантирует, что этот код
           выполнится до того, как браузер восстановит скролл, — hero-секция
           и её reveal-анимация при любом обновлении всегда стартуют сверху.
+          Вынесено в отдельный файл (а не инлайн-скрипт), чтобы CSP
+          script-src мог оставаться на 'self' без 'unsafe-inline'.
         */}
-        <Script id="scroll-restoration-fix" strategy="beforeInteractive">
-          {`try{if('scrollRestoration' in history){history.scrollRestoration='manual';}window.scrollTo(0,0);}catch(e){}`}
-        </Script>
+        <Script src="/scroll-restoration-fix.js" strategy="beforeInteractive" />
         {children}
       </body>
     </html>
