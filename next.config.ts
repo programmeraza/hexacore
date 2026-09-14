@@ -1,12 +1,16 @@
 import type { NextConfig } from "next";
 
-// Inline `style={{...}}` props (Footer, ExpertiseSection, PortfolioSection)
-// render as HTML style attributes, so style-src needs 'unsafe-inline'.
-// Scripts don't: the one inline script was moved to /public so script-src
-// can stay 'self' only.
+// Next.js's App Router injects inline <script> tags itself (RSC/streaming
+// hydration payloads) even on fully static pages, so script-src needs
+// 'unsafe-inline' unless every route opts into per-request nonces — which
+// forces dynamic rendering and drops static generation/CDN caching for this
+// otherwise-static marketing site. This mirrors Next's own documented
+// "Without Nonces" CSP recipe. 'unsafe-eval' is dev-only (React's debug
+// source-map reconstruction needs it; production never uses eval).
+const isDev = process.env.NODE_ENV === 'development';
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  "script-src 'self'",
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
