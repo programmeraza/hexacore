@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
+import { SITE_URL, SITE_DESCRIPTION } from "@/lib/site-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,10 +14,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const SITE_URL = "https://hexacore-eight.vercel.app";
-const SITE_DESCRIPTION =
-  "NEUROTECH — разработчик и интегратор корпоративных ИИ-решений: AI-агенты, компьютерное зрение, RAG и автоматизация бизнес-процессов под ключ.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
