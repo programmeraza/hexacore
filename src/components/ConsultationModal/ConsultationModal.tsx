@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { track } from '@vercel/analytics';
 import './ConsultationModal.css';
 
 export default function ConsultationModal() {
@@ -69,6 +70,7 @@ export default function ConsultationModal() {
 
       if (response.ok) {
         setStatus('success');
+        track('Consultation Request Submitted', { projectType: projectType || 'unspecified' });
         setName('');
         setContact('');
         setProjectType('');

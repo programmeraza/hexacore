@@ -8,13 +8,18 @@ import type { NextConfig } from "next";
 // "Without Nonces" CSP recipe. 'unsafe-eval' is dev-only (React's debug
 // source-map reconstruction needs it; production never uses eval).
 const isDev = process.env.NODE_ENV === 'development';
+// Vercel Analytics (src/app/layout.tsx) serves its script/beacon from the
+// same origin in production (/_vercel/insights/...), proxied by Vercel's
+// edge — no extra CSP allowance needed there. In `next dev` it falls back to
+// this external debug CDN instead, so only widen the policy for dev.
+const VERCEL_ANALYTICS_DEV_HOST = 'https://va.vercel-scripts.com';
 const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? ` 'unsafe-eval' ${VERCEL_ANALYTICS_DEV_HOST}` : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self'",
+  `connect-src 'self'${isDev ? ` ${VERCEL_ANALYTICS_DEV_HOST}` : ''}`,
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
